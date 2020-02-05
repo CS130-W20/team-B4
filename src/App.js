@@ -3,8 +3,8 @@ import { fireAuth } from "./fireApi";
 import Home from    "./Home";
 import Login from   "./Login";
 import Profile from "./Profile";
+import Landing from "./Landing";
 import _ from "lodash";
-import Typography from "@material-ui/core/Typography";
 import withAuthProtection from "./withAuthProtection";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import './App.css';
@@ -78,11 +78,9 @@ class App extends React.Component {
           <Route path="/landing" exact
              render={() => (
               <div>
+                <Landing />
                 <Link to="/">Home</Link>
                 <Link to="/login">Login</Link>
-                <Typography variant="h4">
-                  landing Route, anyone can see this page.
-                </Typography>
               </div>
             )}
           />

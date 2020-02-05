@@ -1,0 +1,27 @@
+
+.Background-img {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.title {
+  font-family: Raleway;
+  color: #005DCB;
+  font-weight: bold;
+  font-size: 500%;
+
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
