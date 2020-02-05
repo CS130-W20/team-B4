@@ -41,46 +41,49 @@ class Login extends React.Component {
     this.setState({ [key]: e.target.value });
   };
 
+
   render() {
     const { email, password, confirm_password, submitting } = this.state;
     return (
-      <React.Fragment>
-        <Typography variant="h5" style={{ marginBottom: 24 }}>
-          Login
-        </Typography>
-        <form
-          style={{ display: "flex", flexDirection: "column" }}
-          onSubmit={this.state.login ? this.handleSubmit : this.handleSignIn}
-        >
-          <TextField variant={"outlined"} required type={"email"} label={"Email"} value={email}
-            onChange={this.handleChange("email")}
-          />
-          <TextField variant={"outlined"} required type={"password"} label={"Password"} value={password}
-            onChange={this.handleChange("password")}
-          />
-          {!this.state.login ?
-          <TextField variant={"outlined"} required type={"password"} label={"Confirm Password"} value={confirm_password}
-            onChange={this.handleChange("confirm_password")}
-          /> : <div/>
-           }
-          <Button
-            type={"submit"}
-            fullWidth
-            variant={"contained"}
-            color={"primary"}
-          >
-            {submitting ? (
-              <CircularProgress
-                style={{ color: "#fff" }}
-                color={"inherit"}
-                size={16}
+      <div className="login">
+        <div className="box pa5">
+            <Typography variant="h5" style={{ marginBottom: 24 }}>
+              Login
+            </Typography>
+            <form
+              style={{ display: "flex", flexDirection: "column" }}
+              onSubmit={this.state.login ? this.handleSubmit : this.handleSignIn}
+            >
+              <TextField InputProps={{diableHeight:true}} style={{marginBottom: 24}} variant={"outlined"} required type={"email"} label={"Email"} value={email}
+                onChange={this.handleChange("email")}
               />
-          ) : (this.state.login ? "Login" : "Sign up"
-            )}
-          </Button>
-          <div onClick={()=>{this.setState({'login': !this.state.login})}}> {this.state.login ? "Don't have an account? Sign up!" : "Already have an account? Log In!"} </div>
-        </form>
-      </React.Fragment>
+              <TextField style={{marginBottom: 24}} variant={"outlined"} required type={"password"} label={"Password"} value={password}
+                onChange={this.handleChange("password")}
+              />
+              {!this.state.login ?
+              <TextField style={{marginBottom: 24}} variant={"outlined"} required type={"password"} label={"Confirm Password"} value={confirm_password}
+                onChange={this.handleChange("confirm_password")}
+              /> : <div/>
+               }
+              <Button
+                type={"submit"}
+                fullWidth
+                variant={"contained"}
+                color={"primary"}
+              >
+                {submitting ? (
+                  <CircularProgress
+                    style={{ color: "#fff" }}
+                    color={"inherit"}
+                    size={16}
+                  />
+              ) : (this.state.login ? "Login" : "Sign up"
+                )}
+              </Button>
+              <div onClick={()=>{this.setState({'login': !this.state.login})}}> {this.state.login ? "Don't have an account? Sign up!" : "Already have an account? Log In!"} </div>
+            </form>
+            </div>
+      </div>
     );
   }
 }
