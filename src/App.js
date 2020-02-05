@@ -10,7 +10,8 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import './App.css';
 
 
-const ProtectedProfile = withAuthProtection("/login")(Profile);
+const ProtectedProfile = withAuthProtection("/public")(Profile);
+const ProtectedHome = withAuthProtection("/public")(Home);
 
 class App extends React.Component {
   constructor() {
@@ -39,25 +40,17 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route
-            path="/"
-            exact
-            render={() => (
+          <Route path="/" exact
+            render={props => (
                 <div>
-                <Link to="/login" style={{ marginRight: 16 }}>
-                  Login
-                </Link>
-                <Link to="/public" style={{ marginRight: 16 }}>
-                  Public
-                </Link>
+                <Link to="/login"> Login </Link>
+                <Link to="/public"> Public </Link>
                 <Link to="/profile">Profile</Link>
-                <Home />
+                <ProtectedHome {...props} me={me} displayName={email} />
               </div>
             )}
           />
-          <Route
-            path="/login"
-            exact
+          <Route path="/login" exact
             render={({ history }) => (
               <div>
                 <Link to="/">Home</Link>
@@ -65,9 +58,7 @@ class App extends React.Component {
               </div>
             )}
           />
-          <Route
-            path="/profile"
-            exact
+          <Route path="/profile" exact
             render={props => (
               <div>
                 <Link to="/">Home</Link>
@@ -75,12 +66,11 @@ class App extends React.Component {
               </div>
             )}
           />
-          <Route
-            path="/public"
-            exact
-            render={() => (
+          <Route path="/public" exact
+             render={() => (
               <div>
                 <Link to="/">Home</Link>
+                <Link to="/login">Login</Link>
                 <Typography variant="h4">
                   Public Route, anyone can see this page.
                 </Typography>
