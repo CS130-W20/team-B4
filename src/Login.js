@@ -11,7 +11,9 @@ class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
-      submitting: false
+      confirm_password: "",
+      submitting: false,
+      login: true,
     };
   }
 
@@ -25,12 +27,22 @@ class Login extends React.Component {
     }
   };
 
+  handleSignIn = e => {
+    e.preventDefault();
+    const { onSignUp } = this.props;
+    const { email, password } = this.state;
+    if (onSignUp) {
+      this.setState({ submitting: true });
+      onSignUp(email, password);
+    }
+  };
+
   handleChange = key => e => {
     this.setState({ [key]: e.target.value });
   };
 
   render() {
-    const { email, password, submitting } = this.state;
+    const { email, password, confirm_password, submitting } = this.state;
     return (
       <React.Fragment>
         <Typography variant="h5" style={{ marginBottom: 24 }}>
@@ -38,7 +50,7 @@ class Login extends React.Component {
         </Typography>
         <form
           style={{ display: "flex", flexDirection: "column" }}
-          onSubmit={this.handleSubmit}
+          onSubmit={this.state.login ? this.handleSubmit : this.handleSignIn}
         >
           <TextField variant={"outlined"} required type={"email"} label={"Email"} value={email}
             onChange={this.handleChange("email")}
@@ -46,6 +58,11 @@ class Login extends React.Component {
           <TextField variant={"outlined"} required type={"password"} label={"Password"} value={password}
             onChange={this.handleChange("password")}
           />
+          {!this.state.login ?
+          <TextField variant={"outlined"} required type={"password"} label={"Confirm Password"} value={confirm_password}
+            onChange={this.handleChange("confirm_password")}
+          /> : <div/>
+           }
           <Button
             type={"submit"}
             fullWidth
@@ -58,10 +75,10 @@ class Login extends React.Component {
                 color={"inherit"}
                 size={16}
               />
-            ) : (
-              "Submit"
+          ) : (this.state.login ? "Login" : "Sign up"
             )}
           </Button>
+          <div onClick={()=>{this.setState({'login': !this.state.login})}}> {this.state.login ? "Don't have an account? Sign up!" : "Already have an account? Log In!"} </div>
         </form>
       </React.Fragment>
     );
