@@ -7,6 +7,7 @@ import Landing from "./Landing";
 import _ from "lodash";
 import withAuthProtection from "./withAuthProtection";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
 import './App.css';
 
 
