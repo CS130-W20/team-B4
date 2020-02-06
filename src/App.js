@@ -102,8 +102,6 @@ class App extends React.Component {
              render={() => (
               <div>
                 <Landing />
-                <Link to="/">Home</Link>
-                <Link to="/login">Login</Link>
               </div>
             )}
           />

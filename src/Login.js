@@ -4,16 +4,17 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
+import { withRouter } from 'react-router-dom';
 
 class Login extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       email: "",
       password: "",
       confirm_password: "",
       submitting: false,
-      login: true,
+      login: props.location.state.login,
     };
   }
 
@@ -51,7 +52,7 @@ class Login extends React.Component {
       <div className="login">
         <div className="box pa5">
             <Typography variant="h5" style={{ marginBottom: 24 }}>
-              Login
+              {this.state.login ? 'Login' : 'Signup' }
             </Typography>
             <form
               style={{ display: "flex", flexDirection: "column" }}
@@ -92,4 +93,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);
