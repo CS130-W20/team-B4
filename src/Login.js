@@ -24,6 +24,7 @@ class Login extends React.Component {
     if (onSubmit) {
       this.setState({ submitting: true });
       onSubmit(email, password);
+      this.setState({ submitting: false });
     }
   };
 
@@ -34,6 +35,7 @@ class Login extends React.Component {
     if (onSignUp) {
       this.setState({ submitting: true });
       onSignUp(email, password);
+      this.setState({ submitting: false });
     }
   };
 
@@ -44,6 +46,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password, confirm_password, submitting } = this.state;
+    console.log(this.props.error);
     return (
       <div className="login">
         <div className="box pa5">
@@ -54,17 +57,18 @@ class Login extends React.Component {
               style={{ display: "flex", flexDirection: "column" }}
               onSubmit={this.state.login ? this.handleSubmit : this.handleSignIn}
             >
-              <TextField InputProps={{diableHeight:true}} style={{marginBottom: 24}} variant={"outlined"} required type={"email"} label={"Email"} value={email}
+              <TextField  style={{marginBottom: 24}} variant={"outlined"} required type={"email"} label={"Email"} value={email}
                 onChange={this.handleChange("email")}
               />
               <TextField style={{marginBottom: 24}} variant={"outlined"} required type={"password"} label={"Password"} value={password}
                 onChange={this.handleChange("password")}
               />
               {!this.state.login ?
-              <TextField style={{marginBottom: 24}} variant={"outlined"} required type={"password"} label={"Confirm Password"} value={confirm_password}
+              <TextField style={{marginBottom: 24}} variant={"outlined"} required type={"password"} label={"Confirm Password"} error={this.state.password != this.state.confirm_password && this.state.confirm_password != ''} helperText={this.state.password == this.state.confirm_password || this.state.confirm_password=='' ? "" : "Different from password"} value={confirm_password}
                 onChange={this.handleChange("confirm_password")}
               /> : <div/>
                }
+               {this.props.error ? <div className="error mb3"> {this.props.error} </div> : <div/>}
               <Button
                 type={"submit"}
                 fullWidth
@@ -80,7 +84,7 @@ class Login extends React.Component {
               ) : (this.state.login ? "Login" : "Sign up"
                 )}
               </Button>
-              <div onClick={()=>{this.setState({'login': !this.state.login})}}> {this.state.login ? "Don't have an account? Sign up!" : "Already have an account? Log In!"} </div>
+              <div onClick={()=>{this.setState({'login': !this.state.login, 'email': '', 'password': '','confirm_password':''})}}> {this.state.login ? "Don't have an account? Sign up!" : "Already have an account? Log In!"} </div>
             </form>
             </div>
       </div>

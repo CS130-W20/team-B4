@@ -8,3 +8,8 @@
     width:40%;
     box-shadow: 6px 6px 30px #CCC;
 }
+
+.error{
+    font-size:15px;
+    color:#F00;
+}

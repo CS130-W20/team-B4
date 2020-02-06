@@ -13,12 +13,29 @@ import './App.css';
 const ProtectedProfile = withAuthProtection("/landing")(Profile);
 const ProtectedHome = withAuthProtection("/landing")(Home);
 
+
+const Confirmation = props =>{
+    return(
+        <div className="flex justify-center">
+            <div className="box">
+                <Typography variant="h5" style={{ marginBottom: 24 }}>
+                Sign up successful!
+                </Typography>
+                Go back to the <Link to="/landing"> landing </Link> page or view your <Link to="/profile"> profile </Link>
+            </div>
+        </div>)
+    ;
+
+}
+const ProtectedConfirmation = withAuthProtection("/landing")(Confirmation);
+
 class App extends React.Component {
   constructor() {
     super();
     console.log("user", fireAuth.currentUser);
     this.state = {
-      me: fireAuth.currentUser
+      me: fireAuth.currentUser,
+      error: ''
     };
   }
 
@@ -30,16 +47,19 @@ class App extends React.Component {
 
   handleSignIn = history => (email, password) => {
     return fireAuth.signInWithEmailAndPassword(email, password).then(() => {
+          this.setState({error:''});
       return history.push("/profile");
-  }).catch((error)=>{console.log(error);});
+  }).catch((err)=>{console.log(err.message); this.setState({error: err.message})});
   };
 
   handleSignUp = history => (email, password) => {
       return fireAuth.createUserWithEmailAndPassword(email, password).then(()=>{
-          return history.push("/login");}).catch(function(error) {
-         console.log("ERROR:");
-         console.log(error);
-     });
+          this.setState({error:''});
+          fireAuth.signInWithEmailAndPassword(email, password).then(()=>{
+              return history.push("/confirmation");
+            }
+          )
+      }).catch((err)=>{console.log(err.message); this.setState({error: err.message})});
   }
 
   render() {
@@ -63,7 +83,9 @@ class App extends React.Component {
               <div>
                 <Link to="/">Home</Link>
                 <Login onSubmit={this.handleSignIn(history)}
-                       onSignUp={this.handleSignUp(history)}/>
+                       onSignUp={this.handleSignUp(history)}
+                        error={this.state.error}
+                       />
               </div>
             )}
           />
@@ -84,6 +106,8 @@ class App extends React.Component {
               </div>
             )}
           />
+          <Route path="/confirmation" exact
+            render={props => (<ProtectedConfirmation {...props}/>)}/>
         </Switch>
       </BrowserRouter>
     );
