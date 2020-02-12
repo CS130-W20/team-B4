@@ -1,10 +1,17 @@
 .login{
     display:flex;
     justify-content: center;
-    background-color: #005DCB;
+    align-items: center;
+    height:100%;
+    /* background-color: #005DCB; */
 }
 
+.message{
+    cursor: pointer;
+
+}
 .logo{
+    font-family:'Bebas Neue';
     text-align: center;
     font-size:50px;
     margin-bottom:40px;
@@ -13,6 +20,7 @@
 }
 
 .login .box{
+    background-color: white;
     font-size:20px;
     width:40%;
     box-shadow: 6px 6px 20px #444;

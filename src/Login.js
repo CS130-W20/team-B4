@@ -82,8 +82,8 @@ class Login extends React.Component {
                }
                </ThemeProvider>
                {this.props.error ? <div className="error mb3"> {this.props.error} </div> : <div/>}
-               <div className="flex justify-end">
-              <div style={{fontSize:15, textDecoration:'underline'}} className="ph4 mt2" onClick={()=>{this.setState({'login': !this.state.login, 'email': '', 'password': '','confirm_password':''})}}> {this.state.login ? "Don't have an account? Sign up!" : "Already have an account? Log In!"} </div>
+               <div className="flex justify-end mt3">
+              <div style={{fontSize:15, textDecoration:'underline'}} className="message ph4 mt2" onClick={()=>{this.setState({'login': !this.state.login, 'email': '', 'password': '','confirm_password':''})}}> {this.state.login ? "Don't have an account? Sign up!" : "Already have an account? Log In!"} </div>
               <Button
                 type={"submit"}
                 variant={"contained"}
