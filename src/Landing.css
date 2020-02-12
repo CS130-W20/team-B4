@@ -13,10 +13,10 @@
 }
 
 .title {
-  font-family: Raleway;
+  font-family: Bebas Neue;
   color: #005DCB;
   font-weight: bold;
-  font-size: 500%;
+  font-size: 750%;
 
   margin: 0;
   position: absolute;
@@ -27,7 +27,7 @@
 }
 
 
-.box{
+.box-landing{
     width:40%;
     background-color: white;
 
