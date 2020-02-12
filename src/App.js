@@ -83,7 +83,6 @@ class App extends React.Component {
               <Route path="/login" exact
                 render={({ history }) => (
                   <div style={{height:'100%', backgroundColor:'#BBB'}}>
-                    <Link to="/">Home</Link>
                     <Login onSubmit={this.handleSignIn(history)}
                            onSignUp={this.handleSignUp(history)}
                             error={this.state.error}
