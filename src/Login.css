@@ -1,12 +1,21 @@
 .login{
     display:flex;
     justify-content: center;
+    background-color: #005DCB;
+}
+
+.logo{
+    text-align: center;
+    font-size:50px;
+    margin-bottom:40px;
+    color: #005DCB;
+
 }
 
 .login .box{
     font-size:20px;
     width:40%;
-    box-shadow: 6px 6px 30px #CCC;
+    box-shadow: 6px 6px 20px #444;
 }
 
 .error{
