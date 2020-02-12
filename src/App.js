@@ -67,48 +67,50 @@ class App extends React.Component {
     const { me } = this.state;
     const email = _.get(me, "email");
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact
-            render={props => (
-                <div>
-                <Link to="/login"> Login </Link>
-                <Link to="/landing"> landing </Link>
-                <Link to="/profile">Profile</Link>
-                <ProtectedHome {...props} me={me} displayName={email} />
-              </div>
-            )}
-          />
-          <Route path="/login" exact
-            render={({ history }) => (
-              <div>
-                <Link to="/">Home</Link>
-                <Login onSubmit={this.handleSignIn(history)}
-                       onSignUp={this.handleSignUp(history)}
-                        error={this.state.error}
-                       />
-              </div>
-            )}
-          />
-          <Route path="/profile" exact
-            render={props => (
-              <div>
-                <Link to="/">Home</Link>
-                <ProtectedProfile {...props} me={me} displayName={email} />
-              </div>
-            )}
-          />
-          <Route path="/landing" exact
-             render={() => (
-              <div>
-                <Landing />
-              </div>
-            )}
-          />
-          <Route path="/confirmation" exact
-            render={props => (<ProtectedConfirmation {...props}/>)}/>
-        </Switch>
-      </BrowserRouter>
+        <div className="App">
+          <BrowserRouter>
+            <Switch>
+              <Route path="/" exact
+                render={props => (
+                    <div>
+                    <Link to="/login"> Login </Link>
+                    <Link to="/landing"> landing </Link>
+                    <Link to="/profile">Profile</Link>
+                    <ProtectedHome {...props} me={me} displayName={email} />
+                  </div>
+                )}
+              />
+              <Route path="/login" exact
+                render={({ history }) => (
+                  <div style={{height:'100%', backgroundColor:'#BBB'}}>
+                    <Link to="/">Home</Link>
+                    <Login onSubmit={this.handleSignIn(history)}
+                           onSignUp={this.handleSignUp(history)}
+                            error={this.state.error}
+                           />
+                  </div>
+                )}
+              />
+              <Route path="/profile" exact
+                render={props => (
+                  <div>
+                    <Link to="/">Home</Link>
+                    <ProtectedProfile {...props} me={me} displayName={email} />
+                  </div>
+                )}
+              />
+              <Route path="/landing" exact
+                 render={() => (
+                  <div>
+                    <Landing />
+                  </div>
+                )}
+              />
+              <Route path="/confirmation" exact
+                render={props => (<ProtectedConfirmation {...props}/>)}/>
+            </Switch>
+          </BrowserRouter>
+          </div>
     );
   }
 }

@@ -61,11 +61,9 @@ class Login extends React.Component {
     const { email, password, confirm_password, submitting } = this.state;
     console.log(this.props.error);
     return (
-      <div className="login">
+      <div className="login" style={{textAlign:'left'}}>
         <div className="box pa5">
-            <Typography variant="h5" style={{ marginBottom: 24 }}>
-              {this.state.login ? 'Login' : 'Signup' }
-            </Typography>
+            <div className="logo">Adventum</div>
             <form
               style={{ display: "flex", flexDirection: "column" }}
               onSubmit={this.state.login ? this.handleSubmit : this.handleSignIn}
@@ -84,9 +82,10 @@ class Login extends React.Component {
                }
                </ThemeProvider>
                {this.props.error ? <div className="error mb3"> {this.props.error} </div> : <div/>}
+               <div className="flex justify-end">
+              <div style={{fontSize:15, textDecoration:'underline'}} className="ph4 mt2" onClick={()=>{this.setState({'login': !this.state.login, 'email': '', 'password': '','confirm_password':''})}}> {this.state.login ? "Don't have an account? Sign up!" : "Already have an account? Log In!"} </div>
               <Button
                 type={"submit"}
-                fullWidth
                 variant={"contained"}
                 color={"primary"}
               >
@@ -99,7 +98,7 @@ class Login extends React.Component {
               ) : (this.state.login ? "Login" : "Sign up"
                 )}
               </Button>
-              <div onClick={()=>{this.setState({'login': !this.state.login, 'email': '', 'password': '','confirm_password':''})}}> {this.state.login ? "Don't have an account? Sign up!" : "Already have an account? Log In!"} </div>
+              </div>
             </form>
             </div>
       </div>
