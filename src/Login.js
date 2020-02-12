@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import { withRouter } from 'react-router-dom';
 
@@ -63,6 +64,7 @@ class Login extends React.Component {
     return (
       <div className="login" style={{textAlign:'left'}}>
         <div className="box pa5">
+            <div style={{fontSize:20}}> <Link to="/landing">{'< Back'}</Link> </div>
             <div className="logo">Adventum</div>
             <form
               style={{ display: "flex", flexDirection: "column" }}
