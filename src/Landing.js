@@ -12,13 +12,13 @@ class Landing extends React.Component {
         <img src={backgr} className="Background-img" alt=""/>
         <div  className="box-landing pa7">
           <div className="title"> Adventum </div>
-            <div className="mv3 flex justify-center">
-              <Button fullWidth size="large" color={"primary"} variant={"contained"} component={Link} to={{pathname:'/login',state:{login:true}}} >
+            <div className="flex justify-center">
+              <Button fullWidth style={{minWidth: '200px'}} color={"primary"} variant={"contained"} component={Link} to={{pathname:'/login',state:{login:true}}} >
                 Log In
               </Button>
             </div>
             <div className="mv3 flex justify-center">
-              <Button fullWidth variant={'contained'} component={Link} to={{pathname:'/login',state:{login:false}}} >
+              <Button fullWidth style={{minWidth: '200px'}} variant={'contained'} component={Link} to={{pathname:'/login',state:{login:false}}} >
                 Sign Up
               </Button>
             </div>
