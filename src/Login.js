@@ -26,7 +26,7 @@ class Login extends React.Component {
       password: "",
       confirm_password: "",
       submitting: false,
-      login: props.location.state.login,
+      login: props.location.state ? props.location.state.login : true,
     };
   }
 

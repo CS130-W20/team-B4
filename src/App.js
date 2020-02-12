@@ -49,7 +49,7 @@ class App extends React.Component {
   handleSignIn = history => (email, password) => {
     return fireAuth.signInWithEmailAndPassword(email, password).then(() => {
           this.setState({error:''});
-      return history.push("/profile");
+      return history.push("/");
   }).catch((err)=>{console.log(err.message); this.setState({error: err.message})});
   };
 
