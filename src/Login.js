@@ -3,8 +3,20 @@ import './Login.css';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import { withRouter } from 'react-router-dom';
+
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiInputBase: {
+      root: {
+        height: 50
+      },
+    },
+  },
+});
 
 class Login extends React.Component {
   constructor(props) {
@@ -58,6 +70,7 @@ class Login extends React.Component {
               style={{ display: "flex", flexDirection: "column" }}
               onSubmit={this.state.login ? this.handleSubmit : this.handleSignIn}
             >
+            <ThemeProvider theme={theme}>
               <TextField  style={{marginBottom: 24}} variant={"outlined"} required type={"email"} label={"Email"} value={email}
                 onChange={this.handleChange("email")}
               />
@@ -69,6 +82,7 @@ class Login extends React.Component {
                 onChange={this.handleChange("confirm_password")}
               /> : <div/>
                }
+               </ThemeProvider>
                {this.props.error ? <div className="error mb3"> {this.props.error} </div> : <div/>}
               <Button
                 type={"submit"}
