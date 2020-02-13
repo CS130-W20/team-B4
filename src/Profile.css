@@ -1,0 +1,82 @@
+/* want to have: .topnav, profile picture, login button*/
+
+.topnav {
+    height: 8.33%;
+    width: 100%;
+    background-color: #005DCB;
+    
+    margin-left: 0px;
+    margin-right: 0px;
+
+    position: absolute;
+    /*
+    top: 0;
+    left: 0;
+    */
+}
+
+.thumbnail-img {
+    height: 50px;
+    margin-right: 30px;
+    margin-top: 7.5%;
+    background-size: cover;
+    display: block;
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+
+}
+
+.fullname-display {
+    font-family: Raleway;
+    color: #37393B;
+    /*color: #005DCB;*/
+    font-weight: bold;
+    font-size: 250%;
+    position: absolute;
+    margin-top: 120px;
+    margin-right: 400px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.username-display {
+    font-family: Raleway;
+    color: #80C1FF;
+    position: absolute;
+    margin-top: 185px;
+}
+.blurb-display {
+    font-family: Raleway;
+    position: absolute;
+    margin-top: 220px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-img {
+    background-size: cover;
+    display: block;
+    height: 200px;
+    border-radius: 300px;
+	-webkit-border-radius: 300px;
+    -moz-border-radius: 300px;
+    /*margin-top: 200px;*/
+}
+
+.logistical-pref-display {
+    display: inline;
+    font-family: Raleway;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.logistical-icon-img {
+    display: inline;
+    height: 25px;
+    margin-right: 10px;
+}
+
