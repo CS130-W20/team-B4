@@ -4,6 +4,7 @@
     height: 8.33%;
     width: 100%;
     background-color: #005DCB;
+    display: block;
     
     margin-left: 0px;
     margin-right: 0px;
@@ -34,7 +35,6 @@
     font-weight: bold;
     font-size: 250%;
     position: absolute;
-    margin-top: 120px;
     margin-right: 400px;
     overflow: hidden;
     white-space: nowrap;
@@ -44,12 +44,12 @@
     font-family: Raleway;
     color: #80C1FF;
     position: absolute;
-    margin-top: 185px;
 }
 .blurb-display {
     font-family: Raleway;
     position: absolute;
-    margin-top: 220px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .buttons {
@@ -80,3 +80,42 @@
     margin-right: 10px;
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.activity-img {
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+}
+
+.tag-popup {
+    font-family: Raleway;
+    font-size: 80%;
+    border-radius: 15px;
+    background: #CFEBF9;
+    padding: 5px;
+    width: 60px;
+    height: 25px;
+    margin-left: 25%;
+}
+
+.drink {
+    display: inline;
+    font-family: Raleway;
+    font-size: 80%;
+    border-radius: 15px;
+    background: #CFEBF9;
+    padding: 5px;
+    width: 150px;
+    height: 30px;
+}
+
+.dots {
+    margin-top: 20px;
+    margin-left: 10px;
+    height: 30px;
+}
