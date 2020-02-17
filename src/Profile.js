@@ -18,6 +18,7 @@ import museum from './img/museum.png';
 import beach from './img/beach.png';
 import kayak from './img/kayak.png';
 import chinese from './img/chinese.png';
+import hiking from './img/mountain.png';
 
 export default class Profile extends Component{
     constructor(props) {
@@ -37,6 +38,10 @@ export default class Profile extends Component{
             <div>
                 <div> <Topbar/> </div>
                 <div style={{marginLeft: '140px', position: 'absolute'}}> <LeftSide/> </div>  
+                <div style={{marginLeft: '700px', marginTop: '150px', position: 'absolute'}} className='fullname-display'> {this.state.name} </div>
+                <div style={{marginLeft: '700px', marginTop: '210px', position: 'absolute'}} className='username-display'> {this.state.username} </div>
+                <div style={{marginLeft: '700px', marginTop: '240px', position: 'absolute'}} className='blurb-display'> {this.state.blurb} </div>
+                <div style={{marginLeft: '700px', marginTop: '300px'}} className='username-display2'> {this.state.username} is down for... </div>
                 <div style={{marginLeft: '700px', position: 'absolute'}}> <RightSide/> </div>
             </div>
         );
@@ -72,22 +77,10 @@ class LeftSide extends Component {
     render() {
         return (
             <div>
-                <div style={{marginTop: '150px', marginLeft: '90px'}}> <img src={maged} className="profile-img"/> </div>
-                <div> <LogisticalPreferences/> </div>
-            </div>
-        );
-    }
-}
-
-class RightSide extends Component {
-    render() {
-        const name = "Maged Elaasar";
-        const username = "@maged_elaasar";
-        const blurb = "The first and third days after weekends are the hardest.";
-        return (
-            <div style={{marginTop: '150px'}}>
-                <div> <Text name={name} username={username} blurb={blurb}/> </div>
-                <div style={{marginTop: '150px', position: 'absolute'}}> <ActivityPreferences/> </div>
+                <div style={{marginTop: '150px'}} className='gradient-box'>
+                <div style={{marginTop: '30px', marginLeft: '50px', position: 'absolute'}}> <img src={maged} className="profile-img"/> </div>
+                <div style={{marginTop: '200px', marginLeft: '70px', position: 'absolute'}}> <LogisticalPreferences/> </div>
+                </div>
             </div>
         );
     }
@@ -99,7 +92,7 @@ class LogisticalPreferences extends React.Component {
         const dp = "<30 mi";
         const pp = "$30 - $60";
         return (
-            <div style={{marginTop: '30px', marginLeft: '60px'}}>
+            <div style={{marginTop: '60px', marginLeft: '10px'}}>
                 <div>
                 <img src={clock} className="logistical-icon-img"/>
                 <div className="logistical-pref-display"> {tp} </div>
@@ -117,8 +110,13 @@ class LogisticalPreferences extends React.Component {
     }
 }
 
-class ActivityPreferences extends Component {
+
+
+class RightSide extends Component {
     render() {
+        const name = "Maged Elaasar";
+        const username = "@maged_elaasar";
+        const blurb = "The first and third days after weekends are the hardest.";
         const my_prefs = ['boba'];
         const pref_map = [
             {word: 'boba', pic: boba},
@@ -129,25 +127,26 @@ class ActivityPreferences extends Component {
             {word: 'beach', pic: beach},
             {word: 'japanese', pic: sushi},
             {word: 'kayak', pic: kayak},
-            {word: 'chinese', pic: chinese} 
+            {word: 'chinese', pic: chinese},
+            {word: 'hiking', pic: hiking} 
         ];
         const email_map = [{name: 'Sam', email: 'somehwere@gmail.com'}, {name: 'Ash', email: 'someting@gmail.com'}]; 
         const manyPrefs = true;
         return (
             <div>
-                <div style={{marginTop: '20px'}} className='row'> {
+                <div style={{marginTop: '340px'}} className='row'> {
                     pref_map.slice(0,4).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '65px'}}> {<img src={pic} className="activity-img"/>} <div className="drink"> {word} </div> </div> }) 
                 } </div>
                 <div>
                     { manyPrefs ? (
-                    <div style={{marginTop: '35px'}} className='row'>
-                    {pref_map.slice(4,7).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '42px'}}> {<img src={pic} className="activity-img"/>} <div className="drink"> {word} </div> </div> })} 
+                    <div style={{marginTop: '65px'}} className='row'>
+                    {pref_map.slice(4,7).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '65px'}}> {<img src={pic} className="activity-img"/>} <div className="drink"> {word} </div> </div> })} 
                     <Popup trigger={<img src={dots} className="dots"/>} position="right center">
                         <div> {pref_map.slice(7,pref_map.length).map( ({word, pic} ) => {return <div key={pic} className="tag-popup"> {word} </div>})} </div>
                     </Popup>
                     </div> ) : (
-                    <div style={{marginTop: '35px'}} className='row'>
-                    {pref_map.slice(4,8).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '35px'}}> {<img src={pic} className="activity-img"/>} <div className="drink"> {word} </div> </div> })} 
+                    <div style={{marginTop: '65px'}} className='row'>
+                    {pref_map.slice(4,8).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '65px'}}> {<img src={pic} className="activity-img"/>} <div className="drink"> {word} </div> </div> })} 
                     </div>)}
                 </div>
             </div>
