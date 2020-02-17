@@ -7,6 +7,7 @@ import clock from './img/clock.png';
 import road from './img/road.png';
 import price from './img/price.png';
 import maged from './img/maged.png';
+
 import dots from './img/dots.png';
 
 import boba from './img/boba.png';
@@ -20,6 +21,7 @@ import kayak from './img/kayak.png';
 import chinese from './img/chinese.png';
 import hiking from './img/mountain.png';
 
+
 export default class Profile extends Component{
     constructor(props) {
         super(props);
@@ -29,6 +31,7 @@ export default class Profile extends Component{
             username: "@maged_elaasar",
             blurb: "The first and third days after weekends are the hardest.",
             activity_prefs: ["boba", "italian", "coffee"],
+
         }
     }
 
@@ -110,6 +113,18 @@ class LogisticalPreferences extends React.Component {
     }
 }
 
+class Topbar extends Component {
+    render() { 
+        return (
+            <div>
+                <div className="topnav full-width-div">
+                    <div style={{float: 'right', margin: '10px'}}> <Button variant={"contained"} onClick={() => fireAuth.signOut()}> Log out </Button> </div>
+                    <div style={{float: 'right'}}> <img src={maged} className="thumbnail-img"/> </div>
+                </div>
+            </div>
+        );
+    }
+}
 
 
 class RightSide extends Component {
