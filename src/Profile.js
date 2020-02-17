@@ -113,20 +113,6 @@ class LogisticalPreferences extends React.Component {
     }
 }
 
-class Topbar extends Component {
-    render() { 
-        return (
-            <div>
-                <div className="topnav full-width-div">
-                    <div style={{float: 'right', margin: '10px'}}> <Button variant={"contained"} onClick={() => fireAuth.signOut()}> Log out </Button> </div>
-                    <div style={{float: 'right'}}> <img src={maged} className="thumbnail-img"/> </div>
-                </div>
-            </div>
-        );
-    }
-}
-
-
 class RightSide extends Component {
     render() {
         const name = "Maged Elaasar";
