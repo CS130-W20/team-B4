@@ -30,8 +30,26 @@ export default class Profile extends Component{
             name: "Maged Elaasar",
             username: "@maged_elaasar",
             blurb: "The first and third days after weekends are the hardest.",
-            activity_prefs: ["boba", "italian", "coffee"],
-
+            my_prefs: ['boba', 'coffee', 'cycling', 'museum', 'beach', 'japanese', 'kayak', 'chinese', 'hiking'],
+            pref_map: {
+                'boba': boba,
+                'italian': italian,
+                'coffee': coffee,
+                'cycling': bicycle,
+                'museum': museum,
+                'beach': beach,
+                'japanese': sushi,
+                'kayak': kayak,
+                'chinese': chinese,
+                'hiking': hiking 
+            },
+            my_pref_map: []
+        }
+        for (var i = 0; i < this.state.my_prefs.length; i++) {
+        	this.state.my_pref_map.push({
+        		word: this.state.my_prefs[i],
+        		pic: this.state.pref_map[this.state.my_prefs[i]]
+        	});
         }
     }
 
@@ -45,7 +63,7 @@ export default class Profile extends Component{
                 <div style={{marginLeft: '700px', marginTop: '210px', position: 'absolute'}} className='username-display'> {this.state.username} </div>
                 <div style={{marginLeft: '700px', marginTop: '240px', position: 'absolute'}} className='blurb-display'> {this.state.blurb} </div>
                 <div style={{marginLeft: '700px', marginTop: '300px'}} className='username-display2'> {this.state.username} is down for... </div>
-                <div style={{marginLeft: '700px', position: 'absolute'}}> <RightSide/> </div>
+                <div style={{marginLeft: '700px', position: 'absolute'}}> <RightSide my_prefs={this.state.my_prefs} pref_map={this.state.my_pref_map}/> </div>
             </div>
         );
     }
@@ -118,21 +136,9 @@ class RightSide extends Component {
         const name = "Maged Elaasar";
         const username = "@maged_elaasar";
         const blurb = "The first and third days after weekends are the hardest.";
-        const my_prefs = ['boba'];
-        const pref_map = [
-            {word: 'boba', pic: boba},
-            {word: 'italian', pic: italian},
-            {word: 'coffee', pic: coffee},
-            {word: 'cycling', pic: bicycle},
-            {word: 'museum', pic: museum},
-            {word: 'beach', pic: beach},
-            {word: 'japanese', pic: sushi},
-            {word: 'kayak', pic: kayak},
-            {word: 'chinese', pic: chinese},
-            {word: 'hiking', pic: hiking} 
-        ];
-        const email_map = [{name: 'Sam', email: 'somehwere@gmail.com'}, {name: 'Ash', email: 'someting@gmail.com'}]; 
-        const manyPrefs = true;
+        const my_prefs = this.props.my_prefs;
+        const pref_map = this.props.pref_map;
+        const manyPrefs = (my_prefs.length > 8);
         return (
             <div>
                 <div style={{marginTop: '340px'}} className='row'> {
