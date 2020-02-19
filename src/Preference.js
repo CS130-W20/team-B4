@@ -9,6 +9,7 @@ import Select from '@material-ui/core/Select';
 var moment = require('moment');
 
 
+
 const theme = createMuiTheme({
   overrides: {
     MuiSelect:{
@@ -19,25 +20,34 @@ const theme = createMuiTheme({
   }
 })
 
+
 export default class Preference extends Component{
     constructor(props){
         super(props);
         this.state={
+            start_time:'',
+            end_time: '',
             modify: true
         }
     }
 
-    generateItems = () => {
-        let l = []
-        var t = moment().set({'hour':0,'minute':0})
-        for(let i = 0; i<48; i++){
+    generateItems = (is_end_time, start_time) => {
+        var t = moment().set({
+            'hour': is_end_time ? parseInt(start_time.substr(0,2)) + (start_time.substr(6,7) == 'pm' ? 12 : 0) : 0,
+            'minute':is_end_time ? parseInt(start_time.substr(3, 5)) : 0})
+        let l = [];
+        let i = 0;
+        while(i<48){
             l.push(<MenuItem value={t.format('hh:mm a')}>{t.format('hh:mm a')}</MenuItem>)
             t.add(30, 'm')
+            i += 1;
+            if((t.hour() == 23 && t.minute() == 30) || i > 48) break;
         }
-        return l
+        return l;
     }
 
     render(){
+        let {start_time, end_time} = this.state;
         return(
             <div onMouseEnter={()=>{this.setState({modify:false})}}
                  onMouseLeave={()=>{this.setState({modify:true})}}>
@@ -46,6 +56,8 @@ export default class Preference extends Component{
                         <Select defaultValue={'12:00 am'} variant="filled" IconComponent = {()=><div/>}
                           labelId="demo-simple-select-filled-label"
                           id="demo-simple-select-filled"
+                          value={start_time}
+                          onChange={e=>{this.setState({start_time: e.target.value})}}
                           MenuProps={{
                             getContentAnchorEl: null,
                             anchorOrigin: {
@@ -58,6 +70,26 @@ export default class Preference extends Component{
                             <em>None</em>
                           </MenuItem>
                           {this.generateItems()}
+                        </Select>
+                      </FormControl>
+                      <FormControl variant="filled" >
+                        <Select defaultValue={'12:00 am'} variant="filled" IconComponent = {()=><div/>}
+                          labelId="demo-simple-select-filled-label"
+                          id="demo-simple-select-filled"
+                          value={end_time}
+                          onChange={e=>{this.setState({end_time: e.target.value})}}
+                          MenuProps={{
+                            getContentAnchorEl: null,
+                            anchorOrigin: {
+                              vertical: "bottom",
+                              horizontal: "left",
+                            }
+                          }}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          {this.generateItems(true, this.state.start_time)}
                         </Select>
                       </FormControl>
                       </ThemeProvider>
