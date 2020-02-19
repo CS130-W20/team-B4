@@ -9,47 +9,15 @@ import Select from '@material-ui/core/Select';
 var moment = require('moment');
 
 
-
-
 const theme = createMuiTheme({
   overrides: {
-    MuiFormControl: {
-        root:{
-            minWidth: 50,
-        }
-    },
-    InputLabel:{
-        padding:'5px'
-    },
-    MuiFilledInput:{
-        input:{
-            padding:'5px 5px 5px 5px',
-        }
-    },
     MuiSelect:{
-        root: {
-            padding: '5px -15px 5px 5px',
-        },
-        filled:{
-            '$MuiSelect-filled':{
-                filled:{
-                    margin:'3px',
-                },
-                margin:'2px',
-            },
-            margin:'1px',
-            padding: '5px -15px 5px 5px',
-            paddingRight: 0,
-        },
-        select:{
-            MuiSelect:{
-                margin:'2px',
-            },
-            paddingRight:'0px',
-        }
+      root:{
+        margin: '-20px -25px -5px -5px'
+      }
     }
-  },
-});
+  }
+})
 
 export default class Preference extends Component{
     constructor(props){
