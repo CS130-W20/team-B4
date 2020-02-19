@@ -12,7 +12,7 @@ import './App.css';
 
 
 const ProtectedProfile = withAuthProtection("/landing")(Profile);
-const ProtectedHome = withAuthProtection("/landing")(Home);
+const ProtectedHome = withAuthProtection("/")(Home);
 
 
 const Confirmation = props =>{
