@@ -31,10 +31,8 @@ export default class TimePreference extends Component{
     constructor(props){
         super(props);
         this.state={
-            start_time:'05:00 pm',
-            end_time: '06:00 pm',
-            modifyStart: true,
-            modifyEnd: true
+            modifyStart: false,
+            modifyEnd: false
         }
     }
 
@@ -58,16 +56,17 @@ export default class TimePreference extends Component{
     }
 
     render(){
-        let {start_time, end_time,modifyStart, modifyEnd} = this.state;
+        let {start_time, end_time, handleStartTime, handleEndTime} = this.props;
+        let {modifyStart, modifyEnd} = this.state;
         return(
-            <div className="flex">
+            <div className="flex pb2 mb2" style={{borderBottom:'1px solid #CCC'}} >
                 <img className="mr2 pt1"  src={clock} style={{width:24, height:24}} />
                 <div onMouseEnter={()=>{this.setState({modifyStart:false})}}
-         onMouseLeave={()=>{this.setState({modifyStart:true})}}>
-                    {modifyStart ? <div style={{fontSize:15, padding:'6px 8.5px 0px 8.5px'}}>{start_time}</div>:
+         onMouseLeave={()=>{this.setState({modifyStart:false})}}>
+                    {this.props.modify ? <div style={{fontSize:15, padding:'6px 8.5px 0px 8.5px'}}>{start_time}</div>:
                     <TimeSelect variant="filled" IconComponent = {()=><div/>}
                       value={start_time}
-                      onChange={e=>{this.setState({start_time: e.target.value, modifyStart:true})}}
+                      onChange={handleStartTime}
                       MenuProps={{
                         getContentAnchorEl: null,
                         anchorOrigin: {
@@ -85,13 +84,13 @@ export default class TimePreference extends Component{
                 </div>
                 <div className="flex items-center mh1"><div style={{borderTop:'1px solid black', height:0, width:10}}/></div>
                 <div onMouseEnter={()=>{this.setState({modifyEnd:false})}}
-         onMouseLeave={()=>{this.setState({modifyEnd:true})}}>
-                    {modifyEnd ? <div style={{fontSize:15, padding:'6px 8.5px 7px 8.5px'}}>{end_time}</div>:
+         onMouseLeave={()=>{this.setState({modifyEnd:false})}}>
+                    {this.props.modify ? <div style={{fontSize:15, padding:'6px 8.5px 7px 8.5px'}}>{end_time}</div>:
                     <TimeSelect defaultValue={'5:00 pm'} variant="filled" IconComponent = {()=><div/>}
                       labelId="demo-simple-select-filled-label"
                       id="demo-simple-select-filled"
                       value={end_time}
-                      onChange={e=>{this.setState({end_time: e.target.value, modifyEnd:true})}}
+                      onChange={handleEndTime}
                       MenuProps={{
                         getContentAnchorEl: null,
                         anchorOrigin: {
@@ -103,7 +102,7 @@ export default class TimePreference extends Component{
                       <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
-                      {this.generateItems(true, this.state.start_time)}
+                      {this.generateItems(true, start_time)}
                     </TimeSelect>
                 }
                 </div>
