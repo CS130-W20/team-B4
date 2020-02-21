@@ -27,6 +27,10 @@ const TimeSelect = withStyles({
   }
 })(Select);
 
+/**
+ *   Represents user's preferred time.
+ *   Default: 5pm - 6pm, can be modified
+ */
 export default class TimePreference extends Component{
     constructor(props){
         super(props);

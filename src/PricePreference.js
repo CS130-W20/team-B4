@@ -27,6 +27,11 @@ const PriceSelect = withStyles({
   }
 })(FilledInput);
 
+
+/**
+ *  Represents user's preferred price range in dollars.
+ *  Default: $5 - $20, able to be modified
+ */
 export default class PricePreference extends Component{
     constructor(props){
         super(props);

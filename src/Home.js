@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import './Home.css';
 import Card from './Card';
 
+
+/**
+ *    [WIP] Each added user will receive a Card component to represent them in a session.
+ */
 export default class Home extends Component{
     render(){
         return(

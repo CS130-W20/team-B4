@@ -14,7 +14,9 @@ import './App.css';
 const ProtectedProfile = withAuthProtection("/landing")(Profile);
 const ProtectedHome = withAuthProtection("/")(Home);
 
-
+/**
+ *    Displays confirmation message on successful account creation.
+ */
 const Confirmation = props =>{
     return(
         <div className="flex justify-center">
@@ -30,6 +32,11 @@ const Confirmation = props =>{
 }
 const ProtectedConfirmation = withAuthProtection("/landing")(Confirmation);
 
+/**
+ *    Wrapper for app. Contains routing information for all pages in our app.
+ *
+ *    @param currentUser currently signed-in user
+ */
 class App extends React.Component {
   constructor() {
     super();
@@ -40,6 +47,11 @@ class App extends React.Component {
     };
   }
 
+  /**
+   *    Updates currently logged-in user on component mount.
+   *
+   *    @param me currently authenticated user
+   */
   componentDidMount() {
     fireAuth.onAuthStateChanged(me => {
       this.setState({ me });

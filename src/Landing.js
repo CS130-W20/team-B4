@@ -5,7 +5,9 @@ import backgr from './img/freeimg.jpg';
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import {browserHistory} from 'react-router';
 
-
+/**
+ *   @return Landing page. Default page displayed when opening the app.
+ */
 class Landing extends React.Component {
   render() {
     return (

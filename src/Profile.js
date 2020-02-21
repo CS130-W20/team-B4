@@ -53,13 +53,19 @@ const style = {
     width: '150px',
 };
 
+
+/**
+ *    Represents a user profile. [Currently has sample data.]
+ *
+ *    @param [WIP] user data fetched from Firebase database
+ */
 class Profile extends Component{
     constructor(props) {
         super(props);
         this.state = {
             logged_in: props.location.state ? props.location.state.logged_in : false,
             edit: props.location.state ? props.location.state.edit : false,
-            view: true, 
+            view: true,
             name: "Maged Elaasar",
             username: "@maged_elaasar",
             blurb: "The first and third days after weekends are the hardest.",
@@ -74,7 +80,7 @@ class Profile extends Component{
                 'japanese': sushi,
                 'kayak': kayak,
                 'chinese': chinese,
-                'hiking': hiking 
+                'hiking': hiking
             },
             my_pref_map: []
         }
@@ -94,8 +100,8 @@ class Profile extends Component{
             <div> <Topbar/> </div>
             {this.state.view ?
             <div>
-                <div style={{marginLeft: '1%', marginTop: '4.5%', position: 'absolute'}} onClick={()=>{this.setState({'view': false})}}> <img src={edit} className='edit-img'/> </div>  
-                <div style={{marginLeft: '10%', position: 'absolute'}}> <LeftSide/> </div>  
+                <div style={{marginLeft: '1%', marginTop: '4.5%', position: 'absolute'}} onClick={()=>{this.setState({'view': false})}}> <img src={edit} className='edit-img'/> </div>
+                <div style={{marginLeft: '10%', position: 'absolute'}}> <LeftSide/> </div>
                 <div style={{marginLeft: '48%', marginTop: '10%', position: 'absolute'}} className='fullname-display'> {this.state.name} </div>
                 <div style={{marginLeft: '48%', marginTop: '14%', position: 'absolute'}} className='username-display'> {this.state.username} </div>
                 <div style={{marginLeft: '48%', marginTop: '17%', position: 'absolute'}} className='blurb-display'> {this.state.blurb} </div>
@@ -113,8 +119,11 @@ class Profile extends Component{
     }
 }
 
+/**
+ *    Contains link to profile and logout button.
+ */
 class Topbar extends Component {
-    render() { 
+    render() {
         return (
             <div>
                 <div className="topnav full-width-div">
@@ -126,12 +135,15 @@ class Topbar extends Component {
     }
 }
 
+/**
+ *  Contains basic user info. Includes user's picture and logistics.
+ */
 class LeftSide extends Component {
     render() {
         return (
             <div>
                 <div style={{marginTop: '45%'}} className='gradient-box'>
-                <div style={{marginTop: '30px', marginLeft: '50px', position: 'absolute'}}> <img src={maged} className="profile-img"/> </div>
+                <div style={{marginTop: '30px', marginLeft: '50px',position: 'absolute'}}> <img src={maged} className="profile-img"/> </div>
                 <div style={{marginTop: '200px', marginLeft: '70px', position: 'absolute'}}> <LogisticalPreferences/> </div>
                 </div>
             </div>
@@ -139,6 +151,9 @@ class LeftSide extends Component {
     }
 }
 
+/**
+ *    Contains user's preferred time, location radius, and price range.
+ */
 class LogisticalPreferences extends React.Component {
     render() {
         const tp = "7PM - 9PM";
@@ -163,6 +178,9 @@ class LogisticalPreferences extends React.Component {
     }
 }
 
+/**
+ *    Contains user's preferred activities, name, username, and tagline (bio).
+ */
 class RightSide extends Component {
     render() {
         const name = "Maged Elaasar";
@@ -174,18 +192,18 @@ class RightSide extends Component {
         return (
             <div>
                 <div className='row'> {
-                    pref_map.slice(0,4).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '65px'}}> {<img src={pic} className="activity-img"/>} <div className="label"> {word} </div> </div> }) 
+                    pref_map.slice(0,4).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '65px'}}> {<img src={pic} className="activity-img"/>} <div className="label"> {word} </div> </div> })
                 } </div>
                 <div>
                     { manyPrefs ? (
                     <div style={{marginTop: '65px'}} className='row'>
-                    {pref_map.slice(4,7).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '65px'}}> {<img src={pic} className="activity-img"/>} <div className="label"> {word} </div> </div> })} 
+                    {pref_map.slice(4,7).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '65px'}}> {<img src={pic} className="activity-img"/>} <div className="label"> {word} </div> </div> })}
                     <Popup trigger={<img src={dots} className="dots"/>} position="right center">
                         <div> {pref_map.slice(7,pref_map.length).map( ({word, pic} ) => {return <div key={pic} className="tag-popup"> {word} </div>})} </div>
                     </Popup>
                     </div> ) : (
                     <div style={{marginTop: '65px'}} className='row'>
-                    {pref_map.slice(4,8).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '65px'}}> {<img src={pic} className="activity-img"/>} <div className="label"> {word} </div> </div> })} 
+                    {pref_map.slice(4,8).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '65px'}}> {<img src={pic} className="activity-img"/>} <div className="label"> {word} </div> </div> })}
                     </div>)}
                 </div>
             </div>
