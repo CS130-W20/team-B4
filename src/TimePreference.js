@@ -30,6 +30,13 @@ const TimeSelect = withStyles({
 /**
  *   Represents user's preferred time.
  *   Default: 5pm - 6pm, can be modified
+ *
+ *   @param start_time user's preferred start time
+ *   @param end_time user's preferred end time
+ *   @param handleStartTime handles changes to start time
+ *   @param handleEndTime handles changes to end time
+ *   @param modifyStart whether write permissions are granted
+ *   @param modifyEnd whether write permissions are granted
  */
 export default class TimePreference extends Component{
     constructor(props){

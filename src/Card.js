@@ -27,6 +27,10 @@ export default class Card extends Component{
             imgURL: 'https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/30726986_2114249318805986_3615377820504555520_n.jpg?_nc_cat=111&_nc_ohc=hDbAemqxCqAAX88bxBf&_nc_ht=scontent-lax3-2.xx&oh=965a3b97cf8f684a7b0bd23a40863e3f&oe=5EC04F08'
         }
     }
+
+    /**
+     *    Updates preference with user entered value.
+     */
     handleChange = name => e => {
         this.setState({[name]: e.target.value});
     }
@@ -39,7 +43,7 @@ export default class Card extends Component{
                     <div className="flex flex-column items-center" style={{width:'100%'}}>
                         <div className="flex justify-end" style={{top:'-11px', position:'relative', width:'100%'}}>
                             {this.state.modify ?
-                            <img className="pv1" onClick={()=>{this.setState({modify:!this.state.modify})}} src={edit} style={{width:20}}/>:  <div className="pv1 ph2" style={{borderRadius:4, border:'1px solid #888'}} onClick={()=>{this.setState({modify:!this.state.modify})}} > save </div> 
+                            <img className="pv1" onClick={()=>{this.setState({modify:!this.state.modify})}} src={edit} style={{width:20}}/>:  <div className="pv1 ph2" style={{borderRadius:4, border:'1px solid #888'}} onClick={()=>{this.setState({modify:!this.state.modify})}} > save </div>
                         }</div>
                         <div className="profilePic" style={{backgroundImage:`url('${imgURL}')`}}/>
                         <div className="name pv2" >{name}</div>
