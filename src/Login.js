@@ -1,5 +1,6 @@
 import React from "react";
 import './Login.css';
+import backgr from './img/freeimg2.jpg';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -13,7 +14,8 @@ const theme = createMuiTheme({
   overrides: {
     MuiInputBase: {
       root: {
-        height: 50
+        height: 50,
+	background: 'white'
       },
     },
   },
@@ -83,8 +85,8 @@ class Login extends React.Component {
     const { email, password, confirm_password, submitting } = this.state;
     console.log(this.props.error);
     return (
-      <div className="login" style={{textAlign:'left'}}>
-        <div className="box pa5">
+        <div className="login" style={{textAlign:'left'}}>
+          <div className="box pa5">
             <div style={{fontSize:20}}> <Link to="/landing">{'< Back'}</Link> </div>
             <div className="logo">Adventum</div>
             <form
@@ -92,7 +94,7 @@ class Login extends React.Component {
               onSubmit={this.state.login ? this.handleSubmit : this.handleSignIn}
             >
             <ThemeProvider theme={theme}>
-              <TextField  style={{marginBottom: 24}} variant={"outlined"} required type={"email"} label={"Email"} value={email}
+              <TextField  style={{marginBottom: 24}} variant={"outlined"} required type={"email"} label={"Email"} value={email} 
                 onChange={this.handleChange("email")}
               />
               <TextField style={{marginBottom: 24}} variant={"outlined"} required type={"password"} label={"Password"} value={password}
@@ -123,8 +125,8 @@ class Login extends React.Component {
               </Button>
               </div>
             </form>
-            </div>
-      </div>
+          </div>
+        </div>
     );
   }
 }

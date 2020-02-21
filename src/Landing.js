@@ -25,9 +25,9 @@ class Landing extends React.Component {
                 Sign Up
               </Button>
             </div>
-            <div className="mv3 flex justify-center" style={{fontSize:16, color:"#999", 'font-family': "Raleway"}}>or</div>
+            <div className="mv3 flex justify-center" style={{fontSize:16, color:"#1D3756", 'font-family': "Raleway"}}>or</div>
             <div className="mv3 flex justify-center" style={{fontSize:20, textDecoration:'underline', color:"#888", 'font-family': "Raleway"}}>
-                 <Link style={{color:"#888"}} to="/Home">{'Continue as guest'}</Link>
+                 <Link style={{color:"#1D3756"}} to="/Home">{'Continue as guest'}</Link>
             </div>
         </div>
       </div>
