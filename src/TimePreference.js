@@ -1,0 +1,113 @@
+import React,{Component} from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import PropTypes from 'prop-types';
+import clock from './img/clock.png';
+import { withStyles } from '@material-ui/core/styles';
+import Select from '@material-ui/core/Select';
+import Fade from 'react-reveal'
+var moment = require('moment');
+
+
+const TimeSelect = withStyles({
+  root: {
+      fontFamily:'Raleway',
+      fontSize:15,
+      width:72,
+    border: 0,
+  },
+  filled:{
+      '&$filled': {
+          padding:5
+        },
+  }
+})(Select);
+
+export default class TimePreference extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            start_time:'05:00 pm',
+            end_time: '06:00 pm',
+            modifyStart: true,
+            modifyEnd: true
+        }
+    }
+
+    generateItems = (is_end_time, start_time) => {
+        var t = moment().set({
+            'hour': is_end_time ? parseInt(start_time.substr(0,2)) + (start_time.substr(6,7) == 'pm' ? 12 : 0) : 0,
+            'minute':is_end_time ? parseInt(start_time.substr(3, 5)) : 0})
+        let l = [];
+        let i = 0;
+        while(i<48){
+            l.push(<MenuItem value={t.format('hh:mm a')}>{t.format('hh:mm a')}</MenuItem>)
+            t.add(30, 'm')
+            i += 1;
+            if((t.hour() == 23 && t.minute() == 30) || i > 48){
+                l.push(<MenuItem value={t.format('hh:mm a')}>{t.format('hh:mm a')}</MenuItem>)
+                break;
+            }
+
+        }
+        return l;
+    }
+
+    render(){
+        let {start_time, end_time,modifyStart, modifyEnd} = this.state;
+        return(
+            <div className="flex">
+                <img className="mr2 pt1"  src={clock} style={{width:24, height:24}} />
+                <div onMouseEnter={()=>{this.setState({modifyStart:false})}}
+         onMouseLeave={()=>{this.setState({modifyStart:true})}}>
+                    {modifyStart ? <div style={{fontSize:15, padding:'6px 8.5px 0px 8.5px'}}>{start_time}</div>:
+                    <TimeSelect variant="filled" IconComponent = {()=><div/>}
+                      value={start_time}
+                      onChange={e=>{this.setState({start_time: e.target.value, modifyStart:true})}}
+                      MenuProps={{
+                        getContentAnchorEl: null,
+                        anchorOrigin: {
+                          vertical: "bottom",
+                          horizontal: "left",
+                        }
+                      }}
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      {this.generateItems()}
+                    </TimeSelect>
+                }
+                </div>
+                <div className="flex items-center mh1"><div style={{borderTop:'1px solid black', height:0, width:10}}/></div>
+                <div onMouseEnter={()=>{this.setState({modifyEnd:false})}}
+         onMouseLeave={()=>{this.setState({modifyEnd:true})}}>
+                    {modifyEnd ? <div style={{fontSize:15, padding:'6px 8.5px 7px 8.5px'}}>{end_time}</div>:
+                    <TimeSelect defaultValue={'5:00 pm'} variant="filled" IconComponent = {()=><div/>}
+                      labelId="demo-simple-select-filled-label"
+                      id="demo-simple-select-filled"
+                      value={end_time}
+                      onChange={e=>{this.setState({end_time: e.target.value, modifyEnd:true})}}
+                      MenuProps={{
+                        getContentAnchorEl: null,
+                        anchorOrigin: {
+                          vertical: "bottom",
+                          horizontal: "left",
+                        }
+                      }}
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      {this.generateItems(true, this.state.start_time)}
+                    </TimeSelect>
+                }
+                </div>
+            </div>
+        )
+    }
+}

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import './Card.css';
 import {Zoom, Fade} from 'react-reveal';
-import Preference from './Preference.js';
+import TimePreference from './TimePreference.js';
+import PricePreference from './PricePreference.js';
 
 
 
@@ -26,7 +27,10 @@ export default class Card extends Component{
                         <div className="name pv2" >{name}</div>
                         <div className="quote">{quote}</div>
                         <div className="mv2 div"/>
-                        <Preference/>
+                         <TimePreference/>
+                         <PricePreference/>
+                        {/*<TimeSelect/>*/}
+
                     </div>
                 </div>
             </Zoom>
