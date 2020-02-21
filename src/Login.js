@@ -19,6 +19,12 @@ const theme = createMuiTheme({
   },
 });
 
+/**
+ *    Login/Signup screen. Users can authenticate credentials here, or create
+ *    a new account.
+ *
+ *    @param login determines whether to display "Sign Up" or "Log In" screen
+ */
 class Login extends React.Component {
   constructor(props) {
     super();
@@ -31,6 +37,12 @@ class Login extends React.Component {
     };
   }
 
+  /**
+   *    Signs in to an already-created user account.
+   *
+   *    @param email email associated with the account
+   *    @param password password associated with the account
+   */
   handleSubmit = e => {
     e.preventDefault();
     const { onSubmit } = this.props;
@@ -42,6 +54,12 @@ class Login extends React.Component {
     }
   };
 
+  /**
+   *    Creates a new user account.
+   *
+   *    @param email email to be associated with the account
+   *    @param password password to be associated with the account
+   */
   handleSignIn = e => {
     e.preventDefault();
     const { onSignUp } = this.props;
@@ -53,6 +71,9 @@ class Login extends React.Component {
     }
   };
 
+  /**
+  *     Updates state with user entered info (email/password)
+  */
   handleChange = key => e => {
     this.setState({ [key]: e.target.value });
   };

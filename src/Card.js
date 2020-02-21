@@ -7,7 +7,10 @@ import DistancePreference from './DistancePreference.js';
 
 
 
-
+/**
+ *    Represents user profile. [Currently has sample data.]
+ *    [WIP] will fetch actual user data from Firebase database.
+ */
 export default class Card extends Component{
     constructor(props){
         super(props);
