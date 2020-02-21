@@ -4,6 +4,7 @@ import {Zoom, Fade} from 'react-reveal';
 import TimePreference from './TimePreference.js';
 import PricePreference from './PricePreference.js';
 import DistancePreference from './DistancePreference.js';
+import edit from './img/edit2.png';
 
 
 
@@ -21,7 +22,7 @@ export default class Card extends Component{
             start_time: '05:00 pm',
             end_time: '06:00 pm',
             name: 'Sam',
-            modify: false,
+            modify: true,
             quote: 'Everyday is leg day when you\'re running away from your problems',
             imgURL: 'https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/30726986_2114249318805986_3615377820504555520_n.jpg?_nc_cat=111&_nc_ohc=hDbAemqxCqAAX88bxBf&_nc_ht=scontent-lax3-2.xx&oh=965a3b97cf8f684a7b0bd23a40863e3f&oe=5EC04F08'
         }
@@ -36,6 +37,10 @@ export default class Card extends Component{
             <Zoom>
                 <div className="pa4 ma3 flex card">
                     <div className="flex flex-column items-center" style={{width:'100%'}}>
+                        <div className="flex justify-end" style={{top:'-11px', position:'relative', width:'100%'}}>
+                            {this.state.modify ?
+                            <img className="pv1" onClick={()=>{this.setState({modify:!this.state.modify})}} src={edit} style={{width:20}}/>:  <div className="pv1 ph2" style={{borderRadius:4, border:'1px solid #888'}} onClick={()=>{this.setState({modify:!this.state.modify})}} > save </div> 
+                        }</div>
                         <div className="profilePic" style={{backgroundImage:`url('${imgURL}')`}}/>
                         <div className="name pv2" >{name}</div>
                         <div className="quote">{quote}</div>

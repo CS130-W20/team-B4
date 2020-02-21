@@ -46,7 +46,7 @@ export default class PricePreference extends Component{
         let {low, high, handleLow, handleHigh} = this.props;
         let {modifyStart, modifyEnd} = this.state;
         return(
-            <div className="flex mb2 pb2" style={{borderBottom:'1px solid #CCC', width:'100%'}}>
+            <div className="flex mb2 pb1" style={{borderBottom:'1px solid #CCC', width:'100%'}}>
                 <img className="mr2 pt1"  src={price} style={{width:24, height:24}} />
                 <div className="mv2 mh1">$</div>
                 <div onMouseEnter={()=>{this.setState({modifyStart:false})}}
