@@ -44,14 +44,7 @@ export default class Card extends Component{
         super(props);
         this.state = {
             data: new userData(_default),
-            low: 5,
-            high: 20,
-            dist: 30,
-            start_time: '05:00 pm',
-            end_time: '06:00 pm',
-            name: 'Sam',
             modify: true,
-            quote: 'Everyday is leg day when you\'re running away from your problems',
             imgURL: 'https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/30726986_2114249318805986_3615377820504555520_n.jpg?_nc_cat=111&_nc_ohc=hDbAemqxCqAAX88bxBf&_nc_ht=scontent-lax3-2.xx&oh=965a3b97cf8f684a7b0bd23a40863e3f&oe=5EC04F08'
         }
     }

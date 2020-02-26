@@ -1,13 +1,13 @@
 .searchInput{
     width:100%;
     min-width: 700px;
-    padding: 20px;
+    padding: 15px;
     margin-top:150px;
+    outline:none;
     background-color: white;
     color:black;
-    font-size:20px;
+    font-size:25px;
     font-family:'Raleway';
-	font-weight: bold;
     border-color: rgba(255,255,255,0.5);
     border-width:2px;
     border-radius:5px;

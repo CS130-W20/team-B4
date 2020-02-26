@@ -10,7 +10,7 @@ export default class SearchBar extends Component{
     }
     render(){
         return(
-            <div className="search flex justify-center" style={this.props.showSearch ? {backgroundColor:`rgba(0,0,0,0.5)`} : {}}>
+            <div className="search flex justify-center" style={this.props.showSearch ? {backgroundColor:`rgba(0,0,0,0.5)`} : {zIndex:-1}}>
                 <Fade top collapse duration={300} when={this.props.showSearch}>
                     <input ref={(input) => {this.inputRef=input}} className="searchInput" type="text" value = {this.props.searchVal} onChange={this.props.searchChange} placeholder="Search"/>
                 </Fade>

@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import './Home.css';
 import Card from './Card';
 import SearchBar from './SearchBar';
-
 import axios from 'axios';
+import {db} from './fireApi';
 
 
 /**
@@ -36,7 +36,7 @@ export default class Home extends Component{
         super(props);
         this.state={
             showSearch: false,
-            posts:[],
+            usernames: [],
             filter: '',
             searchVal: '',
             showSearch: false,
@@ -61,6 +61,12 @@ export default class Home extends Component{
     }
 
     componentWillMount(){
+        db.collection("users").get().then((querySnapshot) => {
+                var l = [];
+                querySnapshot.forEach((doc)=>{
+                    l.push(doc.data().username)});
+                this.setState({usernames: l})
+            });
         document.addEventListener('keydown', this.handleSearchBar);
 
     }
@@ -74,15 +80,16 @@ export default class Home extends Component{
         }
     }
     render(){
+        console.log(this.state.usernames);
         return(
-            <div>
+            <div >
                 <div className="flex justify-center">
                     <Card/>
                     <Card/>
                     <Card/>
                     <Card/>
                 </div>
-                    <SearchBar inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
+                <SearchBar inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
             </div>
         );
     }

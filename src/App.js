@@ -84,7 +84,7 @@ class App extends React.Component {
             <Switch>
               <Route path="/" exact
                 render={props => (
-                    <div>
+                    <div style={{backgroundColor:'#EEE', height:'100%'}}>
                     <Link to="/login"> Login </Link>
                     <Link to="/landing"> landing </Link>
                     <Link to="/profile">Profile</Link>
