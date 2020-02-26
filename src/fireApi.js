@@ -8,4 +8,5 @@ const config = {
 
 const firebaseApp = firebase.initializeApp(config);
 
+export var db = firebase.firestore();
 export const fireAuth = firebaseApp.auth();
