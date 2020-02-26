@@ -31,6 +31,13 @@ const PriceSelect = withStyles({
 /**
  *  Represents user's preferred price range in dollars.
  *  Default: $5 - $20, able to be modified
+ *
+ *  @param low current min price preference
+ *  @param high current max price preference
+ *  @param handleLow handle user changes to min price preference
+ *  @param handleHigh handle user changes to max price preference
+ *  @param modifyStart whether write permissions are granted for start
+ *  @param modifyEnd whether writer permissions are granted for end
  */
 export default class PricePreference extends Component{
     constructor(props){

@@ -3,6 +3,8 @@ import './Home.css';
 import Card from './Card';
 import SearchBar from './SearchBar';
 
+import axios from 'axios';
+
 
 /**
  *    [WIP] Each added user will receive a Card component to represent them in a session.

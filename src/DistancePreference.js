@@ -27,6 +27,14 @@ const DistanceSelect = withStyles({
   }
 })(FilledInput);
 
+/**
+ *    Represents user's preferred distance.
+ *
+ *    Default: start and end distances are unfocused
+ *    @param dist current preferred distance
+ *    @param handleDist handles user changes to dist text field
+ *    @param modify whether write permissions are granted
+ */
 export default class DistancePreference extends Component{
     constructor(props){
         super(props);
