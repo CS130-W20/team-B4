@@ -72,7 +72,7 @@ export default class Card extends Component{
                     <div className="flex flex-column items-center" style={{width:'100%'}}>
                         <div className="flex justify-end" style={{top:'-11px', position:'relative', width:'100%'}}>
                             {this.state.modify ?
-                            <img className="pv1" onClick={()=>{this.setState({modify:!this.state.modify})}} src={edit} style={{width:20}}/>:  <div className="pv1 ph2" style={{borderRadius:4, border:'1px solid #888'}} onClick={()=>{this.setState({modify:!this.state.modify})}} > save </div>
+                            <img className="pv1" onClick={()=>{this.setState({modify:!this.state.modify})}} src={edit} style={{width:20, height:20}}/>:  <div className="pv1 ph2" style={{borderRadius:4, border:'1px solid #888'}} onClick={()=>{this.setState({modify:!this.state.modify})}} > save </div>
                         }</div>
                         <div className="profilePic" style={{backgroundImage:`url('${imgURL}')`}}/>
                         <div className="name pv2" >{data.name}</div>
