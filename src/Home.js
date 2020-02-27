@@ -10,26 +10,22 @@ import {db} from './fireApi';
  *    [WIP] Each added user will receive a Card component to represent them in a session.
  */
 export default class Home extends Component{
-    // TODO: remove hardcoded latitude and longitude, link to a button
-    getLocation = inputLocation => {
-      axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/search`, {
+
+    // Queries businesses around UCLA that match the specified category
+    getLocation = category => {
+      return axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/search`, {
         headers: {
           Authorization: `Bearer XyLNjPiVmPm-_-Og2rpIVSqVUNbsAihqwf21PVcmpbmhQow8HEAflaDDLiO8rT6SmehRVMyJNLz-OqjyiwXCqy45-EIE7yVttnY9440F04drNBm_ceiBgnsVUWNEXnYx`,
           'X-Requested-With': `XMLHttpRequest`,
         },
         params: {
-          total: 1,
-          latitude: 37.786882,
-          longitude: -122.399972,
+          categories: `${category}`,
+
+          // UCLA's coordinates
+          latitude: 34.0689,
+          longitude: -118.4452,
         }
-      })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log ('error')
-      })
-      console.log(inputLocation);
+      });
     };
 
     constructor(props){
@@ -40,7 +36,8 @@ export default class Home extends Component{
             filter: '',
             searchVal: '',
             showSearch: false,
-            searchFocus: false
+            searchFocus: false,
+            queryResult: null
         }
     }
     handleSearchBar = (e) => {
@@ -81,9 +78,21 @@ export default class Home extends Component{
     }
     render(){
         console.log(this.state.usernames);
+
+        // Sets state to first search result for default value "hiking"
+        // Note it takes a few seconds to fetch this, but will fetch -> load new
+        //    screen when displaying result
+        this.getLocation("hiking").then((response) =>
+          this.setState({
+            queryResult:response.data.businesses[0].name
+          })
+        ).catch(function (response) {
+          console.log(response);
+        });
+      console.log("query result: " + this.state.queryResult);
         return(
             <div >
-                <div className="flex justify-center">
+                <div className="flex var yvar justify-center">
                     <Card/>
                     <Card/>
                     <Card/>
