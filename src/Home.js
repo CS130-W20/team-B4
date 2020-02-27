@@ -3,8 +3,34 @@ import './Home.css';
 import Card from './Card';
 import SearchBar from './SearchBar';
 import axios from 'axios';
-import {db} from './fireApi';
+import {db, storageRef} from './fireApi';
 
+class userData{
+    constructor(obj){
+        this.username    = obj.username;
+        this.name        = obj.name;
+        this.low         = obj.low;
+        this.high        = obj.high;
+        this.start_time  = obj.start_time;
+        this.end_time    = obj.end_time;
+        this.dist        = obj.dist;
+        this.pic         = obj.pic;
+        this.quote       = obj.quote;
+        this.preferences = obj.preferences;
+    }
+
+}
+const _default = {username: '',
+                 name: '',
+                 low: 0,
+                 high:0,
+                 start_time: '',
+                 end_time:'',
+                 dist: 0,
+                 quote: '',
+                 pic:'',
+                 preferences: []
+             }
 
 /**
  *    [WIP] Each added user will receive a Card component to represent them in a session.
@@ -36,13 +62,15 @@ export default class Home extends Component{
         super(props);
         this.state={
             showSearch: false,
-            usernames: [],
+            all: [],
+            users: [],
             filter: '',
             searchVal: '',
             showSearch: false,
             searchFocus: false
         }
     }
+
     handleSearchBar = (e) => {
         if(e.key === 'Escape'){
             this.setState({
@@ -64,8 +92,8 @@ export default class Home extends Component{
         db.collection("users").get().then((querySnapshot) => {
                 var l = [];
                 querySnapshot.forEach((doc)=>{
-                    l.push(doc.data().username)});
-                this.setState({usernames: l})
+                    l.push(new userData(doc.data()))});
+                this.setState({all: l})
             });
         document.addEventListener('keydown', this.handleSearchBar);
 
@@ -79,15 +107,14 @@ export default class Home extends Component{
             })
         }
     }
+    getURL = (p) => storageRef.child(p).getDownloadURL();
+
     render(){
         console.log(this.state.usernames);
         return(
             <div >
                 <div className="flex justify-center">
-                    <Card/>
-                    <Card/>
-                    <Card/>
-                    <Card/>
+                    {this.state.all.map((u)=><Card data={u} imgURL = {this.getURL(u.pic)}/>)}
                 </div>
                 <SearchBar inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
             </div>

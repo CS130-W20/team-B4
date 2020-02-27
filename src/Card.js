@@ -4,7 +4,7 @@ import {Zoom, Fade} from 'react-reveal';
 import TimePreference from './TimePreference.js';
 import PricePreference from './PricePreference.js';
 import DistancePreference from './DistancePreference.js';
-import {db} from './fireApi';
+import {db, storageRef} from './fireApi';
 import edit from './img/edit2.png';
 
 
@@ -14,38 +14,14 @@ import edit from './img/edit2.png';
  *    [WIP] will fetch actual user data from Firebase database.
  */
 
-class userData{
-    constructor(obj){
-        this.username    = obj.username;
-        this.name        = obj.name;
-        this.low         = obj.low;
-        this.high        = obj.high;
-        this.start_time  = obj.start_time;
-        this.end_time    = obj.end_time;
-        this.dist        = obj.dist;
-        this.quote       = obj.quote;
-        this.preferences = obj.preferences;
-    }
-
-}
-const _default = {username: '',
-                 name: '',
-                 low: 0,
-                 high:0,
-                 start_time: '',
-                 end_time:'',
-                 dist: 0,
-                 quote: '',
-                 preferences: []
-             }
 
 export default class Card extends Component{
     constructor(props){
         super(props);
         this.state = {
-            data: new userData(_default),
+            data: this.props.data,
             modify: true,
-            imgURL: 'https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/30726986_2114249318805986_3615377820504555520_n.jpg?_nc_cat=111&_nc_ohc=hDbAemqxCqAAX88bxBf&_nc_ht=scontent-lax3-2.xx&oh=965a3b97cf8f684a7b0bd23a40863e3f&oe=5EC04F08'
+            imgURL: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
         }
     }
 
@@ -56,11 +32,7 @@ export default class Card extends Component{
         this.setState({[name]: e.target.value});
     }
     componentDidMount(props){
-        db.collection("users").where('username', '==', 'samtang').get().then((querySnapshot) => {
-                var doc = querySnapshot.docs[0];
-                this.setState({data: new userData(doc.data())})
-            });
-
+        this.props.imgURL.then((url)=>{this.setState({imgURL: url})});
     }
 
     render(){
