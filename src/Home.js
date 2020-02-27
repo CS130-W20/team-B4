@@ -82,6 +82,7 @@ export default class Home extends Component{
         // Sets state to first search result for default value "hiking"
         // Note it takes a few seconds to fetch this, but will fetch -> load new
         //    screen when displaying result
+        if(this.state.queryResult == null) {
         this.getLocation("hiking").then((response) =>
           this.setState({
             queryResult:response.data.businesses[0].name
@@ -89,6 +90,7 @@ export default class Home extends Component{
         ).catch(function (response) {
           console.log(response);
         });
+      }
       console.log("query result: " + this.state.queryResult);
         return(
             <div >
