@@ -17,6 +17,7 @@ class userData{
         this.pic         = obj.pic;
         this.quote       = obj.quote;
         this.preferences = obj.preferences;
+        this.promise     = null;
     }
 
 }
@@ -90,36 +91,42 @@ export default class Home extends Component{
                 var l = [];
                 querySnapshot.forEach((doc)=>{
                     l.push(new userData(doc.data()))});
-                this.setState({all: l})
-            });
+                // this.setState({all: l})
+                return l;
+            }).then((users)=>{
+                users.forEach((user)=>user.promise = this.getURL(user.pic));
+                this.setState({all:users});
+            })
+        // var l = [];
+        // this.state.all.forEach((user)=>{user.promise = this.getURL(user.pic); l.push(user)})
+        // this.setState({all:l})
         document.addEventListener('keydown', this.handleSearchBar);
 
     }
 
     searchChange = (e) =>{
         this.setState({searchVal: e.target.value})
-        if(e.target.value===''){
-            this.setState({
-                showSearch:false
-            })
-        }
+        // if(e.target.value===''){
+        //     this.setState({
+        //         showSearch:false
+        //     })
+        // }
     }
     getURL = (p) => storageRef.child(p).getDownloadURL();
 
     render(){
-        console.log(this.state.usernames);
 
         // Sets state to first search result for default value "hiking"
         // Note it takes a few seconds to fetch this, but will fetch -> load new
         //    screen when displaying result
         if(this.state.queryResult == null) {
-        this.getLocation("hiking").then((response) =>
-          this.setState({
-            queryResult:response.data.businesses[0].name
-          })
-        ).catch(function (response) {
-          console.log(response);
-        });
+        // this.getLocation("hiking").then((response) =>
+        //   this.setState({
+        //     queryResult:response.data.businesses[0].name
+        //   })
+        // ).catch(function (response) {
+        //   console.log(response);
+        // });
       }
       console.log("query result: " + this.state.queryResult);
         return(
@@ -127,7 +134,7 @@ export default class Home extends Component{
                 <div className="flex justify-center">
                     {this.state.all.map((u)=><Card data={u} imgURL = {this.getURL(u.pic)}/>)}
                 </div>
-                <SearchBar inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
+                <SearchBar userData={this.state.all} inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
             </div>
         );
     }
