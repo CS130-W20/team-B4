@@ -15,13 +15,17 @@ class TopBar extends Component {
         return (
             <div>
                 <div className="topbar full-width-div">
-                    <div style={{float: 'left', marginLeft: '2%', marginTop: '0.25%'}}>
+                    <div style={{float: 'left', marginLeft: '2%', marginTop: '0.35%'}}>
                         <Link to="/landing" style={{ textDecoration: 'none', color: '#FFFFFF' }}>
                           {'Adventum'}
                         </Link>
                     </div>
                     <div style={{float: 'right', marginRight: '2%', marginTop: '1%'}} onClick={() => fireAuth.signOut()}> <img src={logout} className='logout-img'/> </div>
-                    <div style={{float: 'right', marginRight: '2%', marginTop: '0.25%'}}> <img src={maged} className="thumbnail-img"/> </div>
+                    <div style={{float: 'right', marginRight: '2%', marginTop: '0.25%'}}>
+                        <Link to="/profile">
+                             <img src={maged} className="thumbnail-img"/>
+                        </Link>
+                    </div>
                 </div>
             </div>
         );

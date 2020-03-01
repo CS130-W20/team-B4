@@ -86,7 +86,6 @@ class App extends React.Component {
                 render={props => (
                     <div style={{backgroundColor:'#EEE', height:'100%'}}>
                     <Link to="/login"> Login </Link>
-                    <Link to="/profile">Profile</Link>
                     <ProtectedHome {...props} me={me} displayName={email} />
                   </div>
                 )}
@@ -104,6 +103,7 @@ class App extends React.Component {
               <Route path="/profile" exact
                 render={props => (
                   <div>
+                    <Link to="/">Home</Link>
                     <ProtectedProfile {...props} me={me} displayName={email} />
                   </div>
                 )}
