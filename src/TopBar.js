@@ -20,7 +20,11 @@ class TopBar extends Component {
                           {'Adventum'}
                         </Link>
                     </div>
-                    <div style={{float: 'right', marginRight: '2%', marginTop: '1%'}} onClick={() => fireAuth.signOut()}> <img src={logout} className='logout-img'/> </div>
+                    <div style={{float: 'right', marginRight: '2%', marginTop: '1%'}} onClick={() => fireAuth.signOut()}>
+                        <Link to="/landing">
+                          <img src={logout} className='logout-img'/>
+                        </Link>
+                    </div>
                     <div style={{float: 'right', marginRight: '2%', marginTop: '0.25%'}}>
                         <Link to="/profile">
                              <img src={maged} className="thumbnail-img"/>

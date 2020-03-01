@@ -85,7 +85,6 @@ class App extends React.Component {
               <Route path="/" exact
                 render={props => (
                     <div style={{backgroundColor:'#EEE', height:'100%'}}>
-                    <Link to="/login"> Login </Link>
                     <ProtectedHome {...props} me={me} displayName={email} />
                   </div>
                 )}
