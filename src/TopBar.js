@@ -16,7 +16,7 @@ class TopBar extends Component {
             <div>
                 <div className="topbar full-width-div">
                     <div style={{float: 'left', marginLeft: '2%', marginTop: '0.35%'}}>
-                        <Link to="/landing" style={{ textDecoration: 'none', color: '#FFFFFF' }}>
+                        <Link to="/" style={{ textDecoration: 'none', color: '#FFFFFF' }}>
                           {'Adventum'}
                         </Link>
                     </div>

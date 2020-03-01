@@ -87,14 +87,16 @@ class Login extends React.Component {
     return (
         <div className="login" style={{textAlign:'left'}}>
           <div className="box pa5">
-            <div style={{fontSize:20}}> <Link to="/landing">{'< Back'}</Link> </div>
+            <div style={{fontSize:20, 'font-family': 'Raleway'}}>
+                <Link to="/landing" style={{textDecoration: 'none'}}>{'< Back'}</Link>
+            </div>
             <div className="logo">Adventum</div>
             <form
               style={{ display: "flex", flexDirection: "column" }}
               onSubmit={this.state.login ? this.handleSubmit : this.handleSignIn}
             >
             <ThemeProvider theme={theme}>
-              <TextField  style={{marginBottom: 24}} variant={"outlined"} required type={"email"} label={"Email"} value={email} 
+              <TextField  style={{marginBottom: 24}} variant={"outlined"} required type={"email"} label={"Email"} value={email}
                 onChange={this.handleChange("email")}
               />
               <TextField style={{marginBottom: 24}} variant={"outlined"} required type={"password"} label={"Password"} value={password}

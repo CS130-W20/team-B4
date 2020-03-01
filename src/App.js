@@ -102,7 +102,6 @@ class App extends React.Component {
               <Route path="/profile" exact
                 render={props => (
                   <div>
-                    <Link to="/">Home</Link>
                     <ProtectedProfile {...props} me={me} displayName={email} />
                   </div>
                 )}
