@@ -2,22 +2,27 @@ import React, {Component} from 'react';
 import Popup from 'reactjs-popup';
 import './Profile.css';
 import { fireAuth } from "./fireApi";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
+
+/* Material-UI stuff */
 import Button from "@material-ui/core/Button";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { lightBlue } from '@material-ui/core/colors';
 import blue from '@material-ui/core/colors/blue';
 import purple from '@material-ui/core/colors/purple';
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import { withRouter } from 'react-router-dom';
+import Slider from "@material-ui/core/Slider";
+
+/* misc icons */
 import clock from './img/clock.png';
 import road from './img/road.png';
 import price from './img/price.png';
 import maged from './img/maged.png';
 import edit from './img/edit.png';
 import logout from './img/arrow_white.png';
-
 import dots from './img/dots.png';
 
+/* activity icons */
 import boba from './img/boba.png';
 import coffee from './img/coffee-cup2.png';
 import italian from './img/italian.png';
@@ -53,6 +58,22 @@ const style = {
     width: '150px',
 };
 
+function timeValueLabelFormat(time) {
+    return ((time+11)%12+1) + ((time%24<12) ? "AM" : "PM");
+}
+
+function distanceValueLabelFormat(distance) {
+    return distance+"mi";
+}
+
+function distanceValueLabelFormatDisplay(distance) {
+    return distance+" mi";
+}
+
+function priceValueLabelFormat(price) {
+    return (price<=60) ? "$"+price : "$61+";
+}
+
 
 /**
  *    Represents a user profile. [Currently has sample data.]
@@ -82,7 +103,10 @@ class Profile extends Component{
                 'chinese': chinese,
                 'hiking': hiking
             },
-            my_pref_map: []
+            my_pref_map: [],
+            price: 60,
+            time: [19, 21],
+            distance: 30
         }
         for (var i = 0; i < this.state.my_prefs.length; i++) {
             this.state.my_pref_map.push({
@@ -101,7 +125,7 @@ class Profile extends Component{
             {this.state.view ?
             <div>
                 <div style={{marginLeft: '1%', marginTop: '4.5%', position: 'absolute'}} onClick={()=>{this.setState({'view': false})}}> <img src={edit} className='edit-img'/> </div>
-                <div style={{marginLeft: '10%', position: 'absolute'}}> <LeftSide/> </div>
+                <div style={{marginLeft: '10%', position: 'absolute'}}> <LeftSide price={this.state.price} time={this.state.time} distance={this.state.distance}/> </div>
                 <div style={{marginLeft: '48%', marginTop: '10%', position: 'absolute'}} className='fullname-display'> {this.state.name} </div>
                 <div style={{marginLeft: '48%', marginTop: '14%', position: 'absolute'}} className='username-display'> {this.state.username} </div>
                 <div style={{marginLeft: '48%', marginTop: '17%', position: 'absolute'}} className='blurb-display'> {this.state.blurb} </div>
@@ -110,6 +134,7 @@ class Profile extends Component{
             </div>
             :
             <div>
+            <div style={{marginLeft: '10%', position: 'absolute'}}> <EditLeftSide price={this.state.price} time={this.state.time} distance={this.state.distance}/> </div>
             <div style={{marginTop: '42%', marginLeft: '45%', position: 'absolute'}} className="justify-center"> <ThemeProvider theme={theme}> <Button variant={"contained"} onClick={()=>{this.setState({'view': true})}} theme={theme} color={"secondary"} style={style}> Save </Button> </ThemeProvider> </div>
             <div style={{marginTop: '45%', marginLeft: '46.5%', fontSize:15, textDecoration:'underline', position: 'absolute'}} className="message ph4 mt2" onClick={()=>{this.setState({view: 'true'})}}> cancel </div>
             </div>
@@ -144,7 +169,7 @@ class LeftSide extends Component {
             <div>
                 <div style={{marginTop: '45%'}} className='gradient-box'>
                 <div style={{marginTop: '30px', marginLeft: '50px',position: 'absolute'}}> <img src={maged} className="profile-img"/> </div>
-                <div style={{marginTop: '200px', marginLeft: '70px', position: 'absolute'}}> <LogisticalPreferences/> </div>
+                <div style={{marginTop: '200px', marginLeft: '70px', position: 'absolute'}}> <LogisticalPreferences price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
                 </div>
             </div>
         );
@@ -156,9 +181,9 @@ class LeftSide extends Component {
  */
 class LogisticalPreferences extends React.Component {
     render() {
-        const tp = "7PM - 9PM";
-        const dp = "<30 mi";
-        const pp = "$30 - $60";
+        const tp = timeValueLabelFormat(this.props.time[0]) + " - " + timeValueLabelFormat(this.props.time[1]);
+        const dp = "<" + distanceValueLabelFormatDisplay(this.props.distance);
+        const pp = (this.props.price <= 0 ? "" : (priceValueLabelFormat(0)) + " - ") + priceValueLabelFormat(this.props.price);
         return (
             <div style={{marginTop: '60px', marginLeft: '10px'}}>
                 <div>
@@ -207,6 +232,150 @@ class RightSide extends Component {
                     </div>)}
                 </div>
             </div>
+        );
+    }
+}
+
+/**
+ *  Price, time, distance
+ */
+class EditLeftSide extends Component {
+    render() {
+        return (
+            <div>
+                <div style={{marginTop: '45%'}} className='gradient-box'>
+                <div style={{marginTop: '30px', marginLeft: '50px',position: 'absolute'}}> <img src={maged} className="profile-img"/> </div>
+                <div style={{marginTop: '200px', marginLeft: '15px', position: 'absolute'}}> <EditLogisticalPreferences price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+/**
+ *    Edit user's preferred time, location radius, and price range.
+ */
+class EditLogisticalPreferences extends React.Component {
+    render() {
+        const tp = "Change Time Preference";
+        const dp = "Change Distance Preference";
+        const pp = "Change Price Preference";
+        return (
+            <div style={{marginTop: '60px', marginLeft: '10px'}}>
+                <div>
+                <img src={clock} className="logistical-icon-img"/>
+                <div className="logistical-pref-display"> {tp} </div>
+                </div>
+                <TimeSlider time={this.props.time}/>
+                <div style={{marginTop: '20px'}}>
+                <img src={road} className="logistical-icon-img"/>
+                <div className="logistical-pref-display"> {dp} </div>
+                </div>
+                <DistanceSlider distance={this.props.distance}/>
+                <div style={{marginTop: '20px'}}>
+                <img src={price} className="logistical-icon-img"/>
+                <div className="logistical-pref-display"> {pp} </div>
+                </div>
+                <PriceSlider price={this.props.price}/>
+            </div>
+        );
+    }
+}
+
+class TimeSlider extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            time: this.props.time
+        }
+    }
+    render() {
+        const setTime = (event, newTime) => {
+            this.setState({time: newTime});
+        }
+        return(
+            <Slider
+                value={this.state.time}
+                onChange={setTime}
+                valueLabelDisplay="auto"
+                aria-labelledby="time-slider"
+                min={0}
+                max={24}
+                valueLabelFormat={timeValueLabelFormat}
+            />
+        );
+    }
+}
+
+class DistanceSlider extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            distance: this.props.distance
+        }
+    }
+    render() {
+        const setDistance = (event, newDistance) => {
+            this.setState({distance: newDistance});
+        }
+        return(
+            <Slider
+                value={this.state.distance}
+                onChange={setDistance}
+                valueLabelDisplay="auto"
+                aria-labelledby="distance-slider"
+                min={1}
+                max={50}
+                valueLabelFormat={distanceValueLabelFormat}
+            />
+        );
+    }
+}
+
+class PriceSlider extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            price: this.props.price
+        }
+    }
+    render() {
+        const setPrice = (event, newPrice) => {
+            this.setState({price: newPrice});
+        }
+        return(
+            <Slider
+                value={this.state.price}
+                onChange={setPrice}
+                valueLabelDisplay="auto"
+                aria-labelledby="price-slider"
+                min={0}
+                max={120}
+                valueLabelFormat={priceValueLabelFormat}
+                step={null}
+                marks={[
+                    {
+                        value: 0,
+                        label: "$0",
+                    },
+                    {
+                        value: 10,
+                        label: "$10",
+                    },
+                    {
+                        value: 30,
+                        label: "$30",
+                    },
+                    {
+                        value: 60,
+                        label: "$60",
+                    },
+                    {
+                        value: 120,
+                        label: "$61+",
+                    },
+                ]}
+            />
         );
     }
 }
