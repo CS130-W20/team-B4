@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Home.css';
 import Card from './Card';
 import SearchBar from './SearchBar';
+import TopBar from './TopBar.js';
 import axios from 'axios';
 import {db, storageRef} from './fireApi';
 
@@ -131,7 +132,8 @@ export default class Home extends Component{
       console.log("query result: " + this.state.queryResult);
         return(
             <div >
-                <div className="flex justify-center">
+            <div> <TopBar/> </div>
+                <div className="flex justify-center" style={{paddingTop: 60}}>
                     {this.state.all.map((u)=><Card data={u} imgURL = {this.getURL(u.pic)}/>)}
                 </div>
                 <SearchBar userData={this.state.all} inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
