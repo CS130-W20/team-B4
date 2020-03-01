@@ -168,3 +168,45 @@
     height: 30px;
     filter: invert(88%) sepia(19%) saturate(341%) hue-rotate(171deg) brightness(101%) contrast(95%);
 }
+
+.circle-img {
+    height: 15px;
+}
+
+.checkbox-img {
+    height: 40px;
+    filter: grayscale(100%);
+}
+
+.checked-img {
+    height: 40px;
+}
+
+.category-display {
+    font-family: Raleway;
+    color: #37393B;
+    /*color: #005DCB;*/
+    font-weight: bold;
+    font-size: 125%;
+    position: absolute;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline;
+}
+
+.category-img {
+    display: inline;
+    height: 35px;
+    filter: invert(66%) sepia(22%) saturate(7497%) hue-rotate(201deg) brightness(101%) contrast(99%);
+}
+
+.title-display {
+    font-family: Raleway;
+    color: #37393B;
+    /*color: #005DCB;*/
+    font-weight: bold;
+    font-size: 150%;
+    position: absolute;
+    overflow: hidden;
+    white-space: nowrap;
+}
