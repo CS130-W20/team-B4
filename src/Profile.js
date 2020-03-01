@@ -4,6 +4,7 @@ import './Profile.css';
 import { fireAuth } from "./fireApi";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
+import TopBar from './TopBar.js';
 
 /* Material-UI stuff */
 import Button from "@material-ui/core/Button";
@@ -121,7 +122,7 @@ class Profile extends Component{
         const self = this;
         return (
             <div>
-            <div> <Topbar/> </div>
+            <div> <TopBar/> </div>
             {this.state.view ?
             <div>
                 <div style={{marginLeft: '1%', marginTop: '4.5%', position: 'absolute'}} onClick={()=>{this.setState({'view': false})}}> <img src={edit} className='edit-img'/> </div>
@@ -139,22 +140,6 @@ class Profile extends Component{
             <div style={{marginTop: '45%', marginLeft: '46.5%', fontSize:15, textDecoration:'underline', position: 'absolute'}} className="message ph4 mt2" onClick={()=>{this.setState({view: 'true'})}}> cancel </div>
             </div>
             }
-            </div>
-        );
-    }
-}
-
-/**
- *    Contains link to profile and logout button.
- */
-class Topbar extends Component {
-    render() {
-        return (
-            <div>
-                <div className="topnav full-width-div">
-                    <div style={{float: 'right', marginRight: '2%', marginTop: '1%'}} onClick={() => fireAuth.signOut()}> <img src={logout} className='logout-img'/> </div>
-                    <div style={{float: 'right', marginRight: '2%', marginTop: '0.25%'}}> <img src={maged} className="thumbnail-img"/> </div>
-                </div>
             </div>
         );
     }
