@@ -31,6 +31,7 @@ import grey_circle from './img/circle_grey.png';
 
 /*category icons */
 import fork from './img/fork2.png';
+import drink from './img/coffee-cup.png';
 
 /* activity icons */
 /* food icons */
@@ -43,6 +44,12 @@ import taco from './img/taco.png';
 import bulgogi from './img/bulgogi.png';
 import corn_dog from './img/corn-dog.png';
 import ice_cream from './img/ice-cream.png';
+import american from './img/sandwich.png';
+import vegan from './img/leaf.png';
+import indian from './img/samosa.png';
+import thai from './img/tom-yum.png';
+import juice from './img/watermelon.png';
+import beer from './img/beer.png';
 
 
 /* drink icons */
@@ -187,27 +194,12 @@ class Profile extends Component{
                 <img src={fork} className='category-img'/> 
                 {/*<div style={{marginLeft: '40%', marginTop: '25%', position: 'absolute'}} className='category-display'> Food </div>*/}
                 </div>
-                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '13%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="sushi_id" icon={<img src={sushi} className='checkbox-img'/>} checkedIcon={<img src={sushi} className='checked-img'/>}/>} label="Japanese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="italian_id" icon={<img src={italian} className='checkbox-img'/>} checkedIcon={<img src={italian} className='checked-img'/>}/>} label="Italian"/> </ThemeProvider>
+                <div> <FoodOptions/> </div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '34.75%', marginTop: '30%', position: 'absolute'}}> 
+                <img src={drink} className='category-img'/> 
                 </div>
-                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '17%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="pizza_id" icon={<img src={pizza} className='checkbox-img'/>} checkedIcon={<img src={pizza} className='checked-img'/>}/>} label="Pizza&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="falafel_id" icon={<img src={falafel} className='checkbox-img'/>} checkedIcon={<img src={falafel} className='checked-img'/>}/>} label="Mediterranean"/> </ThemeProvider>
-                </div>
-                <div className="topnav full-width-div">
-                    <div style={{float: 'right', marginRight: '2%', marginTop: '1%'}} onClick={() => fireAuth.signOut()}> <img src={logout} className='logout-img'/> </div>
-                    <div style={{float: 'right', marginRight: '2%', marginTop: '0.25%'}}> <img src={maged} className="thumbnail-img"/> </div>
-                </div>
-                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '21%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="korean_id" icon={<img src={bulgogi} className='checkbox-img'/>} checkedIcon={<img src={bulgogi} className='checked-img'/>}/>} label="Korean&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="mexican_id" icon={<img src={taco} className='checkbox-img'/>} checkedIcon={<img src={taco} className='checked-img'/>}/>} label="Mexican"/> </ThemeProvider>
-                </div>
-                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '25%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="fastfood_id" icon={<img src={corn_dog} className='checkbox-img'/>} checkedIcon={<img src={corn_dog} className='checked-img'/>}/>} label="Fast food&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="icecream_id" icon={<img src={ice_cream} className='checkbox-img'/>} checkedIcon={<img src={ice_cream} className='checked-img'/>}/>} label="Dessert"/> </ThemeProvider>
-                </div>
-                <div>
+                <div> <DrinkOptions/> </div>
+                {/*<div>
                     {this.state.edit_pg1 ?
                     <div>
                         <div style={{marginTop: '40%', marginLeft: '49%', position: 'absolute'}}> <img src={blue_circle} className='circle-img'/> </div>
@@ -218,7 +210,7 @@ class Profile extends Component{
                         <div style={{marginTop: '40%', marginLeft: '49%', position: 'absolute'}} onClick={()=>{this.setState({edit_pg1: 'true'})}}> <img src={grey_circle} className='circle-img'/> </div>
                         <div style={{marginTop: '40%', marginLeft: '51%', position: 'absolute'}}> <img src={blue_circle} className='circle-img'/> </div>
                     </div>}
-                </div>
+                </div>*/}
                 <div style={{marginTop: '42%', marginLeft: '45%', position: 'absolute'}} className="justify-center"> <ThemeProvider theme={theme}> <Button variant={"contained"} onClick={()=>{this.setState({'view': true})}} theme={theme} color={"secondary"} style={style}> Save </Button> </ThemeProvider> </div>
                 <div style={{marginTop: '45%', marginLeft: '46.5%', fontSize:15, textDecoration:'underline', position: 'absolute'}} className="message ph4 mt2" onClick={()=>{this.setState({view: 'true'})}}> cancel </div>
                 </form>
@@ -448,5 +440,56 @@ class PriceSlider extends React.Component {
         );
     }
 }
+
+class FoodOptions extends React.Component {
+    render() {
+        return( 
+             <div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '13%', position: 'absolute'}}>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="sushi_id" icon={<img src={sushi} className='checkbox-img'/>} checkedIcon={<img src={sushi} className='checked-img'/>}/>} label="Japanese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="italian_id" icon={<img src={italian} className='checkbox-img'/>} checkedIcon={<img src={italian} className='checked-img'/>}/>} label="Italian&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="indian_id" icon={<img src={indian} className='checkbox-img'/>} checkedIcon={<img src={indian} className='checked-img'/>}/>} label="Indian"/> </ThemeProvider>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '17%', position: 'absolute'}}>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="pizza_id" icon={<img src={pizza} className='checkbox-img'/>} checkedIcon={<img src={pizza} className='checked-img'/>}/>} label="Pizza&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="falafel_id" icon={<img src={falafel} className='checkbox-img'/>} checkedIcon={<img src={falafel} className='checked-img'/>}/>} label="Mediterranean&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="thai_id" icon={<img src={thai} className='checkbox-img'/>} checkedIcon={<img src={thai} className='checked-img'/>}/>} label="Thai"/> </ThemeProvider>
+                </div>
+                <div className="topnav full-width-div">
+                    <div style={{float: 'right', marginRight: '2%', marginTop: '1%'}} onClick={() => fireAuth.signOut()}> <img src={logout} className='logout-img'/> </div>
+                    <div style={{float: 'right', marginRight: '2%', marginTop: '0.25%'}}> <img src={maged} className="thumbnail-img"/> </div>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '21%', position: 'absolute'}}>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="korean_id" icon={<img src={bulgogi} className='checkbox-img'/>} checkedIcon={<img src={bulgogi} className='checked-img'/>}/>} label="Korean&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="mexican_id" icon={<img src={taco} className='checkbox-img'/>} checkedIcon={<img src={taco} className='checked-img'/>}/>} label="Mexican&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="american_id" icon={<img src={american} className='checkbox-img'/>} checkedIcon={<img src={american} className='checked-img'/>}/>} label="American"/> </ThemeProvider>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '25%', position: 'absolute'}}>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="fastfood_id" icon={<img src={corn_dog} className='checkbox-img'/>} checkedIcon={<img src={corn_dog} className='checked-img'/>}/>} label="Fast food&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="icecream_id" icon={<img src={ice_cream} className='checkbox-img'/>} checkedIcon={<img src={ice_cream} className='checked-img'/>}/>} label="Dessert&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="vegan_id" icon={<img src={vegan} className='checkbox-img'/>} checkedIcon={<img src={vegan} className='checked-img'/>}/>} label="Vegan"/> </ThemeProvider>
+                </div>
+            </div>
+        );
+    }
+}
+
+class DrinkOptions extends React.Component {
+    render() {
+        return( 
+            <div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '33%', position: 'absolute'}}>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="coffee_id" icon={<img src={coffee} className='checkbox-img'/>} checkedIcon={<img src={coffee} className='checked-img'/>}/>} label="Coffee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="juice_id" icon={<img src={juice} className='checkbox-img'/>} checkedIcon={<img src={juice} className='checked-img'/>}/>} label="Juice/Smoothies"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="boba_id" icon={<img src={boba} className='checkbox-img'/>} checkedIcon={<img src={boba} className='checked-img'/>}/>} label="Boba"/> </ThemeProvider>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '37%', position: 'absolute'}}>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="beer_id" icon={<img src={beer} className='checkbox-img'/>} checkedIcon={<img src={beer} className='checked-img'/>}/>} label="Bars&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                </div>
+            </div>
+        );
+    }
+}
+
 
 export default withRouter(Profile);
