@@ -10,7 +10,7 @@ import Button from "@material-ui/core/Button";
 
 
 
-class userData{
+export class userData{
     constructor(obj){
         this.username    = obj.username;
         this.name        = obj.name;
@@ -23,6 +23,7 @@ class userData{
         this.quote       = obj.quote;
         this.preferences = obj.preferences;
         this.promise     = null;
+        this.email = obj.email ?? null;
     }
 
 }

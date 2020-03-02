@@ -13,3 +13,13 @@
   font-family: Bebas Neue;
   font-size: 40px;
 }
+
+.thumbnail-img-top {
+    height: 50px;
+    background-size: cover;
+    display: block;
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+
+}
