@@ -5,6 +5,10 @@ import SearchBar from './SearchBar';
 import TopBar from './TopBar.js';
 import axios from 'axios';
 import {db, storageRef} from './fireApi';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import Button from "@material-ui/core/Button";
+
+
 
 class userData{
     constructor(obj){
@@ -33,6 +37,33 @@ const _default = {username: '',
                  pic:'',
                  preferences: []
              }
+
+
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#ffffff',
+        },
+        secondary: {
+            main: '#2962ff',
+        }
+    },
+    overrides: {
+        MuiButton: {
+            label: {
+                color: '#ffffff',
+            },
+        }
+    }
+});
+
+const style = {
+    textTransform: 'none',
+    borderRadius: '25px',
+    width: '150px',
+};
+
 
 /**
  *    [WIP] Each added user will receive a Card component to represent them in a session.
@@ -135,6 +166,14 @@ export default class Home extends Component{
             <div> <TopBar/> </div>
                 <div className="flex justify-center" style={{paddingTop: 60}}>
                     {this.state.all.map((u)=><Card data={u} imgURL = {this.getURL(u.pic)}/>)}
+                </div>
+                <div style={{marginTop: '5%', left: '45%', position: 'absolute'}} className="justify-center">
+                    <ThemeProvider theme={theme}>
+                        <div style={{display: 'flex', 'flex-direction': 'column'}}>
+                            <Button variant={"contained"} onClick={()=>{this.handleSearchBar({key:''})}} theme={theme} color={"primary"} style={style}> <div style={{color: "grey"}}>  + Add Person </div> </Button>
+                            <div style={{paddingTop: '20px'}}><Button variant={"contained"} onClick={()=>{/* TODO: make yelp query and change to suggestion page */}} theme={theme} color={"secondary"} style={style}> Find Me a Place! </Button></div>
+                        </div>
+                    </ThemeProvider>
                 </div>
                 <SearchBar userData={this.state.all} inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
             </div>
