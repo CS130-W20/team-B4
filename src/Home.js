@@ -102,6 +102,11 @@ export default class Home extends Component{
         }
     }
 
+    handleCardDelete = (card) => {
+      var newAll = this.state.all.filter((x) => {return x !== card;});
+      this.setState({all: newAll});
+    }
+
     handleSearchBar = (e) => {
         if(e.key === 'Escape'){
             this.setState({
@@ -162,11 +167,12 @@ export default class Home extends Component{
         // });
       }
       console.log("query result: " + this.state.queryResult);
+      console.log(this.state.all);
         return(
             <div >
             <div> <TopBar/> </div>
                 <div className="flex justify-center" style={{paddingTop: 60}}>
-                    {this.state.all.map((u)=><Card data={u} imgURL = {this.getURL(u.pic)}/>)}
+                    {this.state.all.map((u)=><Card data={u} imgURL = {this.getURL(u.pic)} deleteCard = {this.handleCardDelete}/>)}
                 </div>
                 <div style={{marginTop: '5%', left: '45%', position: 'absolute'}} className="justify-center">
                     <ThemeProvider theme={theme}>

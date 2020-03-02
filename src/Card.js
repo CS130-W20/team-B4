@@ -6,6 +6,7 @@ import PricePreference from './PricePreference.js';
 import DistancePreference from './DistancePreference.js';
 import {db, storageRef} from './fireApi';
 import edit from './img/edit2.png';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 
@@ -19,9 +20,9 @@ export default class Card extends Component{
     constructor(props){
         super(props);
         this.state = {
-            data: this.props.data,
             modify: true,
             imgURL: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+
         }
     }
 
@@ -36,16 +37,18 @@ export default class Card extends Component{
     }
 
     render(){
-        const {data} = this.state;
+        const {data} = this.props;
         const {imgURL, quote} = this.state;
         return(
             <Zoom>
                 <div className="pa4 ma3 flex card">
                     <div className="flex flex-column items-center" style={{width:'100%'}}>
-                        <div className="flex justify-end" style={{top:'-11px', position:'relative', width:'100%'}}>
+                        <div className="flex" style={{top:'-11px', position:'relative', width:'100%', "flex-direction": "row", "justify-content": "space-between"}}>
+                            <CloseIcon style={{cursor: "pointer"}} onClick={()=>{this.props.deleteCard(this.props.data)}}/>
                             {this.state.modify ?
                             <img className="pv1" onClick={()=>{this.setState({modify:!this.state.modify})}} src={edit} style={{width:20, height:20, cursor: 'pointer'}}/>:  <div className="pv1 ph2" style={{borderRadius:4, border:'1px solid #888', cursor: 'pointer'}} onClick={()=>{this.setState({modify:!this.state.modify})}} > save </div>
-                        }</div>
+                            }
+                        </div>
                         <div className="profilePic" style={{backgroundImage:`url('${imgURL}')`}}/>
                         <div className="name pv2" >{data.name}</div>
                         <div className="quote">{data.quote}</div>
