@@ -24,7 +24,7 @@ export default class SearchBar extends Component{
 
     filterCards = () =>{
         return this.props.userData.map((user)=>{
-            if(user.username.toLowerCase().includes(this.props.searchVal.toLowerCase())){
+            if(user.username.toLowerCase().includes(this.props.searchVal.toLowerCase()) && this.props.searchVal !== ''){
                 var grey = this.props.display[user.username] ? 'grey' : 'selected';
                 return <Fade collapse duration={500} when={true}>
                     <div onClick={()=>{this.props.addCard(user);}} className={`searchResult ${grey}`}>@{this.state.imgURL[user.username]}{user.username}</div></Fade>
@@ -36,7 +36,6 @@ export default class SearchBar extends Component{
     }
 
     render(){
-        console.log(this.state.imgURL);
         return(
             <div className="search flex justify-center" style={this.props.showSearch ? {backgroundColor:`rgba(0,0,0,0.5)`} : {zIndex:-1}}>
                 <Fade top collapse duration={500} when={this.props.showSearch}>

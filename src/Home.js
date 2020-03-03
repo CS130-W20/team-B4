@@ -126,12 +126,24 @@ export default class Home extends Component{
         }
 
     }
+
     addCard = (user)=>{
         var s = this.state.display;
         s[user.username]=true;
         this.setState({display:s});
 
     }
+
+    targetHasClickHandler = (event) => {
+        let el = event.target;
+        while(el) {
+        if (el.getAttribute('data-click-handler')) {
+           return true;
+         }
+         el = el.parentElement;
+       }
+       return false;
+     }
 
     componentWillMount(){
         db.collection("users").get().then((querySnapshot) => {
@@ -189,7 +201,12 @@ export default class Home extends Component{
       console.log("query result: " + this.state.queryResult);
       console.log(this.state.all);
         return(
-            <div >
+            <div onClick={(e)=>{
+                if (this.targetHasClickHandler(e))
+                  this.handleSearchBar({key:''});
+                else
+                  this.handleSearchBar({key:'Escape'});
+            }}>
             <div> <TopBar/> </div>
                 <div className="flex justify-center" style={{paddingTop: 60}}>
                     {this.genCards()}
@@ -197,7 +214,7 @@ export default class Home extends Component{
                 <div style={{marginTop: '5%', left: '45%', position: 'absolute'}} className="justify-center">
                     <ThemeProvider theme={theme}>
                         <div style={{display: 'flex', 'flex-direction': 'column'}}>
-                            <Button variant={"contained"} onClick={()=>{this.handleSearchBar({key:''})}} theme={theme} color={"primary"} style={style}> <div style={{color: "grey"}}>  + Add Person </div> </Button>
+                            <Button data-click-handler="true" variant={"contained"} onClick={()=>{this.handleSearchBar({key:''})}} theme={theme} color={"primary"} style={style}> <div style={{color: "grey"}}>  + Add Person </div> </Button>
                             <div style={{paddingTop: '20px'}}><Button variant={"contained"} onClick={()=>{/* TODO: make yelp query and change to suggestion page */}} theme={theme} color={"secondary"} style={style}> Find Me a Place! </Button></div>
                         </div>
                     </ThemeProvider>
