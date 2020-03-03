@@ -35,6 +35,7 @@ import grey_circle from './img/circle_grey.png';
 /*category icons */
 import fork from './img/fork2.png';
 import drink from './img/coffee-cup.png';
+import active from './img/shoes2.png';
 
 /* activity icons */
 /* food icons */
@@ -61,9 +62,12 @@ import coffee from './img/coffee-cup2.png';
 
 /* outdoors icons */
 import bicycle from './img/bicycle.png';
+import boat from './img/boat.png';
 import beach from './img/beach.png';
 import kayak from './img/kayak.png';
-import hiking from './img/mountain.png';
+import hiking from './img/mountains.png';
+import yoga from './img/wellness.png';
+import climbing from './img/rock-climbing.png';
 
 /* misc activity icons */
 import museum from './img/museum.png';
@@ -224,6 +228,10 @@ class Profile extends Component{
                 <img src={drink} className='category-img'/>
                 </div>
                 <div> <DrinkOptions/> </div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '69.75%', marginTop: '9.5%', position: 'absolute'}}>
+                <img src={active} className='category2-img'/> 
+                </div>
+                <div> <ActiveOptions/> </div>
                 {/*<div>
                     {this.state.edit_pg1 ?
                     <div>
@@ -512,5 +520,25 @@ class DrinkOptions extends React.Component {
     }
 }
 
+class ActiveOptions extends React.Component {
+    render() {
+        return( 
+            <div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '13%', position: 'absolute'}}>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="hiking_id" icon={<img src={hiking} className='checkbox-img'/>} checkedIcon={<img src={hiking} className='checked-img'/>}/>} label="Hiking&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="kayak_id" icon={<img src={kayak} className='checkbox-img'/>} checkedIcon={<img src={kayak} className='checked-img'/>}/>} label="Kayaking"/> </ThemeProvider>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '17%', position: 'absolute'}}>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="boat_id" icon={<img src={boat} className='checkbox-img'/>} checkedIcon={<img src={boat} className='checked-img'/>}/>} label="Boating&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="cyclingpaths_id" icon={<img src={bicycle} className='checkbox-img'/>} checkedIcon={<img src={bicycle} className='checked-img'/>}/>} label="Cycling Paths"/> </ThemeProvider>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '21%', position: 'absolute'}}>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="yoga_id" icon={<img src={yoga} className='checkbox-img'/>} checkedIcon={<img src={yoga} className='checked-img'/>}/>} label="Yoga&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="climbing_id" icon={<img src={climbing} className='checkbox-img'/>} checkedIcon={<img src={climbing} className='checked-img'/>}/>} label="Climbing"/> </ThemeProvider>
+                </div>
+            </div>
+        );
+    }
+}
 
 export default withRouter(Profile);

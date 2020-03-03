@@ -184,6 +184,11 @@
     filter: invert(66%) sepia(22%) saturate(7497%) hue-rotate(201deg) brightness(101%) contrast(99%);
 }
 
+.category2-img {
+    display: inline;
+    height: 60px;
+    filter: invert(31%) sepia(87%) saturate(3032%) hue-rotate(200deg) brightness(103%) contrast(104%);
+}
 .title-display {
     font-family: Raleway;
     color: #37393B;
