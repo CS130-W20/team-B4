@@ -6,6 +6,10 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 import TopBar from './TopBar.js';
 
+/* UserData/Firebase stuff */
+import userData from './Home.js';
+import {db, storageRef} from './fireApi';
+
 /* Material-UI stuff */
 import Button from "@material-ui/core/Button";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -22,7 +26,6 @@ import FormGroup from "@material-ui/core/FormGroup";
 import clock from './img/clock.png';
 import road from './img/road.png';
 import price from './img/price.png';
-import maged from './img/maged.png';
 import edit from './img/edit.png';
 import logout from './img/arrow_white.png';
 import dots from './img/dots.png';
@@ -121,13 +124,14 @@ class Profile extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            imgURL: null,
             logged_in: props.location.state ? props.location.state.logged_in : false,
             edit: props.location.state ? props.location.state.edit : false,
             view: true,
             edit_pg1: true,
-            name: "Maged Elaasar",
-            username: "@maged_elaasar",
-            blurb: "The first and third days after weekends are the hardest.",
+            name: '',
+            username: "",
+            blurb: "",
             my_prefs: ['boba', 'coffee', 'cycling', 'museum', 'beach', 'japanese', 'kayak', 'chinese', 'hiking'],
             my_pref_map: {
                 'italian': false,
@@ -167,6 +171,25 @@ class Profile extends Component{
         this.state.view = !this.state.logged_in || !this.state.edit;
     }
 
+    getURL = (p) => storageRef.child(p).getDownloadURL();
+
+
+    componentWillMount(){
+      db.collection("users").get().then((querySnapshot) => {
+              querySnapshot.forEach((doc)=>{
+                  var curData = new userData(doc.data());
+                  if(curData.props.email !== undefined && curData.props.email == fireAuth.currentUser.email){
+                    this.getURL(curData.props.pic).then((url)=>{this.setState(
+                      {imgURL: url,
+                        name: curData.props.name,
+                        username: '@'+curData.props.username,
+                        blurb: curData.props.quote
+                      })});
+                  }
+                });
+          });
+    }
+
     render() {
         const self = this;
         return (
@@ -175,8 +198,10 @@ class Profile extends Component{
             {this.state.view ?
             <div>
                 <div style={{marginLeft: '1%', marginTop: '4.5%', position: 'absolute'}} onClick={()=>{this.setState({'view': false})}}> <img src={edit} className='edit-img'/> </div>
-                <div style={{marginLeft: '10%', position: 'absolute'}}> <LeftSide price={this.state.price} time={this.state.time} distance={this.state.distance}/> </div>
-                <div style={{marginLeft: '48%', marginTop: '10%', position: 'absolute'}} className='fullname-display'> {this.state.name} </div>
+                <div style={{marginLeft: '10%', position: 'absolute'}}> <LeftSide image={this.state.imgURL} price={this.state.price} time={this.state.time} distance={this.state.distance}/> </div>
+                <div style={{marginLeft: '48%', marginTop: '10%', position: 'absolute'}} className='fullname-display'>
+                    {this.state.name}
+                </div>
                 <div style={{marginLeft: '48%', marginTop: '14%', position: 'absolute'}} className='username-display'> {this.state.username} </div>
                 <div style={{marginLeft: '48%', marginTop: '17%', position: 'absolute'}} className='blurb-display'> {this.state.blurb} </div>
                 <div style={{marginLeft: '48%', marginTop: '21%'}} className='username-display2'> {this.state.username} is down for... </div>
@@ -187,16 +212,16 @@ class Profile extends Component{
             <div style={{marginTop: '42%', marginLeft: '45%', position: 'absolute'}} className="justify-center"> <ThemeProvider theme={theme}> <Button variant={"contained"} onClick={()=>{this.setState({'view': true})}} theme={theme} color={"secondary"} style={style}> Save </Button> </ThemeProvider> </div>
             <div style={{marginTop: '45%', marginLeft: '46.5%', fontSize:15, textDecoration:'underline', position: 'absolute'}} className="message ph4 mt2" onClick={()=>{this.setState({view: 'true'})}}> cancel </div>
             <div>
-                <div style={{marginLeft: '45%', marginTop: '5.5%', position: 'absolute'}} className='title-display'> Edit Preferences </div> 
+                <div style={{marginLeft: '45%', marginTop: '5.5%', position: 'absolute'}} className='title-display'> Edit Preferences </div>
                 <form>
-                <div style={{marginLeft: '2.5%', position: 'absolute'}}> <EditLeftSide price={this.state.price} time={this.state.time} distance={this.state.distance}/> </div>
+                <div style={{marginLeft: '2.5%', position: 'absolute'}}> <EditLeftSide image={this.state.imgURL} price={this.state.price} time={this.state.time} distance={this.state.distance}/> </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '34.75%', marginTop: '10%', position: 'absolute'}}>
-                <img src={fork} className='category-img'/> 
+                <img src={fork} className='category-img'/>
                 {/*<div style={{marginLeft: '40%', marginTop: '25%', position: 'absolute'}} className='category-display'> Food </div>*/}
                 </div>
                 <div> <FoodOptions/> </div>
-                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '34.75%', marginTop: '30%', position: 'absolute'}}> 
-                <img src={drink} className='category-img'/> 
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '34.75%', marginTop: '30%', position: 'absolute'}}>
+                <img src={drink} className='category-img'/>
                 </div>
                 <div> <DrinkOptions/> </div>
                 {/*<div>
@@ -229,7 +254,7 @@ class LeftSide extends Component {
         return (
             <div>
                 <div style={{marginTop: '45%'}} className='gradient-box'>
-                <div style={{marginTop: '30px', marginLeft: '50px',position: 'absolute'}}> <img src={maged} className="profile-img"/> </div>
+                <div style={{marginTop: '30px', marginLeft: '50px',position: 'absolute'}}> <img src={this.props.image} className="profile-img"/> </div>
                 <div style={{marginTop: '200px', marginLeft: '70px', position: 'absolute'}}> <LogisticalPreferences price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
                 </div>
             </div>
@@ -305,7 +330,7 @@ class EditLeftSide extends Component {
         return (
             <div>
                 <div style={{marginTop: '45%'}} className='gradient-box'>
-                <div style={{marginTop: '30px', marginLeft: '50px',position: 'absolute'}}> <img src={maged} className="profile-img"/> </div>
+                <div style={{marginTop: '30px', marginLeft: '50px',position: 'absolute'}}> <img src={this.props.image} className="profile-img"/> </div>
                 <div style={{marginTop: '200px', marginLeft: '15px', position: 'absolute'}}> <EditLogisticalPreferences price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
                 </div>
             </div>
@@ -443,10 +468,10 @@ class PriceSlider extends React.Component {
 
 class FoodOptions extends React.Component {
     render() {
-        return( 
+        return(
              <div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '13%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="sushi_id" icon={<img src={sushi} className='checkbox-img'/>} checkedIcon={<img src={sushi} className='checked-img'/>}/>} label="Japanese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="sushi_id" icon={<img src={sushi} className='checkbox-img'/>} checkedIcon={<img src={sushi} className='checked-img'/>}/>} label="Japanese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="italian_id" icon={<img src={italian} className='checkbox-img'/>} checkedIcon={<img src={italian} className='checked-img'/>}/>} label="Italian&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="indian_id" icon={<img src={indian} className='checkbox-img'/>} checkedIcon={<img src={indian} className='checked-img'/>}/>} label="Indian"/> </ThemeProvider>
                 </div>
@@ -454,10 +479,6 @@ class FoodOptions extends React.Component {
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="pizza_id" icon={<img src={pizza} className='checkbox-img'/>} checkedIcon={<img src={pizza} className='checked-img'/>}/>} label="Pizza&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="falafel_id" icon={<img src={falafel} className='checkbox-img'/>} checkedIcon={<img src={falafel} className='checked-img'/>}/>} label="Mediterranean&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="thai_id" icon={<img src={thai} className='checkbox-img'/>} checkedIcon={<img src={thai} className='checked-img'/>}/>} label="Thai"/> </ThemeProvider>
-                </div>
-                <div className="topnav full-width-div">
-                    <div style={{float: 'right', marginRight: '2%', marginTop: '1%'}} onClick={() => fireAuth.signOut()}> <img src={logout} className='logout-img'/> </div>
-                    <div style={{float: 'right', marginRight: '2%', marginTop: '0.25%'}}> <img src={maged} className="thumbnail-img"/> </div>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '21%', position: 'absolute'}}>
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="korean_id" icon={<img src={bulgogi} className='checkbox-img'/>} checkedIcon={<img src={bulgogi} className='checked-img'/>}/>} label="Korean&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
@@ -476,15 +497,15 @@ class FoodOptions extends React.Component {
 
 class DrinkOptions extends React.Component {
     render() {
-        return( 
+        return(
             <div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '33%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="coffee_id" icon={<img src={coffee} className='checkbox-img'/>} checkedIcon={<img src={coffee} className='checked-img'/>}/>} label="Coffee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="coffee_id" icon={<img src={coffee} className='checkbox-img'/>} checkedIcon={<img src={coffee} className='checked-img'/>}/>} label="Coffee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="juice_id" icon={<img src={juice} className='checkbox-img'/>} checkedIcon={<img src={juice} className='checked-img'/>}/>} label="Juice/Smoothies"/> </ThemeProvider>
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="boba_id" icon={<img src={boba} className='checkbox-img'/>} checkedIcon={<img src={boba} className='checked-img'/>}/>} label="Boba"/> </ThemeProvider>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '37%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="beer_id" icon={<img src={beer} className='checkbox-img'/>} checkedIcon={<img src={beer} className='checked-img'/>}/>} label="Bars&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="beer_id" icon={<img src={beer} className='checkbox-img'/>} checkedIcon={<img src={beer} className='checked-img'/>}/>} label="Bars&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
                 </div>
             </div>
         );

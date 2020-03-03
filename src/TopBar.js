@@ -8,7 +8,7 @@ import maged from './img/maged.png';
 import logout from './img/arrow_white.png';
 import {db, storageRef} from './fireApi';
 
-import userData from './Home.js'
+import userData from './Home.js';
 
 /**
  *  Navigation bar to put at the top of each page to allow for navigation.
