@@ -16,9 +16,19 @@
     height:45px;
     padding:10px;
     font-size:20px;
-    font-family:'Raleway';
     color: #333;
+    font-family:'Raleway';
     border-bottom: 1px solid #CCC;
+}
+
+.selected:hover{
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.grey{
+    color:#CCC;
+    cursor:default;
 }
 
 .searchBox{

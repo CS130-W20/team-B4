@@ -41,7 +41,7 @@ export default class Card extends Component{
         const {imgURL, quote} = this.state;
         return(
             <Zoom>
-                <div className="pa4 ma3 flex card">
+                <div className="pa4 ma3 card">
                     <div className="flex flex-column items-center" style={{width:'100%'}}>
                         <div className="flex" style={{top:'-11px', position:'relative', width:'100%', "flex-direction": "row", "justify-content": "space-between"}}>
                             <CloseIcon style={{cursor: "pointer"}} onClick={()=>{this.props.deleteCard(this.props.data)}}/>

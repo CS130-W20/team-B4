@@ -93,18 +93,21 @@ export default class Home extends Component{
         this.state={
             showSearch: false,
             all: [],
-            users: [],
+            display: {},
             filter: '',
             searchVal: '',
             showSearch: false,
             searchFocus: false,
-            queryResult: null
+            queryResult: null,
         }
     }
 
     handleCardDelete = (card) => {
-      var newAll = this.state.all.filter((x) => {return x !== card;});
-      this.setState({all: newAll});
+        var s = this.state.display;
+        s[card.username] = false;
+        this.setState({display:s});
+      // var newAll = this.state.all.filter(x => x.username !== card.username);
+      // this.setState({all: newAll});
     }
 
     handleSearchBar = (e) => {
@@ -123,6 +126,12 @@ export default class Home extends Component{
         }
 
     }
+    addCard = (user)=>{
+        var s = this.state.display;
+        s[user.username]=true;
+        this.setState({display:s});
+
+    }
 
     componentWillMount(){
         db.collection("users").get().then((querySnapshot) => {
@@ -134,7 +143,11 @@ export default class Home extends Component{
             }).then((users)=>{
                 users.forEach((user)=>user.promise = this.getURL(user.pic));
                 this.setState({all:users});
+                var s = {};
+                this.state.all.forEach((user)=> {s[user.username]=true});
+                this.setState({display:s});
             })
+
         // var l = [];
         // this.state.all.forEach((user)=>{user.promise = this.getURL(user.pic); l.push(user)})
         // this.setState({all:l})
@@ -151,6 +164,13 @@ export default class Home extends Component{
         // }
     }
     getURL = (p) => storageRef.child(p).getDownloadURL();
+
+
+    genCards = ()=>{
+        var l = [];
+        this.state.all.forEach((u)=>{if(this.state.display[u.username]) l.push(<Card key={u.username}  data={u} imgURL = {this.getURL(u.pic)} deleteCard = {this.handleCardDelete}/>)});
+        return l;
+    }
 
     render(){
 
@@ -172,7 +192,7 @@ export default class Home extends Component{
             <div >
             <div> <TopBar/> </div>
                 <div className="flex justify-center" style={{paddingTop: 60}}>
-                    {this.state.all.map((u)=><Card data={u} imgURL = {this.getURL(u.pic)} deleteCard = {this.handleCardDelete}/>)}
+                    {this.genCards()}
                 </div>
                 <div style={{marginTop: '5%', left: '45%', position: 'absolute'}} className="justify-center">
                     <ThemeProvider theme={theme}>
@@ -182,7 +202,7 @@ export default class Home extends Component{
                         </div>
                     </ThemeProvider>
                 </div>
-                <SearchBar userData={this.state.all} inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
+                <SearchBar addCard={this.addCard} display={this.state.display} userData={this.state.all} inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
             </div>
         );
     }
