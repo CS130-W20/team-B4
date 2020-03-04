@@ -257,7 +257,7 @@ class RightSide extends Component {
                     <div style={{marginTop: '65px'}} className='row'>
                     {my_prefs.slice(4,7).map(  (item) => { return <div key={iconPrefMap[`${item}`]} style={{marginRight: '65px'}}> {<img src={iconPrefMap[`${item}`]} className="activity-img"/>} <div className="label"> {item} </div> </div> })}
                     <Popup trigger={<img src={dots} className="dots"/>} position="right center">
-                        <div> {my_prefs.slice(7,my_prefs.length).map( ({word, pic} ) => {return <div key={pic} className="tag-popup"> {word} </div>})} </div>
+                        <div> {my_prefs.slice(7,my_prefs.length).map( (item) => { return <div key={iconPrefMap[`${item}`]} style={{marginRight: '65px'}}> {<img src={iconPrefMap[`${item}`]} className="activity-img"/>} <div className="label"> {item} </div> </div> })} </div>
                     </Popup>
                     </div> ) : (
                     <div style={{marginTop: '65px'}} className='row'>
