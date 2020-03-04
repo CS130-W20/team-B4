@@ -128,7 +128,7 @@ class Profile extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            imgURL: null,
+            imgURL: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
             logged_in: props.location.state ? props.location.state.logged_in : false,
             edit: props.location.state ? props.location.state.edit : false,
             view: true,
@@ -229,7 +229,7 @@ class Profile extends Component{
                 </div>
                 <div> <DrinkOptions/> </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '69.75%', marginTop: '9.5%', position: 'absolute'}}>
-                <img src={active} className='category2-img'/> 
+                <img src={active} className='category2-img'/>
                 </div>
                 <div> <ActiveOptions/> </div>
                 {/*<div>
@@ -522,18 +522,18 @@ class DrinkOptions extends React.Component {
 
 class ActiveOptions extends React.Component {
     render() {
-        return( 
+        return(
             <div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '13%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="hiking_id" icon={<img src={hiking} className='checkbox-img'/>} checkedIcon={<img src={hiking} className='checked-img'/>}/>} label="Hiking&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="hiking_id" icon={<img src={hiking} className='checkbox-img'/>} checkedIcon={<img src={hiking} className='checked-img'/>}/>} label="Hiking&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="kayak_id" icon={<img src={kayak} className='checkbox-img'/>} checkedIcon={<img src={kayak} className='checked-img'/>}/>} label="Kayaking"/> </ThemeProvider>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '17%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="boat_id" icon={<img src={boat} className='checkbox-img'/>} checkedIcon={<img src={boat} className='checked-img'/>}/>} label="Boating&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="boat_id" icon={<img src={boat} className='checkbox-img'/>} checkedIcon={<img src={boat} className='checked-img'/>}/>} label="Boating&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="cyclingpaths_id" icon={<img src={bicycle} className='checkbox-img'/>} checkedIcon={<img src={bicycle} className='checked-img'/>}/>} label="Cycling Paths"/> </ThemeProvider>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '21%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="yoga_id" icon={<img src={yoga} className='checkbox-img'/>} checkedIcon={<img src={yoga} className='checked-img'/>}/>} label="Yoga&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="yoga_id" icon={<img src={yoga} className='checkbox-img'/>} checkedIcon={<img src={yoga} className='checked-img'/>}/>} label="Yoga&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="climbing_id" icon={<img src={climbing} className='checkbox-img'/>} checkedIcon={<img src={climbing} className='checked-img'/>}/>} label="Climbing"/> </ThemeProvider>
                 </div>
             </div>

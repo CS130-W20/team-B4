@@ -70,7 +70,7 @@ class App extends React.Component {
       return fireAuth.createUserWithEmailAndPassword(email, password).then(()=>{
           this.setState({error:''});
           fireAuth.signInWithEmailAndPassword(email, password).then(()=>{
-              return history.push("/confirmation");
+              return history.push("/home");
             }
           )
       }).catch((err)=>{console.log(err.message); this.setState({error: err.message})});
