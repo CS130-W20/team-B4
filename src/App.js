@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import './App.css';
 
 
-const ProtectedProfile = withAuthProtection("/landing")(Profile);
+const ProtectedProfile = withAuthProtection("/profile")(Profile);
 const ProtectedHome = withAuthProtection("/home")(Home);
 
 /**

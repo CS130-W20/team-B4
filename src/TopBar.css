@@ -9,10 +9,18 @@
   margin-right: 0px;
 
   position: absolute;
+}
 
+.topbar-logo {
   font-family: Bebas Neue;
   font-size: 40px;
 }
+
+.topbar-signup {
+  font-family: Raleway;
+  font-size: 20px;
+}
+
 
 .thumbnail-img-top {
     height: 50px;
