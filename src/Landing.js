@@ -27,7 +27,7 @@ class Landing extends React.Component {
             </div>
             <div className="mv3 flex justify-center" style={{fontSize:16, color:"#1D3756", 'font-family': "Raleway"}}>or</div>
             <div className="mv3 flex justify-center" style={{fontSize:20, textDecoration:'underline', color:"#888", 'font-family': "Raleway"}}>
-                 <Link style={{color:"#1D3756"}} to="/">{'Continue as guest'}</Link>
+                 <Link style={{color:"#1D3756"}} to="/home">{'Continue as guest'}</Link>
             </div>
         </div>
       </div>
