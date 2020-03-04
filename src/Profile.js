@@ -100,32 +100,7 @@ class Profile extends Component{
             name: '',
             username: "",
             blurb: "",
-            my_prefs: ['boba', 'coffee', 'cycling', 'museum', 'beach', 'japanese', 'kayak', 'chinese', 'hiking'],
-            my_pref_map: {
-                'italian': false,
-                'japanese': true,
-                'chinese': true,
-                'boba': true,
-                'coffee': true,
-                'cycling': true,
-                'beach': true,
-                'kayak': true,
-                'hiking': true,
-                'museum': true
-            },
-            pref_map: {
-                'boba': iconPrefMap.boba,
-                'italian': iconPrefMap.italian,
-                'coffee': iconPrefMap.coffee,
-                'cycling': iconPrefMap.bicycle,
-                'museum': iconPrefMap.museum,
-                'beach': iconPrefMap.beach,
-                'japanese': iconPrefMap.sushi,
-                'kayak': iconPrefMap.kayak,
-                'chinese': iconPrefMap.chinese,
-                'hiking': iconPrefMap.hiking
-            },
-            my_pref_map: [],
+            my_prefs: [],
             price: 60,
             time: [19, 21],
             distance: 30
@@ -147,12 +122,16 @@ class Profile extends Component{
               querySnapshot.forEach((doc)=>{
                   var curData = new userData(doc.data());
                   if(curData.props.email !== undefined && curData.props.email == fireAuth.currentUser.email){
-                    this.getURL(curData.props.pic).then((url)=>{this.setState(
-                      {imgURL: url,
+                    this.getURL(curData.props.pic).then((url)=>{
+                      this.setState({imgURL: url});
+                    });
+                    this.setState(
+                      {
                         name: curData.props.name,
                         username: '@'+curData.props.username,
-                        blurb: curData.props.quote
-                      })});
+                        blurb: curData.props.quote,
+                        my_prefs: curData.props.preferences,
+                      });
                   }
                 });
           });
@@ -173,7 +152,7 @@ class Profile extends Component{
                 <div style={{marginLeft: '48%', marginTop: '14%', position: 'absolute'}} className='username-display'> {this.state.username} </div>
                 <div style={{marginLeft: '48%', marginTop: '17%', position: 'absolute'}} className='blurb-display'> {this.state.blurb} </div>
                 <div style={{marginLeft: '48%', marginTop: '21%'}} className='username-display2'> {this.state.username} is down for... </div>
-                <div style={{marginLeft: '48%', marginTop: '24%', position: 'absolute'}}> <RightSide my_prefs={this.state.my_prefs} pref_map={this.state.my_pref_map}/> </div>
+                <div style={{marginLeft: '48%', marginTop: '24%', position: 'absolute'}}> <RightSide my_prefs={this.state.my_prefs} /> </div>
             </div>
             :
             <div>
@@ -266,27 +245,23 @@ class LogisticalPreferences extends React.Component {
  */
 class RightSide extends Component {
     render() {
-        const name = "Maged Elaasar";
-        const username = "@maged_elaasar";
-        const blurb = "The first and third days after weekends are the hardest.";
         const my_prefs = this.props.my_prefs;
-        const pref_map = this.props.pref_map;
         const manyPrefs = (my_prefs.length > 8);
         return (
             <div>
                 <div className='row'> {
-                    pref_map.slice(0,4).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '65px'}}> {<img src={pic} className="activity-img"/>} <div className="label"> {word} </div> </div> })
+                    my_prefs.slice(0,4).map( (item) => { return <div key={iconPrefMap[`${item}`]} style={{marginRight: '65px'}}> {<img src={iconPrefMap[`${item}`]} className="activity-img"/>} <div className="label"> {item} </div> </div> })
                 } </div>
                 <div>
                     { manyPrefs ? (
                     <div style={{marginTop: '65px'}} className='row'>
-                    {pref_map.slice(4,7).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '65px'}}> {<img src={pic} className="activity-img"/>} <div className="label"> {word} </div> </div> })}
+                    {my_prefs.slice(4,7).map(  (item) => { return <div key={iconPrefMap[`${item}`]} style={{marginRight: '65px'}}> {<img src={iconPrefMap[`${item}`]} className="activity-img"/>} <div className="label"> {item} </div> </div> })}
                     <Popup trigger={<img src={dots} className="dots"/>} position="right center">
-                        <div> {pref_map.slice(7,pref_map.length).map( ({word, pic} ) => {return <div key={pic} className="tag-popup"> {word} </div>})} </div>
+                        <div> {my_prefs.slice(7,my_prefs.length).map( ({word, pic} ) => {return <div key={pic} className="tag-popup"> {word} </div>})} </div>
                     </Popup>
                     </div> ) : (
                     <div style={{marginTop: '65px'}} className='row'>
-                    {pref_map.slice(4,8).map( ({word, pic}) => { return <div key={pic} style={{marginRight: '65px'}}> {<img src={pic} className="activity-img"/>} <div className="label"> {word} </div> </div> })}
+                    {my_prefs.slice(4,8).map(  (item) => { return <div key={iconPrefMap[`${item}`]} style={{marginRight: '65px'}}> {<img src={iconPrefMap[`${item}`]} className="activity-img"/>} <div className="label"> {item} </div> </div> })}
                     </div>)}
                 </div>
             </div>
