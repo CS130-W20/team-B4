@@ -36,6 +36,7 @@ import grey_circle from './img/circle_grey.png';
 import fork from './img/fork2.png';
 import drink from './img/coffee-cup.png';
 import active from './img/shoes2.png';
+import misc from './img/misc.png';
 
 /* activity icons */
 /* food icons */
@@ -52,18 +53,17 @@ import american from './img/sandwich.png';
 import vegan from './img/leaf.png';
 import indian from './img/samosa.png';
 import thai from './img/tom-yum.png';
-import juice from './img/watermelon.png';
-import beer from './img/beer.png';
 
 
 /* drink icons */
 import boba from './img/boba.png';
 import coffee from './img/coffee-cup2.png';
+import juice from './img/watermelon.png';
+import beer from './img/beer.png';
 
 /* outdoors icons */
 import bicycle from './img/bicycle.png';
 import boat from './img/boat.png';
-import beach from './img/beach.png';
 import kayak from './img/kayak.png';
 import hiking from './img/mountains.png';
 import yoga from './img/wellness.png';
@@ -71,6 +71,11 @@ import climbing from './img/rock-climbing.png';
 
 /* misc activity icons */
 import museum from './img/museum.png';
+import beach from './img/beach.png';
+import cinema from './img/cinema.png';
+import zoo from './img/giraffe.png';
+import arcade from './img/arcade-game.png';
+import shopping from './img/credit-card.png';
 
 const theme = createMuiTheme({
     palette: {
@@ -136,30 +141,33 @@ class Profile extends Component{
             name: '',
             username: "",
             blurb: "",
-            my_prefs: ['boba', 'coffee', 'cycling', 'museum', 'beach', 'japanese', 'kayak', 'chinese', 'hiking'],
-            my_pref_map: {
-                'italian': false,
-                'japanese': true,
-                'chinese': true,
-                'boba': true,
-                'coffee': true,
-                'cycling': true,
-                'beach': true,
-                'kayak': true,
-                'hiking': true,
-                'museum': true
-            },
+            my_prefs: ['boba', 'coffee', 'cycling', 'museum', 'beach', 'japanese', 'kayaking', 'chinese', 'hiking'],
             pref_map: {
-                'boba': boba,
                 'italian': italian,
+                'japanese': sushi,
+                'chinese': chinese,
+                'pizza': pizza,
+                'mediterranean': falafel, 
+                'mexican': taco,
+                'korean': bulgogi,
+                'fast_food': corn_dog,
+                'dessert': ice_cream,
+                'american': american,
+                'vegan': vegan,
+                'indian': indian,
+                'thai': thai,
+                'boba': boba,
                 'coffee': coffee,
+                'juice': juice,
+                'bars': beer,
                 'cycling': bicycle,
+                'boating': boat,
+                'kayaking': kayak,
+                'hiking': hiking,
+                'yoga': yoga,
+                'climbing': climbing,
                 'museum': museum,
                 'beach': beach,
-                'japanese': sushi,
-                'kayak': kayak,
-                'chinese': chinese,
-                'hiking': hiking
             },
             my_pref_map: [],
             price: 60,
@@ -194,6 +202,11 @@ class Profile extends Component{
           });
     }
 
+
+    handleSubmit(event) {
+        event.preventDefault();
+    }
+
     render() {
         const self = this;
         return (
@@ -217,34 +230,26 @@ class Profile extends Component{
             <div style={{marginTop: '45%', marginLeft: '46.5%', fontSize:15, textDecoration:'underline', position: 'absolute'}} className="message ph4 mt2" onClick={()=>{this.setState({view: 'true'})}}> cancel </div>
             <div>
                 <div style={{marginLeft: '45%', marginTop: '5.5%', position: 'absolute'}} className='title-display'> Edit Preferences </div>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                 <div style={{marginLeft: '2.5%', position: 'absolute'}}> <EditLeftSide image={this.state.imgURL} price={this.state.price} time={this.state.time} distance={this.state.distance}/> </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '34.75%', marginTop: '10%', position: 'absolute'}}>
                 <img src={fork} className='category-img'/>
                 {/*<div style={{marginLeft: '40%', marginTop: '25%', position: 'absolute'}} className='category-display'> Food </div>*/}
                 </div>
-                <div> <FoodOptions/> </div>
+                <div> <FoodOptions my_prefs={this.state.my_prefs}/> </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '34.75%', marginTop: '30%', position: 'absolute'}}>
                 <img src={drink} className='category-img'/>
                 </div>
-                <div> <DrinkOptions/> </div>
+                <div> <DrinkOptions my_prefs={this.state.my_prefs}/> </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '69.75%', marginTop: '9.5%', position: 'absolute'}}>
                 <img src={active} className='category2-img'/> 
                 </div>
-                <div> <ActiveOptions/> </div>
-                {/*<div>
-                    {this.state.edit_pg1 ?
-                    <div>
-                        <div style={{marginTop: '40%', marginLeft: '49%', position: 'absolute'}}> <img src={blue_circle} className='circle-img'/> </div>
-                        <div style={{marginTop: '40%', marginLeft: '51%', position: 'absolute'}} onClick={()=>{this.setState({edit_pg1: 'false'})}}> <img src={grey_circle} className='circle-img'/> </div>
-                    </div>
-                    :
-                    <div>
-                        <div style={{marginTop: '40%', marginLeft: '49%', position: 'absolute'}} onClick={()=>{this.setState({edit_pg1: 'true'})}}> <img src={grey_circle} className='circle-img'/> </div>
-                        <div style={{marginTop: '40%', marginLeft: '51%', position: 'absolute'}}> <img src={blue_circle} className='circle-img'/> </div>
-                    </div>}
-                </div>*/}
-                <div style={{marginTop: '42%', marginLeft: '45%', position: 'absolute'}} className="justify-center"> <ThemeProvider theme={theme}> <Button variant={"contained"} onClick={()=>{this.setState({'view': true})}} theme={theme} color={"secondary"} style={style}> Save </Button> </ThemeProvider> </div>
+                <div> <ActiveOptions my_prefs={this.state.my_prefs}/> </div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '69.75%', marginTop: '26%', position: 'absolute'}}>
+                <img src={misc} className='category3-img'/> 
+                </div>
+                <div> <MiscOptions my_prefs={this.state.my_prefs}/> </div>
+                <div style={{marginTop: '42%', marginLeft: '45%', position: 'absolute'}} className="justify-center"> <ThemeProvider theme={theme}> <Button type={"submit"} variant={"contained"} onClick={()=>{this.setState({'view': true})}} theme={theme} color={"secondary"} style={style}> Save </Button> </ThemeProvider> </div>
                 <div style={{marginTop: '45%', marginLeft: '46.5%', fontSize:15, textDecoration:'underline', position: 'absolute'}} className="message ph4 mt2" onClick={()=>{this.setState({view: 'true'})}}> cancel </div>
                 </form>
             </div>
@@ -474,29 +479,52 @@ class PriceSlider extends React.Component {
     }
 }
 
+/*
+ * Display/modify the available food activity options.
+*/
 class FoodOptions extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            checkedValues: this.props.my_prefs, 
+            italian: false, 
+        }
+    }
+
+    handleCheck(x) {
+        this.state.checkedValues.includes(`${x}`) ? this.setState(state => {
+            const checkedValues = state.checkedValues.filter(c => c !== `${x}`);
+            return { checkedValues,};
+        }) : this.setState(state => {
+            const checkedValues = state.checkedValues.concat(`${x}`);
+            return { checkedValues,};
+        })
+        console.log(x);
+        console.log(this.state.checkedValues);
+    }
+
     render() {
         return(
              <div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '13%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="sushi_id" icon={<img src={sushi} className='checkbox-img'/>} checkedIcon={<img src={sushi} className='checked-img'/>}/>} label="Japanese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="italian_id" icon={<img src={italian} className='checkbox-img'/>} checkedIcon={<img src={italian} className='checked-img'/>}/>} label="Italian&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="indian_id" icon={<img src={indian} className='checkbox-img'/>} checkedIcon={<img src={indian} className='checked-img'/>}/>} label="Indian"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('japanese')} onChange={() => this.handleCheck('japanese')} icon={<img src={sushi} className='checkbox-img'/>} checkedIcon={<img src={sushi} className='checked-img'/>}/>} label="Japanese&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('italian')} onChange={() => this.handleCheck('italian')} id="italian_id" icon={<img src={italian} className='checkbox-img'/>} checkedIcon={<img src={italian} className='checked-img'/>}/>} label="Italian&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('indian')} onChange={() => this.handleCheck('indian')} id="indian_id" icon={<img src={indian} className='checkbox-img'/>} checkedIcon={<img src={indian} className='checked-img'/>}/>} label="Indian"/> </ThemeProvider>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '17%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="pizza_id" icon={<img src={pizza} className='checkbox-img'/>} checkedIcon={<img src={pizza} className='checked-img'/>}/>} label="Pizza&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="falafel_id" icon={<img src={falafel} className='checkbox-img'/>} checkedIcon={<img src={falafel} className='checked-img'/>}/>} label="Mediterranean&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="thai_id" icon={<img src={thai} className='checkbox-img'/>} checkedIcon={<img src={thai} className='checked-img'/>}/>} label="Thai"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('pizza')} onChange={() => this.handleCheck('pizza')} id="pizza_id" icon={<img src={pizza} className='checkbox-img'/>} checkedIcon={<img src={pizza} className='checked-img'/>}/>} label="Pizza&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('mediterranean')} onChange={() => this.handleCheck('mediterranean')} id="falafel_id" icon={<img src={falafel} className='checkbox-img'/>} checkedIcon={<img src={falafel} className='checked-img'/>}/>} label="Mediterranean&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('thai')} onChange={() => this.handleCheck('thai')} id="thai_id" icon={<img src={thai} className='checkbox-img'/>} checkedIcon={<img src={thai} className='checked-img'/>}/>} label="Thai"/> </ThemeProvider>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '21%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="korean_id" icon={<img src={bulgogi} className='checkbox-img'/>} checkedIcon={<img src={bulgogi} className='checked-img'/>}/>} label="Korean&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="mexican_id" icon={<img src={taco} className='checkbox-img'/>} checkedIcon={<img src={taco} className='checked-img'/>}/>} label="Mexican&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="american_id" icon={<img src={american} className='checkbox-img'/>} checkedIcon={<img src={american} className='checked-img'/>}/>} label="American"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('korean')} onChange={() => this.handleCheck('korean')} id="korean_id" icon={<img src={bulgogi} className='checkbox-img'/>} checkedIcon={<img src={bulgogi} className='checked-img'/>}/>} label="Korean&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('mexican')} onChange={() => this.handleCheck('mexican')} id="mexican_id" icon={<img src={taco} className='checkbox-img'/>} checkedIcon={<img src={taco} className='checked-img'/>}/>} label="Mexican&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('american')} onChange={() => this.handleCheck('american')} id="american_id" icon={<img src={american} className='checkbox-img'/>} checkedIcon={<img src={american} className='checked-img'/>}/>} label="American"/> </ThemeProvider>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '25%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="fastfood_id" icon={<img src={corn_dog} className='checkbox-img'/>} checkedIcon={<img src={corn_dog} className='checked-img'/>}/>} label="Fast food&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="icecream_id" icon={<img src={ice_cream} className='checkbox-img'/>} checkedIcon={<img src={ice_cream} className='checked-img'/>}/>} label="Dessert&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="vegan_id" icon={<img src={vegan} className='checkbox-img'/>} checkedIcon={<img src={vegan} className='checked-img'/>}/>} label="Vegan"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('fast_food')} onChange={() => this.handleCheck('fast_food')} icon={<img src={corn_dog} className='checkbox-img'/>} checkedIcon={<img src={corn_dog} className='checked-img'/>}/>} label="Fast food&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('dessert')} onChange={() => this.handleCheck('dessert')} icon={<img src={ice_cream} className='checkbox-img'/>} checkedIcon={<img src={ice_cream} className='checked-img'/>}/>} label="Dessert&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('vegan')} onChange={() => this.handleCheck('vegan')} icon={<img src={vegan} className='checkbox-img'/>} checkedIcon={<img src={vegan} className='checked-img'/>}/>} label="Vegan"/> </ThemeProvider>
                 </div>
             </div>
         );
@@ -504,16 +532,33 @@ class FoodOptions extends React.Component {
 }
 
 class DrinkOptions extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            checkedValues: this.props.my_prefs, 
+        }
+    }
+    handleCheck(x) {
+        this.state.checkedValues.includes(`${x}`) ? this.setState(state => {
+            const checkedValues = state.checkedValues.filter(c => c !== `${x}`);
+            return { checkedValues,};
+        }) : this.setState(state => {
+            const checkedValues = state.checkedValues.concat(`${x}`);
+            return { checkedValues,};
+        })
+        console.log(x);
+        console.log(this.state.checkedValues);
+    }
     render() {
         return(
             <div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '33%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="coffee_id" icon={<img src={coffee} className='checkbox-img'/>} checkedIcon={<img src={coffee} className='checked-img'/>}/>} label="Coffee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="juice_id" icon={<img src={juice} className='checkbox-img'/>} checkedIcon={<img src={juice} className='checked-img'/>}/>} label="Juice/Smoothies"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="boba_id" icon={<img src={boba} className='checkbox-img'/>} checkedIcon={<img src={boba} className='checked-img'/>}/>} label="Boba"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('coffee')} onChange={() => this.handleCheck('coffee')} id="coffee_id" icon={<img src={coffee} className='checkbox-img'/>} checkedIcon={<img src={coffee} className='checked-img'/>}/>} label="Coffee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('juice')} onChange={() => this.handleCheck('juice')} id="juice_id" icon={<img src={juice} className='checkbox-img'/>} checkedIcon={<img src={juice} className='checked-img'/>}/>} label="Juice/Smoothies"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('boba')} onChange={() => this.handleCheck('boba')} id="boba_id" icon={<img src={boba} className='checkbox-img'/>} checkedIcon={<img src={boba} className='checked-img'/>}/>} label="Boba"/> </ThemeProvider>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '37%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="beer_id" icon={<img src={beer} className='checkbox-img'/>} checkedIcon={<img src={beer} className='checked-img'/>}/>} label="Bars&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('bars')} onChange={() => this.handleCheck('bars')} id="beer_id" icon={<img src={beer} className='checkbox-img'/>} checkedIcon={<img src={beer} className='checked-img'/>}/>} label="Bars&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
                 </div>
             </div>
         );
@@ -521,24 +566,78 @@ class DrinkOptions extends React.Component {
 }
 
 class ActiveOptions extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            checkedValues: this.props.my_prefs, 
+        }
+    }
+    handleCheck(x) {
+        this.state.checkedValues.includes(`${x}`) ? this.setState(state => {
+            const checkedValues = state.checkedValues.filter(c => c !== `${x}`);
+            return { checkedValues,};
+        }) : this.setState(state => {
+            const checkedValues = state.checkedValues.concat(`${x}`);
+            return { checkedValues,};
+        })
+        console.log(x);
+        console.log(this.state.checkedValues);
+    }
     render() {
         return( 
             <div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '13%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="hiking_id" icon={<img src={hiking} className='checkbox-img'/>} checkedIcon={<img src={hiking} className='checked-img'/>}/>} label="Hiking&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="kayak_id" icon={<img src={kayak} className='checkbox-img'/>} checkedIcon={<img src={kayak} className='checked-img'/>}/>} label="Kayaking"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('hiking')} onChange={() => this.handleCheck('hiking')} id="hiking_id" icon={<img src={hiking} className='checkbox-img'/>} checkedIcon={<img src={hiking} className='checked-img'/>}/>} label="Hiking&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('kayaking')} onChange={() => this.handleCheck('kayaking')} id="kayak_id" icon={<img src={kayak} className='checkbox-img'/>} checkedIcon={<img src={kayak} className='checked-img'/>}/>} label="Kayaking"/> </ThemeProvider>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '17%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="boat_id" icon={<img src={boat} className='checkbox-img'/>} checkedIcon={<img src={boat} className='checked-img'/>}/>} label="Boating&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="cyclingpaths_id" icon={<img src={bicycle} className='checkbox-img'/>} checkedIcon={<img src={bicycle} className='checked-img'/>}/>} label="Cycling Paths"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('boating')} onChange={() => this.handleCheck('boating')} id="boat_id" icon={<img src={boat} className='checkbox-img'/>} checkedIcon={<img src={boat} className='checked-img'/>}/>} label="Boating&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('cycling')} onChange={() => this.handleCheck('cycling')} id="cyclingpaths_id" icon={<img src={bicycle} className='checkbox-img'/>} checkedIcon={<img src={bicycle} className='checked-img'/>}/>} label="Cycling Paths"/> </ThemeProvider>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '21%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="yoga_id" icon={<img src={yoga} className='checkbox-img'/>} checkedIcon={<img src={yoga} className='checked-img'/>}/>} label="Yoga&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox id="climbing_id" icon={<img src={climbing} className='checkbox-img'/>} checkedIcon={<img src={climbing} className='checked-img'/>}/>} label="Climbing"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('yoga')} onChange={() => this.handleCheck('yoga')} id="yoga_id" icon={<img src={yoga} className='checkbox-img'/>} checkedIcon={<img src={yoga} className='checked-img'/>}/>} label="Yoga&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('climbing')} onChange={() => this.handleCheck('climbing')} id="climbing_id" icon={<img src={climbing} className='checkbox-img'/>} checkedIcon={<img src={climbing} className='checked-img'/>}/>} label="Climbing"/> </ThemeProvider>
                 </div>
             </div>
         );
     }
 }
 
+class MiscOptions extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            checkedValues: this.props.my_prefs, 
+        }
+    }
+    handleCheck(x) {
+        this.state.checkedValues.includes(`${x}`) ? this.setState(state => {
+            const checkedValues = state.checkedValues.filter(c => c !== `${x}`);
+            return { checkedValues,};
+        }) : this.setState(state => {
+            const checkedValues = state.checkedValues.concat(`${x}`);
+            return { checkedValues,};
+        })
+        console.log(x);
+        console.log(this.state.checkedValues);
+    }
+    render() {
+        return( 
+            <div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '30%', position: 'absolute'}}>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('museum')} onChange={() => this.handleCheck('museum')} icon={<img src={museum} className='checkbox-img'/>} checkedIcon={<img src={museum} className='checked-img'/>}/>} label="Museum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('beach')} onChange={() => this.handleCheck('beach')} icon={<img src={beach} className='checkbox-img'/>} checkedIcon={<img src={beach} className='checked-img'/>}/>} label="Beach"/> </ThemeProvider>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '34%', position: 'absolute'}}>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('cinema')} onChange={() => this.handleCheck('cinema')} icon={<img src={cinema} className='checkbox-img'/>} checkedIcon={<img src={cinema} className='checked-img'/>}/>} label="Cinema&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('zoo')} onChange={() => this.handleCheck('zoo')} icon={<img src={zoo} className='checkbox-img'/>} checkedIcon={<img src={zoo} className='checked-img'/>}/>} label="Zoo/Aquarium"/> </ThemeProvider>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '38%', position: 'absolute'}}>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('arcade')} onChange={() => this.handleCheck('arcade')} icon={<img src={arcade} className='checkbox-img'/>} checkedIcon={<img src={arcade} className='checked-img'/>}/>} label="Arcade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider> 
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('shopping')} onChange={() => this.handleCheck('shopping')} icon={<img src={shopping} className='checkbox-img'/>} checkedIcon={<img src={shopping} className='checked-img'/>}/>} label="Shopping"/> </ThemeProvider>
+                </div>
+            </div>
+        );
+    }
+}
 export default withRouter(Profile);
