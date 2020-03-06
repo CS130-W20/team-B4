@@ -3,7 +3,9 @@
     text-align: center;
     font-size:70px;
     margin-bottom:10px;
-    color: rgb(125, 71, 0);
+    color: rgb(90, 51, 0);
+    text-shadow: 1px 3px 10px rgb(125, 71, 0, .5);
+    /*color: #005DCB;*/
 }
 
 .background{
@@ -24,7 +26,7 @@
 .box-suggestion{
     width: 50%;
     height: 70%;
-    background-image: linear-gradient(white, rgb(247, 169, 123));
+    background-image: linear-gradient(rgb(255, 249, 244), rgb(247, 169, 123));
 
     position: absolute;
     top: 50%;
@@ -33,4 +35,12 @@
     transform: translate(-50%, -50%);
     border-radius: 25px;
     box-shadow: 6px 6px 20px rgb(82, 58, 42, 0.5);
+}
+
+.yelp-box{
+    background-image: linear-gradient(rgb(255, 212, 212), rgb(224, 0, 0));
+    margin-right: 30px;
+    width: 30%;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px rgb(82, 58, 42, 0.5);
 }
