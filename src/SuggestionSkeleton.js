@@ -24,8 +24,8 @@ export default class Suggestion extends Component {
                     <div style={{ marginLeft: '1%', marginTop: '4.5%', position: 'absolute' }}
                         onClick={() => { this.setState({ 'view': false }) }}> <img src={edit} className='edit-img' />
                     </div>
-                    <div className="justify-center" style={{ paddingTop: 20 }}>
-                        <img className="suggestion-image" src={thai} alt="" width="260" height="260" />
+                    <div className="justify-center" style={{ paddingTop: 30 }}>
+                        <img className="suggestion-image" src={thai} alt="" width="260" height="260" style={{borderStyle: "solid", borderRadius: "25px"}}/>
                         {/*TODO: change image to match desired location*/}
                     </div>
                     <div className="suggestion-name">Emporium Thai</div>
@@ -39,9 +39,11 @@ export default class Suggestion extends Component {
                                 <div style={{ fontFamily: "Raleway", fontSize: 20, color: "white"}}>106 reviews</div>
                             </div>
                         </div>
-                        <div style={{ fontWeight: "bold", fontFamily: "Raleway", fontSize: 35 }}>$$</div>
+                        <div style={{ fontWeight: "bold", fontFamily: "Raleway", fontSize: 35, color: "rgb(125, 71, 0)" }}>$$</div>
                         {/*TODO: num dollar signs should match destination price*/}
-                        <div style={{ fontWeight: "bold", fontFamily: "Raleway", fontSize: 30, paddingLeft: 30 }}>Thai Restaurant</div>
+                        <div style={{ fontWeight: "bold", fontFamily: "Raleway", fontSize: 30, paddingLeft: 30, 
+                            color: "rgb(125, 71, 0)" }}>Thai Restaurant
+                        </div>
                     </div>
                 </div>
                 <img src={background} className="background"></img>
