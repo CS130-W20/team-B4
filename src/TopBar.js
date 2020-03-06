@@ -18,22 +18,26 @@ class TopBar extends Component {
     constructor(props){
       super(props);
       this.state={
-          imgURL: null,
+          imgURL: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
           currentUserData: null,
+          isLoggedIn: false
       }
     }
 
     getURL = (p) => storageRef.child(p).getDownloadURL();
 
     componentWillMount(){
-      db.collection("users").get().then((querySnapshot) => {
-              querySnapshot.forEach((doc)=>{
-                  var curData = new userData(doc.data());
-                  if(curData.props.email !== undefined && curData.props.email == fireAuth.currentUser.email){
-                    this.getURL(curData.props.pic).then((url)=>{this.setState({imgURL: url, currentUserData: curData})});
-                  }
-                });
-          });
+      if(fireAuth.currentUser !== null) {
+          this.state.isLoggedIn = true;
+          db.collection("users").get().then((querySnapshot) => {
+                  querySnapshot.forEach((doc)=>{
+                      var curData = new userData(doc.data());
+                      if(curData.props.email !== undefined && curData.props.email == fireAuth.currentUser.email){
+                        this.getURL(curData.props.pic).then((url)=>{this.setState({imgURL: url, currentUserData: curData})});
+                      }
+                    });
+              });
+        }
     }
 
 
@@ -42,19 +46,26 @@ class TopBar extends Component {
             <div>
                 <div className="topbar full-width-div">
                     <div style={{float: 'left', marginLeft: '2%', marginTop: '0.35%'}}>
-                        <Link to="/" style={{ textDecoration: 'none', color: '#FFFFFF' }}>
+                        <Link className='topbar-logo' to="/home" style={{ textDecoration: 'none', color: '#FFFFFF' }}>
                           {'Adventum'}
                         </Link>
                     </div>
                     <div style={{float: 'right', marginRight: '2%', marginTop: '1%'}} onClick={() => fireAuth.signOut()}>
-                        <Link to="/landing">
+                        <Link to="/">
                           <img src={logout} className='logout-img'/>
                         </Link>
                     </div>
                     <div style={{float: 'right', marginRight: '2%', marginTop: '0.25%'}}>
+                    {this.state.isLoggedIn ?
                         <Link to="/profile">
                              <img src={this.state.imgURL} className="thumbnail-img-top"/>
-                        </Link>
+                        </Link> :
+                        <div style={{marginTop: '20%'}}>
+                          <Link className='topbar-signup' to={{pathname: "/login", state:{login:false}}} style={{ textDecoration: 'none', color: '#FFFFFF' }}>
+                          {"Sign Up"}
+                          </Link>
+                        </div>
+                    }
                     </div>
                 </div>
             </div>

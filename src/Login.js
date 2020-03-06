@@ -88,7 +88,7 @@ class Login extends React.Component {
         <div className="login" style={{textAlign:'left'}}>
           <div className="box pa5">
             <div style={{fontSize:20, 'font-family': 'Raleway'}}>
-                <Link to="/landing" style={{textDecoration: 'none'}}>{'< Back'}</Link>
+                <Link to="/" style={{textDecoration: 'none'}}>{'< Back'}</Link>
             </div>
             <div className="logo">Adventum</div>
             <form

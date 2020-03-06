@@ -12,8 +12,8 @@ import Typography from "@material-ui/core/Typography";
 import './App.css';
 
 
-const ProtectedProfile = withAuthProtection("/landing")(Profile);
-const ProtectedHome = withAuthProtection("/")(Home);
+const ProtectedProfile = withAuthProtection("/profile")(Profile);
+const ProtectedHome = withAuthProtection("/home")(Home);
 
 /**
  *    Displays confirmation message on successful account creation.
@@ -25,13 +25,13 @@ const Confirmation = props =>{
                 <Typography variant="h5" style={{ marginBottom: 24 }}>
                 Sign up successful!
                 </Typography>
-                Go back to the <Link to="/landing"> landing </Link> page or view your <Link to="/profile"> profile </Link>
+                Go back to the <Link to="/"> landing </Link> page or view your <Link to="/profile"> profile </Link>
             </div>
         </div>)
     ;
 
 }
-const ProtectedConfirmation = withAuthProtection("/landing")(Confirmation);
+const ProtectedConfirmation = withAuthProtection("/")(Confirmation);
 
 /**
  *    Wrapper for app. Contains routing information for all pages in our app.
@@ -62,7 +62,7 @@ class App extends React.Component {
   handleSignIn = history => (email, password) => {
     return fireAuth.signInWithEmailAndPassword(email, password).then(() => {
           this.setState({error:''});
-      return history.push("/");
+      return history.push("/home");
   }).catch((err)=>{console.log(err.message); this.setState({error: err.message})});
   };
 
@@ -70,7 +70,7 @@ class App extends React.Component {
       return fireAuth.createUserWithEmailAndPassword(email, password).then(()=>{
           this.setState({error:''});
           fireAuth.signInWithEmailAndPassword(email, password).then(()=>{
-              return history.push("/confirmation");
+              return history.push("/home");
             }
           )
       }).catch((err)=>{console.log(err.message); this.setState({error: err.message})});
@@ -83,7 +83,7 @@ class App extends React.Component {
         <div className="App">
           <BrowserRouter>
             <Switch>
-              <Route path="/" exact
+              <Route path="/home" exact
                 render={props => (
                     <div style={{backgroundColor:'#EEE', height:'100%'}}>
                     <ProtectedHome {...props} me={me} displayName={email} />
@@ -107,7 +107,7 @@ class App extends React.Component {
                   </div>
                 )}
               />
-              <Route path="/landing" exact
+              <Route path="/" exact
                  render={() => (
                   <div>
                     <Landing />
