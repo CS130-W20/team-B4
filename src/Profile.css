@@ -86,9 +86,13 @@
 
 .preview-profile-img {
     background-size: cover;
+    object-fit: cover;
+    background-position: center;
     /*display: block;*/
-    width: 45%;
-    border-radius: 100%;
+    width: 140px;
+    height: 140px;
+    overflow: hidden;
+    border-radius: 50%;
     /*-webkit-border-radius: 300px;
     -moz-border-radius: 300px;*/
     /*margin-top: 200px;*/

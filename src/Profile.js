@@ -24,9 +24,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import TableRow from "@material-ui/core/TableRow";
 import FormGroup from "@material-ui/core/FormGroup";
-import Upload from "material-ui-upload/Upload";
 import TextField from "@material-ui/core/TextField";
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 /* misc icons */
 import clock from './img/clock.png';
@@ -65,6 +66,11 @@ const theme = createMuiTheme({
                 fontFamily: 'Raleway',
             },
         },
+        MuiSlider: {
+            rail: { 
+                color: '#448aff',
+            },
+        }
     }
 });
 
@@ -278,15 +284,32 @@ class RightSide extends Component {
  *  Price, time, distance
  */
 class EditLeftSide extends Component {
-    onFileLoad = (e, file) => console.log(e.target.result, file.name);
+    constructor(props) {
+        super(props);
+        this.state = {
+            picture: this.props.image,
+        }
+        this.upload = this.upload.bind(this);
+    }
+
+    upload(e) {
+        this.setState({picture: URL.createObjectURL(e.target.files[0])});
+        console.log(this.state.picture);
+    }   
 
     render() {
         return (
             <div>
                 <div style={{marginTop: '35%'}} className='gradient-box'>
-                <div className="flex flex-column items-center" style={{marginTop: '5%', position: 'absolute'}}> <img src={this.props.image} className="preview-profile-img"/> </div>
-                <div style={{marginLeft: '15%', marginTop: '55%', position: 'absolute'}}> <ThemeProvider theme={theme}> <TextField variant={"outlined"} multiline={true} rowsMax="6" label="Edit blurb" id="outlined-full-width"  defaultValue={this.props.blurb} InputLabelProps={{shrink: true,}}/> </ThemeProvider> </div>
-                {/*<div> <Upload label="ADddd" onFileLoad={this.onFileLoad}/> </div>*/}
+                <div style={{display: 'flex', flexDirection: 'row', marginLeft: '5%', marginTop: '5%'}}>
+                <input style={{display: "none"}} onChange={this.upload} accept="image/*" id="icon-button-file" type="file" />
+      <label htmlFor="icon-button-file">
+        <IconButton color="primary" aria-label="upload picture" component="span">
+          <PhotoCamera />
+        </IconButton>
+      </label> </div>
+                <div className="flex flex-column items-center" style={{marginTop: '1%', marginLeft: '22.5%', position: 'absolute'}}> <img src={this.state.picture} className="preview-profile-img"/> </div>
+                <div style={{marginLeft: '15%', marginTop: '55%', position: 'absolute'}}> <ThemeProvider theme={theme}> <TextField multiline={true} rowsMax="6" label="Edit blurb" id="filled-secondary" defaultValue={this.props.blurb} InputLabelProps={{shrink: true,}}/> </ThemeProvider> </div>
                 <div style={{marginTop: '90%', marginLeft: '7%', position: 'absolute'}}> <EditLogisticalPreferences price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
                 </div>
             </div>
@@ -396,10 +419,6 @@ class PriceSlider extends React.Component {
                 valueLabelFormat={priceValueLabelFormat}
                 step={null}
                 marks={[
-                    {
-                        value: 0,
-                        label: "$0",
-                    },
                     {
                         value: 10,
                         label: "$10",
