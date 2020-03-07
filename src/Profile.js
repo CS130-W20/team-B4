@@ -140,11 +140,11 @@ class Profile extends Component{
                         this.getURL(curData.props.pic).then((url)=>{
                           this.setState({imgURL: url});
                         });
-                          
+
                       }
                     this.setState(
                       {
-                        name: curData.props.name,
+                        name: curData.props.first_name,
                         username: '@'+curData.props.username,
                         blurb: curData.props.quote,
                         my_prefs: curData.props.preferences,

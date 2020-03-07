@@ -13,7 +13,8 @@ import Button from "@material-ui/core/Button";
 export class userData{
     constructor(obj){
         this.username    = obj.username;
-        this.name        = obj.name;
+        this.first_name  = obj.first_name;
+        this.last_name        = obj.last_name;
         this.low         = obj.low;
         this.high        = obj.high;
         this.start_time  = obj.start_time;
@@ -23,12 +24,13 @@ export class userData{
         this.quote       = obj.quote;
         this.preferences = obj.preferences;
         this.promise     = null;
-        this.email = obj.email ?? null;
+        this.email       = obj.email ?? null;
     }
 
 }
 const _default = {username: '',
-                 name: '',
+                 first_name: 'John',
+                 last_name: 'Doe',
                  low: 0,
                  high:0,
                  start_time: '',
