@@ -22,7 +22,8 @@
 }
 
 .login .box{
-    background-image: linear-gradient(#7BB3F7, #C5F2ED);
+    background-color: white;
+    /* background-image: linear-gradient(#7BB3F7, #C5F2ED); */
     font-size:20px;
     width:40%;
     box-shadow: 6px 6px 20px #444;
@@ -30,6 +31,7 @@
 }
 
 .error{
+    font-family: "Raleway";
     font-size:15px;
     color:#F00;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireAuth } from "./fireApi";
+import { fireAuth,db } from "./fireApi";
 import Home from    "./Home";
 import Login from   "./Login";
 import Profile from "./Profile";
@@ -65,10 +65,17 @@ class App extends React.Component {
       return history.push("/home");
   }).catch((err)=>{console.log(err.message); this.setState({error: err.message})});
   };
+  clearError = () =>{
+      this.setState({error:''});
+  }
 
-  handleSignUp = history => (email, password) => {
+  handleSignUp = history => (username, email, password) => {
       return fireAuth.createUserWithEmailAndPassword(email, password).then(()=>{
           this.setState({error:''});
+          db.collection('users').doc().set({
+            username: username,
+            email: email,
+          });
           fireAuth.signInWithEmailAndPassword(email, password).then(()=>{
               return history.push("/home");
             }
@@ -96,6 +103,7 @@ class App extends React.Component {
                     <Login onSubmit={this.handleSignIn(history)}
                            onSignUp={this.handleSignUp(history)}
                             error={this.state.error}
+                            clearError={this.clearError}
                            />
                   </div>
                 )}

@@ -7,6 +7,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
+import Fade from 'react-reveal';
 import { withRouter } from 'react-router-dom';
 
 
@@ -31,6 +32,7 @@ class Login extends React.Component {
   constructor(props) {
     super();
     this.state = {
+      first_name: "",
       email: "",
       password: "",
       confirm_password: "",
@@ -65,10 +67,10 @@ class Login extends React.Component {
   handleSignIn = e => {
     e.preventDefault();
     const { onSignUp } = this.props;
-    const { email, password } = this.state;
+    const { email, password,username} = this.state;
     if (onSignUp) {
       this.setState({ submitting: true });
-      onSignUp(email, password);
+      onSignUp(username, email, password);
       this.setState({ submitting: false });
     }
   };
@@ -82,7 +84,7 @@ class Login extends React.Component {
 
 
   render() {
-    const { email, password, confirm_password, submitting } = this.state;
+    const { email, password, confirm_password, first_name, last_name, username, submitting} = this.state;
     console.log(this.props.error);
     return (
         <div className="login" style={{textAlign:'left'}}>
@@ -96,6 +98,17 @@ class Login extends React.Component {
               onSubmit={this.state.login ? this.handleSubmit : this.handleSignIn}
             >
             <ThemeProvider theme={theme}>
+              {!this.state.login ?
+                  <div> <TextField style={{marginRight: 55, marginBottom:24}} variant={"outlined"} required type={"name"}
+                    label={"First Name"} value={first_name} onChange={this.handleChange("first_name")}/>
+                    <TextField style={{marginBottom:24}} variant={"outlined"} required type={"name"}
+                    label={"Last Name"} value={last_name} onChange={this.handleChange("last_name")}/>
+                    </div>: <div/>
+              }
+              {!this.state.login ?
+                  <TextField style={{marginBottom:24}} variant={"outlined"} required type={"name"}
+                    label={"username"} value={username} onChange={this.handleChange("username")}/> : <div/>
+              }
               <TextField  style={{marginBottom: 24}} variant={"outlined"} required type={"email"} label={"Email"} value={email}
                 onChange={this.handleChange("email")}
               />
@@ -108,9 +121,9 @@ class Login extends React.Component {
               /> : <div/>
                }
                </ThemeProvider>
-               {this.props.error ? <div className="error mb3"> {this.props.error} </div> : <div/>}
+               <Fade collapse when={this.props.error}><div className="error mb3">{this.props.error} </div> </Fade>
                <div className="flex justify-end mt3">
-              <div style={{fontSize:15, textDecoration:'underline'}} className="message ph4 mt2" onClick={()=>{this.setState({'login': !this.state.login, 'email': '', 'password': '','confirm_password':''})}}> {this.state.login ? "Don't have an account? Sign up!" : "Already have an account? Log In!"} </div>
+              <div style={{fontSize:15, textDecoration:'underline'}} className="message ph4 mt2" onClick={()=>{this.props.clearError(); this.setState({'login': !this.state.login, 'email': '', 'password': '','confirm_password':''})}}> {this.state.login ? "Don't have an account? Sign up!" : "Already have an account? Log In!"} </div>
               <Button
                 type={"submit"}
                 variant={"contained"}
