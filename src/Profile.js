@@ -15,7 +15,7 @@ import {db, storageRef} from './fireApi';
 
 /* Material-UI stuff */
 import Button from "@material-ui/core/Button";
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider, withStyles, makeStyles } from '@material-ui/core/styles';
 import { lightBlue } from '@material-ui/core/colors';
 import blue from '@material-ui/core/colors/blue';
 import purple from '@material-ui/core/colors/purple';
@@ -24,6 +24,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import TableRow from "@material-ui/core/TableRow";
 import FormGroup from "@material-ui/core/FormGroup";
+import Upload from "material-ui-upload/Upload";
+import TextField from "@material-ui/core/TextField";
+import Typography from '@material-ui/core/Typography';
 
 /* misc icons */
 import clock from './img/clock.png';
@@ -44,7 +47,7 @@ import shopping from './img/credit-card.png';
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#ffffff',
+            main: '#448aff', 
         },
         secondary: {
             main: '#2962ff',
@@ -61,7 +64,7 @@ const theme = createMuiTheme({
                 fontSize: '15px',
                 fontFamily: 'Raleway',
             },
-        }
+        },
     }
 });
 
@@ -169,9 +172,9 @@ class Profile extends Component{
             <div style={{marginTop: '42%', marginLeft: '45%', position: 'absolute'}} className="justify-center"> <ThemeProvider theme={theme}> <Button variant={"contained"} onClick={()=>{this.setState({'view': true})}} theme={theme} color={"secondary"} style={style}> Save </Button> </ThemeProvider> </div>
             <div style={{marginTop: '45%', marginLeft: '46.5%', fontSize:15, textDecoration:'underline', position: 'absolute'}} className="message ph4 mt2" onClick={()=>{this.setState({view: 'true'})}}> cancel </div>
             <div>
-                <div style={{marginLeft: '45%', marginTop: '5.5%', position: 'absolute'}} className='title-display'> Edit Preferences </div>
+                <div style={{marginLeft: '45%', marginTop: '5.5%', position: 'absolute'}} className='title-display'> Edit Profile </div>
                 <form onSubmit={this.handleSubmit}>
-                <div style={{marginLeft: '2.5%', position: 'absolute'}}> <EditLeftSide image={this.state.imgURL} price={this.state.price} time={this.state.time} distance={this.state.distance}/> </div>
+                <div style={{marginLeft: '2.5%', position: 'absolute'}}> <EditLeftSide image={this.state.imgURL} price={this.state.price} time={this.state.time} distance={this.state.distance} blurb={this.state.blurb}/> </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '34.75%', marginTop: '10%', position: 'absolute'}}>
                 <img src={iconPrefMap.fork} className='category-img'/>
                 {/*<div style={{marginLeft: '40%', marginTop: '25%', position: 'absolute'}} className='category-display'> Food </div>*/}
@@ -275,12 +278,16 @@ class RightSide extends Component {
  *  Price, time, distance
  */
 class EditLeftSide extends Component {
+    onFileLoad = (e, file) => console.log(e.target.result, file.name);
+
     render() {
         return (
             <div>
-                <div style={{marginTop: '45%'}} className='gradient-box'>
-                <div style={{marginTop: '30px', marginLeft: '50px',position: 'absolute'}}> <img src={this.props.image} className="profile-img"/> </div>
-                <div style={{marginTop: '200px', marginLeft: '15px', position: 'absolute'}}> <EditLogisticalPreferences price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
+                <div style={{marginTop: '35%'}} className='gradient-box'>
+                <div className="flex flex-column items-center" style={{marginTop: '5%', position: 'absolute'}}> <img src={this.props.image} className="preview-profile-img"/> </div>
+                <div style={{marginLeft: '15%', marginTop: '55%', position: 'absolute'}}> <ThemeProvider theme={theme}> <TextField variant={"outlined"} multiline={true} rowsMax="6" label="Edit blurb" id="outlined-full-width"  defaultValue={this.props.blurb} InputLabelProps={{shrink: true,}}/> </ThemeProvider> </div>
+                {/*<div> <Upload label="ADddd" onFileLoad={this.onFileLoad}/> </div>*/}
+                <div style={{marginTop: '90%', marginLeft: '7%', position: 'absolute'}}> <EditLogisticalPreferences price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
                 </div>
             </div>
         );
@@ -296,22 +303,19 @@ class EditLogisticalPreferences extends React.Component {
         const dp = "Change Distance Preference";
         const pp = "Change Price Preference";
         return (
-            <div style={{marginTop: '60px', marginLeft: '10px'}}>
-                <div>
-                <img src={clock} className="logistical-icon-img"/>
-                <div className="logistical-pref-display"> {tp} </div>
-                </div>
+            <div>
+                <div style={{display: 'flex', flexDirection: 'row'}}>
+                <div style={{marginTop: '10%'}}> <img src={clock} className="logistical-icon-img"/> </div>
                 <TimeSlider time={this.props.time}/>
-                <div style={{marginTop: '20px'}}>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'row', marginTop: '4%'}}>
                 <img src={road} className="logistical-icon-img"/>
-                <div className="logistical-pref-display"> {dp} </div>
-                </div>
                 <DistanceSlider distance={this.props.distance}/>
-                <div style={{marginTop: '20px'}}>
-                <img src={price} className="logistical-icon-img"/>
-                <div className="logistical-pref-display"> {pp} </div>
                 </div>
+                <div style={{display: 'flex', flexDirection: 'row', marginTop: '8%'}}>
+                <img src={price} className="logistical-icon-img"/>
                 <PriceSlider price={this.props.price}/>
+                </div>
             </div>
         );
     }
@@ -329,6 +333,8 @@ class TimeSlider extends React.Component {
             this.setState({time: newTime});
         }
         return(
+            <div>
+            <Typography id="time-slider"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </Typography>
             <Slider
                 value={this.state.time}
                 onChange={setTime}
@@ -338,6 +344,7 @@ class TimeSlider extends React.Component {
                 max={24}
                 valueLabelFormat={timeValueLabelFormat}
             />
+            </div>
         );
     }
 }
@@ -467,6 +474,9 @@ class FoodOptions extends React.Component {
     }
 }
 
+/*
+ * Display/modify the available drink-related activity options.
+*/
 class DrinkOptions extends React.Component {
     constructor(props) {
         super(props);
@@ -501,6 +511,9 @@ class DrinkOptions extends React.Component {
     }
 }
 
+/*
+ * Display/modify the available active/exercise-related activity options.
+*/
 class ActiveOptions extends React.Component {
     constructor(props) {
         super(props);
@@ -539,6 +552,9 @@ class ActiveOptions extends React.Component {
     }
 }
 
+/*
+ * Display/modify the available miscellaneous/other activity options.
+*/
 class MiscOptions extends React.Component {
     constructor(props) {
         super(props);

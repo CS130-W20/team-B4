@@ -84,6 +84,16 @@
     /*margin-top: 200px;*/
 }
 
+.preview-profile-img {
+    background-size: cover;
+    /*display: block;*/
+    width: 45%;
+    border-radius: 100%;
+    /*-webkit-border-radius: 300px;
+    -moz-border-radius: 300px;*/
+    /*margin-top: 200px;*/
+}
+
 .logistical-pref-display {
     display: inline;
     font-family: Raleway;
