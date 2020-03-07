@@ -67,10 +67,10 @@ class Login extends React.Component {
   handleSignIn = e => {
     e.preventDefault();
     const { onSignUp } = this.props;
-    const { email, password,username} = this.state;
+    const { email, password,username, first_name, last_name} = this.state;
     if (onSignUp) {
       this.setState({ submitting: true });
-      onSignUp(username, email, password);
+      onSignUp(first_name, last_name, username, email, password);
       this.setState({ submitting: false });
     }
   };

@@ -153,7 +153,10 @@ export default class Home extends Component{
                 // this.setState({all: l})
                 return l;
             }).then((users)=>{
-                users.forEach((user)=>user.promise = this.getURL(user.pic));
+                users.forEach((user)=>{
+                    if(user.pic)
+                        user.promise = this.getURL(user.pic)
+                });
                 this.setState({all:users});
                 var s = {};
                 this.state.all.forEach((user)=> {s[user.username]=false});
@@ -180,7 +183,7 @@ export default class Home extends Component{
 
     genCards = ()=>{
         var l = [];
-        this.state.all.forEach((u)=>{if(this.state.display[u.username]) l.push(<Card key={u.username}  data={u} imgURL = {this.getURL(u.pic)} deleteCard = {this.handleCardDelete}/>)});
+        this.state.all.forEach((u)=>{if(this.state.display[u.username]) l.push(<Card key={u.username}  data={u} imgURL = {u.pic ? this.getURL(u.pic):""} deleteCard = {this.handleCardDelete}/>)});
         return l;
     }
 
@@ -198,8 +201,7 @@ export default class Home extends Component{
         //   console.log(response);
         // });
       }
-      console.log("query result: " + this.state.queryResult);
-      console.log(this.state.all);
+      // console.log("query result: " + this.state.queryResult);
         return(
             <div onClick={(e)=>{
                 if (this.targetHasClickHandler(e))

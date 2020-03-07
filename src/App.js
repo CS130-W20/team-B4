@@ -69,12 +69,22 @@ class App extends React.Component {
       this.setState({error:''});
   }
 
-  handleSignUp = history => (username, email, password) => {
+  handleSignUp = history => (fn, ln, username, email, password) => {
       return fireAuth.createUserWithEmailAndPassword(email, password).then(()=>{
           this.setState({error:''});
           db.collection('users').doc().set({
             username: username,
+            first_name : fn,
+            last_name : ln,
             email: email,
+            start_time: '03:00 pm',
+            end_time:   '06:00 pm',
+            dist:       10,
+            high:       25,
+            low:        15,
+            pic:        "",
+            quote:      "",
+            preferences:[],
           });
           fireAuth.signInWithEmailAndPassword(email, password).then(()=>{
               return history.push("/home");

@@ -33,7 +33,8 @@ export default class Card extends Component{
         this.setState({[name]: e.target.value});
     }
     componentDidMount(props){
-        this.props.imgURL.then((url)=>{this.setState({imgURL: url})});
+        if(this.props.imgURL)
+            this.props.imgURL.then((url)=>{this.setState({imgURL: url})});
     }
 
     render(){
