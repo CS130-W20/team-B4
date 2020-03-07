@@ -156,7 +156,7 @@ export default class Home extends Component{
                 users.forEach((user)=>user.promise = this.getURL(user.pic));
                 this.setState({all:users});
                 var s = {};
-                this.state.all.forEach((user)=> {s[user.username]=true});
+                this.state.all.forEach((user)=> {s[user.username]=false});
                 this.setState({display:s});
             })
 

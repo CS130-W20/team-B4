@@ -40,7 +40,7 @@ export default class Card extends Component{
         const {data} = this.props;
         const {imgURL, quote} = this.state;
         return(
-            <Zoom>
+            <Zoom opposite>
                 <div className="pa4 ma3 card">
                     <div className="flex flex-column items-center" style={{width:'100%'}}>
                         <div className="flex" style={{top:'-11px', position:'relative', width:'100%', "flex-direction": "row", "justify-content": "space-between"}}>

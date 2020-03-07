@@ -116,7 +116,7 @@ class App extends React.Component {
               />
               <Route path="/suggestion" exact render={props=>(<Suggestion {...props}/>)}/>
               <Route path="/confirmation" exact
-                render={props => (<ProtectedConfirmation {...props}/>)}/>
+                render={props => (<Confirmation {...props}/>)}/>
             </Switch>
           </BrowserRouter>
           </div>
