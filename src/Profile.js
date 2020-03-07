@@ -308,9 +308,9 @@ class EditLeftSide extends Component {
           <PhotoCamera />
         </IconButton>
       </label> </div>
-                <div className="flex flex-column items-center" style={{marginTop: '1%', marginLeft: '22.5%', position: 'absolute'}}> <img src={this.state.picture} className="preview-profile-img"/> </div>
-                <div style={{marginLeft: '15%', marginTop: '55%', position: 'absolute'}}> <ThemeProvider theme={theme}> <TextField multiline={true} rowsMax="6" label="Edit blurb" id="filled-secondary" defaultValue={this.props.blurb} InputLabelProps={{shrink: true,}}/> </ThemeProvider> </div>
-                <div style={{marginTop: '90%', marginLeft: '7%', position: 'absolute'}}> <EditLogisticalPreferences price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
+                <div className="flex flex-column items-center" style={{marginLeft: '22.5%', position: 'absolute'}}> <img src={this.state.picture} className="preview-profile-img"/> </div>
+                <div style={{marginLeft: '15%', marginTop: '48%', position: 'absolute'}}> <ThemeProvider theme={theme}> <TextField multiline={true} rowsMax="6" label="Edit blurb" id="filled-secondary" defaultValue={this.props.blurb} InputLabelProps={{shrink: true,}}/> </ThemeProvider> </div>
+                <div style={{marginTop: '80%', marginLeft: '7%', position: 'absolute'}}> <EditLogisticalPreferences price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
                 </div>
             </div>
         );
