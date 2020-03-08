@@ -205,12 +205,7 @@ export default class Home extends Component{
       }
       // console.log("query result: " + this.state.queryResult);
         return(
-            <div onClick={(e)=>{
-                if (this.targetHasClickHandler(e))
-                  this.handleSearchBar({key:''});
-                else
-                  this.handleSearchBar({key:'Escape'});
-            }}>
+            <div>
             <div> <TopBar/> </div>
                 <div className="flex justify-center" style={{paddingTop: 60}}>
                     {this.genCards()}
@@ -223,7 +218,14 @@ export default class Home extends Component{
                         </div>
                     </ThemeProvider>
                 </div>
-                <SearchBar addCard={this.addCard} display={this.state.display} userData={this.state.all} inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
+                <div onClick={(e)=>{
+                if (this.targetHasClickHandler(e))
+                  this.handleSearchBar({key:''});
+                else
+                  this.handleSearchBar({key:'Escape'});
+                }}>
+                    <SearchBar addCard={this.addCard} display={this.state.display} userData={this.state.all} inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
+                </div>
             </div>
         );
     }
