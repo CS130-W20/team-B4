@@ -13,7 +13,8 @@ import Button from "@material-ui/core/Button";
 export class userData{
     constructor(obj){
         this.username    = obj.username;
-        this.name        = obj.name;
+        this.first_name  = obj.first_name;
+        this.last_name        = obj.last_name;
         this.low         = obj.low;
         this.high        = obj.high;
         this.start_time  = obj.start_time;
@@ -23,12 +24,13 @@ export class userData{
         this.quote       = obj.quote;
         this.preferences = obj.preferences;
         this.promise     = null;
-        this.email = obj.email ?? null;
+        this.email       = obj.email ?? null;
     }
 
 }
 const _default = {username: '',
-                 name: '',
+                 first_name: 'John',
+                 last_name: 'Doe',
                  low: 0,
                  high:0,
                  start_time: '',
@@ -153,7 +155,10 @@ export default class Home extends Component{
                 // this.setState({all: l})
                 return l;
             }).then((users)=>{
-                users.forEach((user)=>user.promise = this.getURL(user.pic));
+                users.forEach((user)=>{
+                    if(user.pic)
+                        user.promise = this.getURL(user.pic)
+                });
                 this.setState({all:users});
                 var s = {};
                 this.state.all.forEach((user)=> {s[user.username]=false});
@@ -180,7 +185,7 @@ export default class Home extends Component{
 
     genCards = ()=>{
         var l = [];
-        this.state.all.forEach((u)=>{if(this.state.display[u.username]) l.push(<Card key={u.username}  data={u} imgURL = {this.getURL(u.pic)} deleteCard = {this.handleCardDelete}/>)});
+        this.state.all.forEach((u)=>{if(this.state.display[u.username]) l.push(<Card key={u.username}  data={u} imgURL = {u.pic ? this.getURL(u.pic):""} deleteCard = {this.handleCardDelete}/>)});
         return l;
     }
 
@@ -198,8 +203,7 @@ export default class Home extends Component{
         //   console.log(response);
         // });
       }
-      console.log("query result: " + this.state.queryResult);
-      console.log(this.state.all);
+      // console.log("query result: " + this.state.queryResult);
         return(
             <div onClick={(e)=>{
                 if (this.targetHasClickHandler(e))

@@ -33,7 +33,8 @@ export default class Card extends Component{
         this.setState({[name]: e.target.value});
     }
     componentDidMount(props){
-        this.props.imgURL.then((url)=>{this.setState({imgURL: url})});
+        if(this.props.imgURL)
+            this.props.imgURL.then((url)=>{this.setState({imgURL: url})});
     }
 
     render(){
@@ -50,7 +51,7 @@ export default class Card extends Component{
                             }
                         </div>
                         <div className="profilePic" style={{backgroundImage:`url('${imgURL}')`}}/>
-                        <div className="name pv2" >{data.name}</div>
+                        <div className="name pv2" >{data.first_name}</div>
                         <div className="quote">{data.quote}</div>
                         <div className="mv2 div"/>
                         <div className="flex flex-column items-start">

@@ -33,7 +33,9 @@ class TopBar extends Component {
                   querySnapshot.forEach((doc)=>{
                       var curData = new userData(doc.data());
                       if(curData.props.email !== undefined && curData.props.email == fireAuth.currentUser.email){
-                        this.getURL(curData.props.pic).then((url)=>{this.setState({imgURL: url, currentUserData: curData})});
+                          if(curData.props.pic){
+                              this.getURL(curData.props.pic).then((url)=>{this.setState({imgURL: url, currentUserData: curData})});
+                          }
                       }
                     });
               });
