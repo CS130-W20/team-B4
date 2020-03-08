@@ -32,7 +32,15 @@ const iconPrefMap = {
   yoga: '/image/wellness.png',
   climbing: '/image/rock-climbing.png',
 
-  museum: '/image/museum.png'
+  museum: '/image/museum.png',
+  misc :  '/image/misc.png',
+  cinema: '/image/cinema.png',
+  zoo:    '/image/giraffe.png',
+  arcade: '/image/arcade-game.png',
+  shopping: '/image/credit-card.png',
 };
+
+
+
 
 export default iconPrefMap;
