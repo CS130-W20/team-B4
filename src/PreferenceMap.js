@@ -13,7 +13,7 @@ const iconPrefMap = {
   taco: '/image/taco.png',
   bulgogi: '/image/bulgogi.png',
   corn_dog: '/image/corn-dog.png',
-  ice_cream: '/image/ice_cream.png',
+  ice_cream: '/image/ice-cream.png',
   american: '/image/sandwich.png',
   vegan: '/image/leaf.png',
   indian: '/image/samosa.png',
