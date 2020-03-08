@@ -14,7 +14,8 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 export class userData{
     constructor(obj){
         this.username    = obj.username;
-        this.name        = obj.name;
+        this.first_name        = obj.first_name;
+        this.last_name = obj.last_name;
         this.low         = obj.low;
         this.high        = obj.high;
         this.start_time  = obj.start_time;
@@ -29,7 +30,8 @@ export class userData{
 
 }
 const _default = {username: '',
-                 name: '',
+                 first_name: 'John',
+                 last_name: "Doe",
                  low: 0,
                  high:0,
                  start_time: '',
@@ -163,10 +165,13 @@ export default class Home extends Component{
                 // this.setState({all: l})
                 return l;
             }).then((users)=>{
-                users.forEach((user)=>user.promise = this.getURL(user.pic));
+              users.forEach((user)=>{
+                    if(user.pic)
+                        user.promise = this.getURL(user.pic)
+                });
                 this.setState({all:users});
                 var s = {};
-                this.state.all.forEach((user)=> {s[user.username]=true});
+                this.state.all.forEach((user)=> {s[user.username]=false});
                 this.setState({display:s});
             })
 
