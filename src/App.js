@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireAuth } from "./fireApi";
+import { fireAuth,db } from "./fireApi";
 import Home from    "./Home";
 import Login from   "./Login";
 import Profile from "./Profile";
@@ -65,10 +65,27 @@ class App extends React.Component {
       return history.push("/home");
   }).catch((err)=>{console.log(err.message); this.setState({error: err.message})});
   };
+  clearError = () =>{
+      this.setState({error:''});
+  }
 
-  handleSignUp = history => (email, password) => {
+  handleSignUp = history => (fn, ln, username, email, password) => {
       return fireAuth.createUserWithEmailAndPassword(email, password).then(()=>{
           this.setState({error:''});
+          db.collection('users').doc().set({
+            username: username,
+            first_name : fn,
+            last_name : ln,
+            email: email,
+            start_time: '03:00 pm',
+            end_time:   '06:00 pm',
+            dist:       10,
+            high:       25,
+            low:        15,
+            pic:        "",
+            quote:      "",
+            preferences:[],
+          });
           fireAuth.signInWithEmailAndPassword(email, password).then(()=>{
               return history.push("/home");
             }
@@ -96,6 +113,7 @@ class App extends React.Component {
                     <Login onSubmit={this.handleSignIn(history)}
                            onSignUp={this.handleSignUp(history)}
                             error={this.state.error}
+                            clearError={this.clearError}
                            />
                   </div>
                 )}
@@ -116,7 +134,7 @@ class App extends React.Component {
               />
               <Route path="/suggestion" exact render={props=>(<Suggestion {...props}/>)}/>
               <Route path="/confirmation" exact
-                render={props => (<ProtectedConfirmation {...props}/>)}/>
+                render={props => (<Confirmation {...props}/>)}/>
             </Switch>
           </BrowserRouter>
           </div>

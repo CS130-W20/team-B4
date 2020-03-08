@@ -33,14 +33,15 @@ export default class Card extends Component{
         this.setState({[name]: e.target.value});
     }
     componentDidMount(props){
-        this.props.imgURL.then((url)=>{this.setState({imgURL: url})});
+        if(this.props.imgURL)
+            this.props.imgURL.then((url)=>{this.setState({imgURL: url})});
     }
 
     render(){
         const {data} = this.props;
         const {imgURL, quote} = this.state;
         return(
-            <Zoom>
+            <Zoom opposite>
                 <div className="pa4 ma3 card">
                     <div className="flex flex-column items-center" style={{width:'100%'}}>
                         <div className="flex" style={{top:'-11px', position:'relative', width:'100%', "flex-direction": "row", "justify-content": "space-between"}}>
@@ -50,7 +51,7 @@ export default class Card extends Component{
                             }
                         </div>
                         <div className="profilePic" style={{backgroundImage:`url('${imgURL}')`}}/>
-                        <div className="name pv2" >{data.name}</div>
+                        <div className="name pv2" >{data.first_name}</div>
                         <div className="quote">{data.quote}</div>
                         <div className="mv2 div"/>
                         <div className="flex flex-column items-start">

@@ -191,14 +191,14 @@ export default class Home extends Component{
      *  @param u user data for newly selected user
      */
     updateFilters = (u) => {
-
+      // If
     }
 
     genCards = ()=>{
         var l = [];
         this.state.all.forEach((u)=>{
             if(this.state.display[u.username]) {
-                l.push(<Card key={u.username}  data={u} imgURL = {this.getURL(u.pic)} deleteCard = {this.handleCardDelete}/>);
+                l.push(<Card key={u.username}  data={u} imgURL = {u.pic ? this.getURL(u.pic) : ''} deleteCard = {this.handleCardDelete}/>);
                 this.updateFilters(u);
             }});
             return l;

@@ -16,6 +16,7 @@ export default class SearchBar extends Component{
     }
 
     componentDidMount(){
+        console.log(this.props.userData);
         var l = {}
         this.props.userData.forEach((user)=>{user.promise.then(url=>{l[user.username] = url})})
         this.setState({imgURL:l})
