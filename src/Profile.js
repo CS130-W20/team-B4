@@ -341,7 +341,7 @@ class EditLeftSide extends Component {
                 <div className="flex flex-column items-center" style={{marginLeft: '22.5%', position: 'absolute'}}> <img src={this.state.picture} className="preview-profile-img"/> </div>
 		<div className="editblurb-display" style={{marginLeft: '10%', marginTop: '52%', position: 'absolute'}}> Edit blurb </div>
                 <div style={{marginLeft: '10%', marginTop: '56%', position: 'absolute'}}> <ThemeProvider theme={theme}> <BlurbStyle multiline={true} rowsMax="4" label="Edit blurb" id="filled-secondary" defaultValue={this.props.blurb} InputLabelProps={{shrink: true,}}/> </ThemeProvider> </div>
-                <div style={{marginTop: '82%', marginLeft: '12%', position: 'absolute'}}> <EditLogisticalPreferences distance={this.props.distance} start_time={this.props.start_time} end_time={this.props.end_time} price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
+                <div style={{marginTop: '82%', marginLeft: '7%', position: 'absolute'}}> <EditLogisticalPreferences distance={this.props.distance} start_time={this.props.start_time} end_time={this.props.end_time} price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
                 </div>
             </div>
         );
@@ -374,7 +374,7 @@ class EditLogisticalPreferences extends React.Component {
         return (
             <div>
                 <div style={{display: 'flex', flexDirection: 'row'}}>
-	 	        <div> <TimePreference start_time={this.state.stime} end_time={this.state.etime} handleStartTime={this.handleChange("stime")} handleEndTime={this.handleChange("etime")} modify={false}/> </div>	
+	 	        <div> <TimePreference fill={false} start_time={this.state.stime} end_time={this.state.etime} handleStartTime={this.handleChange("stime")} handleEndTime={this.handleChange("etime")} modify={false}/> </div>	
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row', marginTop: '4%'}}>
                 <img src={road} className="logistical-icon-img"/>
@@ -529,7 +529,7 @@ class FoodOptions extends React.Component {
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('american')} onChange={() => this.handleCheck('american')} id="american_id" icon={<img src={iconPrefMap.pizza} className='checkbox-img'/>} checkedIcon={<img src={iconPrefMap.pizza} className='checked-img'/>}/>} label="American"/> </ThemeProvider>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '35%', marginTop: '25%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('fast_food')} onChange={() => this.handleCheck('fast_food')} icon={<img src={iconPrefMap.corn_dog} className='checkbox-img'/>} checkedIcon={<img src={iconPrefMap.corn_dog} className='checked-img'/>}/>} label="Fast food&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('fast_food')} onChange={() => this.handleCheck('fast_food')} icon={<img src={iconPrefMap.corn_dog} className='checkbox-img'/>} checkedIcon={<img src={iconPrefMap.corn_dog} className='checked-img'/>}/>} label="Fast food&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('dessert')} onChange={() => this.handleCheck('dessert')} icon={<img src={iconPrefMap.ice_cream} className='checkbox-img'/>} checkedIcon={<img src={iconPrefMap.ice_cream} className='checked-img'/>}/>} label="Dessert&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('vegan')} onChange={() => this.handleCheck('vegan')} icon={<img src={iconPrefMap.vegan} className='checkbox-img'/>} checkedIcon={<img src={iconPrefMap.vegan} className='checked-img'/>}/>} label="Vegan"/> </ThemeProvider>
                 </div>
