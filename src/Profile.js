@@ -1,35 +1,17 @@
 import React, {Component} from 'react';
 import Popup from 'reactjs-popup';
 import './Profile.css';
-import { fireAuth } from "./fireApi";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import { withRouter } from 'react-router-dom';
+import { fireAuth,db,storageRef } from "./fireApi";
+import { withRouter, BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import TopBar from './TopBar.js';
 import TimePreference from './TimePreference.js';
-
-/* icon image import */
 import iconPrefMap from './PreferenceMap.js';
-
-/* UserData/Firebase stuff */
 import userData from './Home.js';
-import {db, storageRef} from './fireApi';
 
-/* Material-UI stuff */
-import Button from "@material-ui/core/Button";
 import { createMuiTheme, ThemeProvider, withStyles, makeStyles } from '@material-ui/core/styles';
-import { lightBlue } from '@material-ui/core/colors';
-import blue from '@material-ui/core/colors/blue';
-import purple from '@material-ui/core/colors/purple';
-import Slider from "@material-ui/core/Slider";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import TableRow from "@material-ui/core/TableRow";
-import FormGroup from "@material-ui/core/FormGroup";
-import TextField from "@material-ui/core/TextField";
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
+import { lightBlue, blue, purple} from '@material-ui/core/colors';
+import {Slider, Checkbox, Button, FormControlLabel, TableRow, FormGroup, TextField, Typography, IconButton, Input} from '@material-ui/core';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import Input from '@material-ui/core/Input';
 
 /* misc icons */
 import clock from './img/clock.png';
@@ -41,11 +23,6 @@ import dots from './img/dots.png';
 import blue_circle from './img/circle_blue.png';
 import grey_circle from './img/circle_grey.png';
 
-import misc from './img/misc.png';
-import cinema from './img/cinema.png';
-import zoo from './img/giraffe.png';
-import arcade from './img/arcade-game.png';
-import shopping from './img/credit-card.png';
 
 const theme = createMuiTheme({
     palette: {
@@ -219,7 +196,7 @@ class Profile extends Component{
                 </div>
                 <div> <ActiveOptions my_prefs={this.state.my_prefs}/> </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '69.75%', marginTop: '26%', position: 'absolute'}}>
-                <img src={misc} className='category3-img'/>
+                <img src={iconPrefMap.misc} className='category3-img'/>
                 </div>
                 <div> <MiscOptions my_prefs={this.state.my_prefs}/> </div>
                 <div style={{marginTop: '42%', marginLeft: '45%', position: 'absolute'}} className="justify-center"> <ThemeProvider theme={theme}> <Button type={"submit"} variant={"contained"} onClick={()=>{this.setState({'view': true})}} theme={theme} color={"secondary"} style={style}> Save </Button> </ThemeProvider> </div>
@@ -257,22 +234,22 @@ class LogisticalPreferences extends React.Component {
     }
     render() {
         {/*const tp = timeValueLabelFormat(this.props.time[0]) + " - " + timeValueLabelFormat(this.props.time[1]);*/}
-        const tp = this.props.start_time + " - " + this.props.end_time; 
+        const tp = this.props.start_time + " - " + this.props.end_time;
         const dp = "<" + distanceValueLabelFormatDisplay(this.props.distance);
         {/*const pp = (this.props.price <= 0 ? "" : (priceValueLabelFormat(0)) + " - ") + priceValueLabelFormat(this.props.price);*/}
         const pp = "<" + priceValueLabelFormat(this.props.price);
         return (
             <div>
                 <div>
-                <img src={clock} className="logistical-icon-img"/>
+                <img src={iconPrefMap.clock} className="logistical-icon-img"/>
                 <div className="logistical-pref-display"> {tp} </div>
                 </div>
                 <div style={{marginTop: '5%'}}>
-                <img src={road} className="logistical-icon-img"/>
+                <img src={iconPrefMap.road} className="logistical-icon-img"/>
                 <div className="logistical-pref-display"> {dp} </div>
                 </div>
                 <div style={{marginTop: '5%'}}>
-                <img src={price} className="logistical-icon-img"/>
+                <img src={iconPrefMap.price} className="logistical-icon-img"/>
                 <div className="logistical-pref-display"> {pp} </div>
                 </div>
             </div>
@@ -374,7 +351,7 @@ class EditLogisticalPreferences extends React.Component {
         return (
             <div>
                 <div style={{display: 'flex', flexDirection: 'row'}}>
-	 	        <div> <TimePreference fill={false} start_time={this.state.stime} end_time={this.state.etime} handleStartTime={this.handleChange("stime")} handleEndTime={this.handleChange("etime")} modify={false}/> </div>	
+	 	        <div> <TimePreference fill={false} start_time={this.state.stime} end_time={this.state.etime} handleStartTime={this.handleChange("stime")} handleEndTime={this.handleChange("etime")} modify={false}/> </div>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row', marginTop: '4%'}}>
                 <img src={road} className="logistical-icon-img"/>
@@ -645,12 +622,12 @@ class MiscOptions extends React.Component {
                 <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('beach')} onChange={() => this.handleCheck('beach')} icon={<img src={iconPrefMap.beach} className='checkbox-img'/>} checkedIcon={<img src={iconPrefMap.beach} className='checked-img'/>}/>} label="Beach"/> </ThemeProvider>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '34%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('cinema')} onChange={() => this.handleCheck('cinema')} icon={<img src={cinema} className='checkbox-img'/>} checkedIcon={<img src={cinema} className='checked-img'/>}/>} label="Cinema&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('zoo')} onChange={() => this.handleCheck('zoo')} icon={<img src={zoo} className='checkbox-img'/>} checkedIcon={<img src={zoo} className='checked-img'/>}/>} label="Zoo/Aquarium"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('cinema')} onChange={() => this.handleCheck('cinema')} icon={<img src={iconPrefMap.cinema} className='checkbox-img'/>} checkedIcon={<img src={iconPrefMap.cinema} className='checked-img'/>}/>} label="Cinema&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('zoo')} onChange={() => this.handleCheck('zoo')} icon={<img src={iconPrefMap.zoo} className='checkbox-img'/>} checkedIcon={<img src={iconPrefMap.zoo} className='checked-img'/>}/>} label="Zoo/Aquarium"/> </ThemeProvider>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '70%', marginTop: '38%', position: 'absolute'}}>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('arcade')} onChange={() => this.handleCheck('arcade')} icon={<img src={arcade} className='checkbox-img'/>} checkedIcon={<img src={arcade} className='checked-img'/>}/>} label="Arcade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
-                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('shopping')} onChange={() => this.handleCheck('shopping')} icon={<img src={shopping} className='checkbox-img'/>} checkedIcon={<img src={shopping} className='checked-img'/>}/>} label="Shopping"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('arcade')} onChange={() => this.handleCheck('arcade')} icon={<img src={iconPrefMap.arcade} className='checkbox-img'/>} checkedIcon={<img src={iconPrefMap.arcade} className='checked-img'/>}/>} label="Arcade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> </ThemeProvider>
+                <ThemeProvider theme={theme}> <FormControlLabel control={<Checkbox checked={this.state.checkedValues.includes('shopping')} onChange={() => this.handleCheck('shopping')} icon={<img src={iconPrefMap.shopping} className='checkbox-img'/>} checkedIcon={<img src={iconPrefMap.shopping} className='checked-img'/>}/>} label="Shopping"/> </ThemeProvider>
                 </div>
             </div>
         );
