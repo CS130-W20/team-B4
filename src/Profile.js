@@ -5,6 +5,7 @@ import { fireAuth } from "./fireApi";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 import TopBar from './TopBar.js';
+import TimePreference from './TimePreference.js';
 
 /* icon image import */
 import iconPrefMap from './PreferenceMap.js';
@@ -130,6 +131,8 @@ class Profile extends Component{
             blurb: "",
             my_prefs: [],
             price: 60,
+	        start_time: "",
+	        end_time: "",
             time: [19, 21],
             distance: 30
         }
@@ -162,6 +165,10 @@ class Profile extends Component{
                         username: '@'+curData.props.username,
                         blurb: curData.props.quote,
                         my_prefs: curData.props.preferences,
+			            start_time: curData.props.start_time,
+			            end_time: curData.props.end_time,
+			            distance: curData.props.dist,
+                        price: curData.props.high,
                       });
                   }
                 });
@@ -181,7 +188,7 @@ class Profile extends Component{
             {this.state.view ?
             <div>
                 <div style={{marginLeft: '1%', marginTop: '4.5%', position: 'absolute'}} onClick={()=>{this.setState({'view': false})}}> <img src={edit} className='edit-img'/> </div>
-                <div style={{marginLeft: '10%', position: 'absolute'}}> <LeftSide image={this.state.imgURL} price={this.state.price} time={this.state.time} distance={this.state.distance}/> </div>
+                <div style={{marginLeft: '10%', position: 'absolute'}}> <LeftSide image={this.state.imgURL} start_time={this.state.start_time} end_time={this.state.end_time} price={this.state.price} time={this.state.time} distance={this.state.distance}/> </div>
                 <div style={{marginLeft: '48%', marginTop: '10%', position: 'absolute'}} className='fullname-display'>
                     {this.state.name}
                 </div>
@@ -197,7 +204,7 @@ class Profile extends Component{
             <div>
                 <div style={{marginLeft: '45%', marginTop: '5.5%', position: 'absolute'}} className='title-display'> Edit Profile </div>
                 <form onSubmit={this.handleSubmit}>
-                <div style={{marginLeft: '2.5%', position: 'absolute'}}> <EditLeftSide image={this.state.imgURL} price={this.state.price} time={this.state.time} distance={this.state.distance} blurb={this.state.blurb}/> </div>
+                <div style={{marginLeft: '2.5%', position: 'absolute'}}> <EditLeftSide image={this.state.imgURL} price={this.state.price} dist={this.state.dist} start_time={this.state.start_time} end_time={this.state.end_time} price={this.state.price} time={this.state.time} distance={this.state.distance} blurb={this.state.blurb}/> </div>
                 <div style={{display: 'flex', flexDirection: 'row'}} style={{marginLeft: '34.75%', marginTop: '10%', position: 'absolute'}}>
                 <img src={iconPrefMap.fork} className='category-img'/>
                 {/*<div style={{marginLeft: '40%', marginTop: '25%', position: 'absolute'}} className='category-display'> Food </div>*/}
@@ -233,8 +240,8 @@ class LeftSide extends Component {
         return (
             <div>
                 <div style={{marginTop: '45%'}} className='gradient-box'>
-                <div style={{marginTop: '30px', marginLeft: '50px',position: 'absolute'}}> <img src={this.props.image} className="profile-img"/> </div>
-                <div style={{marginTop: '200px', marginLeft: '70px', position: 'absolute'}}> <LogisticalPreferences price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
+                <div style={{marginTop: '10%', marginLeft: '16%',position: 'absolute'}}> <img src={this.props.image} className="profile-img"/> </div>
+                <div style={{marginTop: '75%', marginLeft: '16%', position: 'absolute'}}> <LogisticalPreferences start_time={this.props.start_time} end_time={this.props.end_time} price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
                 </div>
             </div>
         );
@@ -245,21 +252,26 @@ class LeftSide extends Component {
  *    Contains user's preferred time, location radius, and price range.
  */
 class LogisticalPreferences extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
-        const tp = timeValueLabelFormat(this.props.time[0]) + " - " + timeValueLabelFormat(this.props.time[1]);
+        {/*const tp = timeValueLabelFormat(this.props.time[0]) + " - " + timeValueLabelFormat(this.props.time[1]);*/}
+        const tp = this.props.start_time + " - " + this.props.end_time; 
         const dp = "<" + distanceValueLabelFormatDisplay(this.props.distance);
-        const pp = (this.props.price <= 0 ? "" : (priceValueLabelFormat(0)) + " - ") + priceValueLabelFormat(this.props.price);
+        {/*const pp = (this.props.price <= 0 ? "" : (priceValueLabelFormat(0)) + " - ") + priceValueLabelFormat(this.props.price);*/}
+        const pp = "<" + priceValueLabelFormat(this.props.price);
         return (
-            <div style={{marginTop: '60px', marginLeft: '10px'}}>
+            <div>
                 <div>
                 <img src={clock} className="logistical-icon-img"/>
                 <div className="logistical-pref-display"> {tp} </div>
                 </div>
-                <div style={{marginTop: '20px'}}>
+                <div style={{marginTop: '5%'}}>
                 <img src={road} className="logistical-icon-img"/>
                 <div className="logistical-pref-display"> {dp} </div>
                 </div>
-                <div style={{marginTop: '20px'}}>
+                <div style={{marginTop: '5%'}}>
                 <img src={price} className="logistical-icon-img"/>
                 <div className="logistical-pref-display"> {pp} </div>
                 </div>
@@ -329,7 +341,7 @@ class EditLeftSide extends Component {
                 <div className="flex flex-column items-center" style={{marginLeft: '22.5%', position: 'absolute'}}> <img src={this.state.picture} className="preview-profile-img"/> </div>
 		<div className="editblurb-display" style={{marginLeft: '10%', marginTop: '52%', position: 'absolute'}}> Edit blurb </div>
                 <div style={{marginLeft: '10%', marginTop: '56%', position: 'absolute'}}> <ThemeProvider theme={theme}> <BlurbStyle multiline={true} rowsMax="4" label="Edit blurb" id="filled-secondary" defaultValue={this.props.blurb} InputLabelProps={{shrink: true,}}/> </ThemeProvider> </div>
-                <div style={{marginTop: '80%', marginLeft: '7%', position: 'absolute'}}> <EditLogisticalPreferences price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
+                <div style={{marginTop: '82%', marginLeft: '12%', position: 'absolute'}}> <EditLogisticalPreferences distance={this.props.distance} start_time={this.props.start_time} end_time={this.props.end_time} price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
                 </div>
             </div>
         );
@@ -340,6 +352,21 @@ class EditLeftSide extends Component {
  *    Edit user's preferred time, location radius, and price range.
  */
 class EditLogisticalPreferences extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            stime: this.props.start_time,
+            etime: this.props.end_time,
+            modify: true,
+        }
+    }
+    handleChange = name => e => {
+        this.setState({[name]: e.target.value});
+    }
+    componentDidMount(props) {
+        console.log(this.state.stime);
+        console.log(this.state.etime);
+    }
     render() {
         const tp = "Change Time Preference";
         const dp = "Change Distance Preference";
@@ -347,8 +374,7 @@ class EditLogisticalPreferences extends React.Component {
         return (
             <div>
                 <div style={{display: 'flex', flexDirection: 'row'}}>
-                <div style={{marginTop: '10%'}}> <img src={clock} className="logistical-icon-img"/> </div>
-                <TimeSlider time={this.props.time}/>
+	 	        <div> <TimePreference start_time={this.state.stime} end_time={this.state.etime} handleStartTime={this.handleChange("stime")} handleEndTime={this.handleChange("etime")} modify={false}/> </div>	
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row', marginTop: '4%'}}>
                 <img src={road} className="logistical-icon-img"/>
