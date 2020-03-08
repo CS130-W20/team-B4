@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import './Home.css';
 import Card from './Card';
 import SearchBar from './SearchBar';
+import Suggestion from './SuggestionSkeleton.js';
 import TopBar from './TopBar.js';
 import axios from 'axios';
 import {db, storageRef} from './fireApi';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
-
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 
 
 export class userData{
@@ -71,15 +72,22 @@ const style = {
  */
 export default class Home extends Component{
 
-    // Queries businesses around UCLA that match the specified category
-    getLocation = category => {
+    /** Queries businesses around UCLA that match the specified category
+     *
+     *  @param categories array of places (strings) to include in filter
+     *                    note: ["hiking","chinese"] => hiking OR chinese
+     *  @return promise for yelp API call
+     */
+    getLocation = categories => {
+      var categoryString = "";
+      categories.forEach((x) => {categoryString += x + ","});
       return axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/search`, {
         headers: {
           Authorization: `Bearer XyLNjPiVmPm-_-Og2rpIVSqVUNbsAihqwf21PVcmpbmhQow8HEAflaDDLiO8rT6SmehRVMyJNLz-OqjyiwXCqy45-EIE7yVttnY9440F04drNBm_ceiBgnsVUWNEXnYx`,
           'X-Requested-With': `XMLHttpRequest`,
         },
         params: {
-          categories: `${category}`,
+          categories: `${categoryString}`,
 
           // UCLA's coordinates
           latitude: 34.0689,
@@ -99,6 +107,8 @@ export default class Home extends Component{
             showSearch: false,
             searchFocus: false,
             queryResult: null,
+            categories: [],
+            showSuggestion: false, // if true, a query has been made
         }
     }
 
@@ -177,11 +187,21 @@ export default class Home extends Component{
     }
     getURL = (p) => storageRef.child(p).getDownloadURL();
 
+    /**
+     *  @param u user data for newly selected user
+     */
+    updateFilters = (u) => {
+
+    }
 
     genCards = ()=>{
         var l = [];
-        this.state.all.forEach((u)=>{if(this.state.display[u.username]) l.push(<Card key={u.username}  data={u} imgURL = {this.getURL(u.pic)} deleteCard = {this.handleCardDelete}/>)});
-        return l;
+        this.state.all.forEach((u)=>{
+            if(this.state.display[u.username]) {
+                l.push(<Card key={u.username}  data={u} imgURL = {this.getURL(u.pic)} deleteCard = {this.handleCardDelete}/>);
+                this.updateFilters(u);
+            }});
+            return l;
     }
 
     render(){
@@ -189,38 +209,42 @@ export default class Home extends Component{
         // Sets state to first search result for default value "hiking"
         // Note it takes a few seconds to fetch this, but will fetch -> load new
         //    screen when displaying result
-        if(this.state.queryResult == null) {
-        // this.getLocation("hiking").then((response) =>
-        //   this.setState({
-        //     queryResult:response.data.businesses[0].name
-        //   })
-        // ).catch(function (response) {
-        //   console.log(response);
-        // });
+        if(this.state.queryResult == null && this.state.showSuggestion) {
+         this.getLocation(this.state.categories).then((response) =>
+           this.setState({
+             queryResult:response.data.businesses[0].name
+           })
+         ).catch(function (response) {
+           console.log(response);
+         });
       }
       console.log("query result: " + this.state.queryResult);
       console.log(this.state.all);
         return(
-            <div onClick={(e)=>{
-                if (this.targetHasClickHandler(e))
-                  this.handleSearchBar({key:''});
-                else
-                  this.handleSearchBar({key:'Escape'});
-            }}>
-            <div> <TopBar/> </div>
-                <div className="flex justify-center" style={{paddingTop: 60}}>
-                    {this.genCards()}
-                </div>
-                <div style={{marginTop: '5%', left: '45%', position: 'absolute'}} className="justify-center">
-                    <ThemeProvider theme={theme}>
-                        <div style={{display: 'flex', 'flex-direction': 'column'}}>
-                            <Button data-click-handler="true" variant={"contained"} onClick={()=>{this.handleSearchBar({key:''})}} theme={theme} color={"primary"} style={style}> <div style={{color: "grey"}}>  + Add Person </div> </Button>
-                            <div style={{paddingTop: '20px'}}><Button variant={"contained"} onClick={()=>{/* TODO: make yelp query and change to suggestion page */}} theme={theme} color={"secondary"} style={style}> Find Me a Place! </Button></div>
-                        </div>
-                    </ThemeProvider>
-                </div>
-                <SearchBar addCard={this.addCard} display={this.state.display} userData={this.state.all} inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
-            </div>
+          <div>
+            {!this.state.showSuggestion ?
+              <div onClick={(e)=>{
+                  if (this.targetHasClickHandler(e))
+                    this.handleSearchBar({key:''});
+                  else
+                    this.handleSearchBar({key:'Escape'});
+              }}>
+              <div> <TopBar/> </div>
+                  <div className="flex justify-center" style={{paddingTop: 60}}>
+                      {this.genCards()}
+                  </div>
+                  <div style={{marginTop: '5%', left: '45%', position: 'absolute'}} className="justify-center">
+                      <ThemeProvider theme={theme}>
+                          <div style={{display: 'flex', 'flex-direction': 'column'}}>
+                              <Button data-click-handler="true" variant={"contained"} onClick={()=>{this.handleSearchBar({key:''})}} theme={theme} color={"primary"} style={style}> <div style={{color: "grey"}}>  + Add Person </div> </Button>
+                              <div style={{paddingTop: '20px'}}><Button variant={"contained"} onClick={()=>{this.state.showSuggestion = true;}} theme={theme} color={"secondary"} style={style}> Find Me a Place! </Button></div>
+                          </div>
+                      </ThemeProvider>
+                  </div>
+                  <SearchBar addCard={this.addCard} display={this.state.display} userData={this.state.all} inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
+              </div>
+            :<Suggestion name={this.state.queryResult}/>}
+          </div>
         );
     }
 
