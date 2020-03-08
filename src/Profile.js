@@ -28,6 +28,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import Input from '@material-ui/core/Input';
 
 /* misc icons */
 import clock from './img/clock.png';
@@ -79,6 +80,19 @@ const style = {
     borderRadius: '25px',
     width: '150px',
 };
+
+const BlurbStyle = withStyles({
+  root: {
+      fontFamily:'Raleway',
+      fontSize:14,
+      width:   230,
+      border:  0,
+      padding: 5,
+  },
+  input:{
+      padding:5,
+  }
+})(Input);
 
 function timeValueLabelFormat(time) {
     return ((time+11)%12+1) + ((time%24<12) ? "AM" : "PM");
@@ -281,7 +295,8 @@ class RightSide extends Component {
 }
 
 /**
- *  Price, time, distance
+ *  Edit user's preferred price, time, and distance.
+ *  Edit user's profile photo and blurb/bio.
  */
 class EditLeftSide extends Component {
     constructor(props) {
@@ -309,7 +324,8 @@ class EditLeftSide extends Component {
         </IconButton>
       </label> </div>
                 <div className="flex flex-column items-center" style={{marginLeft: '22.5%', position: 'absolute'}}> <img src={this.state.picture} className="preview-profile-img"/> </div>
-                <div style={{marginLeft: '15%', marginTop: '48%', position: 'absolute'}}> <ThemeProvider theme={theme}> <TextField multiline={true} rowsMax="6" label="Edit blurb" id="filled-secondary" defaultValue={this.props.blurb} InputLabelProps={{shrink: true,}}/> </ThemeProvider> </div>
+		<div className="editblurb-display" style={{marginLeft: '10%', marginTop: '52%', position: 'absolute'}}> Edit blurb </div>
+                <div style={{marginLeft: '10%', marginTop: '56%', position: 'absolute'}}> <ThemeProvider theme={theme}> <BlurbStyle multiline={true} rowsMax="4" label="Edit blurb" id="filled-secondary" defaultValue={this.props.blurb} InputLabelProps={{shrink: true,}}/> </ThemeProvider> </div>
                 <div style={{marginTop: '80%', marginLeft: '7%', position: 'absolute'}}> <EditLogisticalPreferences price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
                 </div>
             </div>
