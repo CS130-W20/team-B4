@@ -298,7 +298,7 @@ export default class Home extends Component{
                       <SearchBar addCard={this.addCard} display={this.state.display} userData={this.state.all} inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
                   </div>
               </div>
-            :<Suggestion name={this.state.queryResult}/>}
+            :<Suggestion name={this.state.queryResult} goBack={() =>{this.setState({showSuggestion: false})}}/>}
           </div>
         );
     }
