@@ -13,6 +13,7 @@ import { createMuiTheme, ThemeProvider, withStyles, makeStyles } from '@material
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { IconButton } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import firebase from 'firebase';
 import axios from 'axios';
 
 
@@ -87,12 +88,8 @@ export default class Suggestion extends Component {
     }
 
     getExtraLocationData = id => {
-      return axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${id}`, {
-        headers: {
-          Authorization: `Bearer XyLNjPiVmPm-_-Og2rpIVSqVUNbsAihqwf21PVcmpbmhQow8HEAflaDDLiO8rT6SmehRVMyJNLz-OqjyiwXCqy45-EIE7yVttnY9440F04drNBm_ceiBgnsVUWNEXnYx`,
-          'X-Requested-With': `XMLHttpRequest`,
-        }
-      });
+      var businessInfo = firebase.functions().httpsCallable('businessInfo');
+      return businessInfo({id:id});
     };
 
     checkIsOpen = () => {
