@@ -8,7 +8,9 @@ import "./Suggestion.css";
 import edit from './img/edit.png';
 import background from './img/freeimg3.jpg';
 import Button from "@material-ui/core/Button";
+import {Fade, Zoom} from 'react-reveal';
 import { createMuiTheme, ThemeProvider, withStyles, makeStyles } from '@material-ui/core/styles';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const theme = createMuiTheme({
     palette: {
@@ -41,16 +43,34 @@ export default class Suggestion extends Component {
     }
 
     render() {
+        console.log(this.props.data)
+        let {data} = this.props;
         return (
             <div>
                 <TopBar toProfile={()=>{this.props.toProfile()}} toMainSession={()=>{this.props.toMainSession()}}/>
                 <div style={{height:'50%'}} className="flex flex-row">
                     <div style={{width:'35%'}}>hi</div>
-                    <div style={{zIndex:1, borderLeft:'2px solid black', width:'65%'}}><GMap/></div>
-                    <div className="result">
-                        <div className="title"> Emporium Thai </div>
+                    <div style={{zIndex:1, borderLeft:'2px solid black', width:'65%'}}>
+                        <GMap lat={this.props.data ? this.props.data.coordinates.latitude : 34.0671489} long = {this.props.data ? this.props.data.coordinates.longitude : -118.4506839}/></div>
+                    <Fade bottom>
+                        <div className="result">
+                            {!this.props.data ? (
+                              <CircularProgress
+                                style={{ color: "#005DCB" }}
+                                color={"inherit"}
+                                size={16}
+                              />
+                          ) : (
+                              <div>
+                                <div id="title">{this.props.data.name}</div>
+                                <div>{data.price}</div>
+                                <div>{data.is_closed ? "closed" : "open"}</div>
+                                <div>{data.location}</div>
+                              </div>
+                            )}
+                        </div>
+                    </Fade>
 
-                     </div>
                     {/*<div className="box-suggestion pa4 pt1">
                         <div style={{ marginLeft: '1%', marginTop: '4.5%', position: 'absolute' }}
                             onClick={() => { this.setState({ 'view': false }) }}> <img src={edit} className='edit-img' />

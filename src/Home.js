@@ -256,10 +256,12 @@ export default class Home extends Component{
     makeQuery = () => {
       var list = this.getCategoryListFromMap();
       console.log(list);
-      this.getLocation(this.getCategoryListFromMap()).then((response) =>
+      this.getLocation(this.getCategoryListFromMap()).then((response) =>{
+          console.log(response.data);
         this.setState({
-          queryResult:response.data.businesses[0].name
+          queryResult:response.data.businesses[0]
         })
+        }
       ).catch(function (response) {
         console.log(response);
       });
@@ -300,7 +302,7 @@ export default class Home extends Component{
                       <SearchBar addCard={this.addCard} display={this.state.display} userData={this.state.all} inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
                   </div>
               </div>
-            :<Suggestion name={this.state.queryResult} goBack={() =>{this.setState({showSuggestion: false})}} toProfile={()=>{this.setState({showProfile: true})}} toMainSession={()=> {this.toMainSession()}}/>}
+            :<Suggestion data={this.state.queryResult} goBack={() =>{this.setState({showSuggestion: false})}} toProfile={()=>{this.setState({showProfile: true})}} toMainSession={()=> {this.toMainSession()}}/>}
           </div>
           : <Profile toProfile={()=>{this.setState({showProfile: true})}} toMainSession={()=> {this.toMainSession()}} />}  {/* the toProfile prop is only here bc we're replacing routing with embedding */}
           </div>
