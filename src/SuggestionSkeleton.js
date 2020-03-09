@@ -43,7 +43,7 @@ export default class Suggestion extends Component {
     render() {
         return (
             <div>
-                <TopBar />
+                <TopBar toProfile={()=>{this.props.toProfile()}} toMainSession={()=>{this.props.toMainSession()}}/>
                 <div style={{height:'50%'}} className="flex flex-row">
                     <div style={{width:'35%'}}>hi</div>
                     <div style={{zIndex:1, borderLeft:'2px solid black', width:'65%'}}><GMap/></div>

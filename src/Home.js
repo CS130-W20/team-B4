@@ -278,8 +278,8 @@ export default class Home extends Component{
           {!this.state.showProfile ?
           <div>
             {!this.state.showSuggestion ?
-              <div>
-              <div> <TopBar toProfile={()=>{this.setState({showProfile: true})}} toMainSession={()=> {this.toMainSession()}}/> </div>
+                <div>
+                  <div> <TopBar toProfile={()=>{this.setState({showProfile: true})}} toMainSession={()=> {this.toMainSession()}}/> </div>
                   <div className="flex justify-center" style={{paddingTop: 60}}>
                       {this.genCards()}
                   </div>
