@@ -47,16 +47,16 @@ class TopBar extends Component {
         return (
                 <div className="topbar full-width-div">
                     <div style={{float: 'left', marginLeft: '2%', marginTop: '0.35%'}}>
-                        <div className='topbar-logo' style={{ textDecoration: 'none', color: '#FFFFFF' }} onClick={()=>{this.props.toMainSession()}}>
+                        <div className='topbar-logo' style={{ textDecoration: 'none', color: '#FFFFFF', cursor: 'pointer' }} onClick={()=>{this.props.toMainSession()}}>
                           {'Adventum'}
                         </div>
                     </div>
-                    <div style={{float: 'right', marginRight: '2%', marginTop: '1%'}} onClick={() => fireAuth.signOut()}>
+                    <div style={{float: 'right', marginRight: '2%', marginTop: '1%', cursor: 'pointer'}} onClick={() => fireAuth.signOut()}>
                         <Link to="/">
                           <img src={logout} className='logout-img'/>
                         </Link>
                     </div>
-                    <div style={{float: 'right', marginRight: '2%', marginTop: '0.25%'}}>
+                    <div style={{float: 'right', marginRight: '2%', marginTop: '0.25%', cursor: 'pointer'}}>
                     {this.state.isLoggedIn ?
                         <img src={this.state.imgURL} className="thumbnail-img-top" onClick={()=>{this.props.toProfile()}}/>
                        :
