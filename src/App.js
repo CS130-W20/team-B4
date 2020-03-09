@@ -4,7 +4,6 @@ import Home from    "./Home";
 import Login from   "./Login";
 import Profile from "./Profile";
 import Landing from "./Landing";
-import Suggestion from './SuggestionSkeleton'
 import _ from "lodash";
 import withAuthProtection from "./withAuthProtection";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
@@ -132,7 +131,6 @@ class App extends React.Component {
                   </div>
                 )}
               />
-              <Route path="/suggestion" exact render={props=>(<Suggestion {...props}/>)}/>
               <Route path="/confirmation" exact
                 render={props => (<Confirmation {...props}/>)}/>
             </Switch>

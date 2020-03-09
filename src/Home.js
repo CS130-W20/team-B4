@@ -10,6 +10,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import yelpMap from './YelpAPIMap.js';
+import Profile from './Profile.js';
 
 
 export class userData{
@@ -88,7 +89,8 @@ export default class Home extends Component{
               searchFocus: false,
               queryResult: null,
               categories: {}, // maps activity to number of people who want it
-              showSuggestion: true, // if true, a query has been made
+              showSuggestion: false, // if true, a query has been made
+              showProfile: false
           }
       }
 
@@ -263,21 +265,21 @@ export default class Home extends Component{
       });
     }
 
+    toMainSession = () => {
+      this.setState({
+        showProfile: false,
+        showSuggestion: false,
+      })
+    }
+
     render(){
-
-        // Sets state to first search result for default value "hiking"
-        // Note it takes a few seconds to fetch this, but will fetch -> load new
-        //    screen when displaying result
-        if(this.state.queryResult == null && this.state.showSuggestion) {
-
-      }
-      console.log("query result: " + this.state.queryResult);
-      console.log(this.state.all);
         return(
+          <div>
+          {!this.state.showProfile ?
           <div>
             {!this.state.showSuggestion ?
               <div>
-              <div> <TopBar/> </div>
+              <div> <TopBar toProfile={()=>{this.setState({showProfile: true})}} toMainSession={()=> {this.toMainSession()}}/> </div>
                   <div className="flex justify-center" style={{paddingTop: 60}}>
                       {this.genCards()}
                   </div>
@@ -298,7 +300,9 @@ export default class Home extends Component{
                       <SearchBar addCard={this.addCard} display={this.state.display} userData={this.state.all} inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
                   </div>
               </div>
-            :<Suggestion name={this.state.queryResult} goBack={() =>{this.setState({showSuggestion: false})}}/>}
+            :<Suggestion name={this.state.queryResult} goBack={() =>{this.setState({showSuggestion: false})}} toProfile={()=>{this.setState({showProfile: true})}} toMainSession={()=> {this.toMainSession()}}/>}
+          </div>
+          : <Profile toProfile={()=>{this.setState({showProfile: true})}} toMainSession={()=> {this.toMainSession()}} />}  {/* the toProfile prop is only here bc we're replacing routing with embedding */}
           </div>
         );
     }
