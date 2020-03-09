@@ -285,7 +285,7 @@ export default class Home extends Component{
                   <div className="flex justify-center" style={{paddingTop: 60}}>
                       {this.genCards()}
                   </div>
-                  <div style={{marginTop: '5%', left: '45%', position: 'absolute'}} className="justify-center">
+                  <div style={{marginTop: '2%', left: '45%', position: 'absolute'}} className="justify-center">
                       <ThemeProvider theme={theme}>
                           <div style={{display: 'flex', 'flex-direction': 'column'}}>
                               <Button data-click-handler="true" variant={"contained"} onClick={()=>{this.handleSearchBar({key:''})}} theme={theme} color={"primary"} style={style}> <div style={{color: "grey"}}>  + Add Person </div> </Button>

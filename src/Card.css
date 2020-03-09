@@ -6,6 +6,16 @@
     font-family:'Raleway';
 }
 
+.label-card {
+    display: inline;
+    font-family: Raleway;
+    font-size: 80%;
+    border-radius: 5px;
+    background: #CFEBF9;
+    width: 150px;
+    height: 30px;
+}
+
 
 .profilePic{
     width:60%;

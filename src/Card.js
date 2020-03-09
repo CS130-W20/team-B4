@@ -8,6 +8,8 @@ import ActivityPreference from './ActivityPreference.js';
 import {db, storageRef} from './fireApi';
 import edit from './img/edit2.png';
 import CloseIcon from '@material-ui/icons/Close';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import iconPrefMap from './PreferenceMap.js';
 
 
 
@@ -23,7 +25,7 @@ export default class Card extends Component{
         this.state = {
             modify: true,
             imgURL: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-
+            displayActivityPrefs: false
         }
     }
 
@@ -38,14 +40,20 @@ export default class Card extends Component{
             this.props.imgURL.then((url)=>{this.setState({imgURL: url})});
     }
 
-    handlePreferenceChange = () => {}
+    handlePreferenceChange = () => {};
+
+    genActivityOptions = () => {
+      const options = ['italian', 'japanese', 'chinese', 'pizza', 'mediterranean', 'mexican', 'korean', 'fast_food', 'dessert', 'american', 'vegan', 'indian', 'thai', 'juice', 'bars', 'boba', 'coffee', 'bicycle', 'boat', 'beach', 'kayaking', 'hiking', 'yoga', 'climbing', 'museum', 'cinema', 'zoo', 'arcade', 'shopping'];
+      return options.map((item) => { return <div key={iconPrefMap[`${item}`]} className="ma3"> {<img src={iconPrefMap[`${item}`]} style={{'background-size': 'cover', display: 'flex', 'flex-direction': 'row', height: '30px'}}/>} <div className="label-card"> {item} </div> </div> })
+    }
 
     render(){
         const {data} = this.props;
-        const {imgURL, quote} = this.state;
+        const {imgURL, quote, displayActivityPrefs} = this.state;
         return(
             <Zoom opposite>
                 <div className="pa4 ma3 card">
+                    {!displayActivityPrefs ?
                     <div className="flex flex-column items-center" style={{width:'100%'}}>
                         <div className="flex" style={{top:'-11px', position:'relative', width:'100%', "flex-direction": "row", "justify-content": "space-between"}}>
                             <CloseIcon style={{cursor: "pointer"}} onClick={()=>{this.props.deleteCard(this.props.data)}}/>
@@ -61,10 +69,19 @@ export default class Card extends Component{
                          <TimePreference   start_time={data.start_time} end_time={data.end_time} handleStartTime={this.handleChange("start_time")} handleEndTime={this.handleChange("end_time")} modify={this.state.modify} fill={true}/>
                          <PricePreference  low={data.low} high={data.high}  handleLow={this.handleChange("low")} handleHigh={this.handleChange("high")} modify={this.state.modify}/>
                          <DistancePreference dist={data.dist} handleDist={this.handleChange("dist")} modify={this.state.modify}/>
-                         <ActivityPreference preferences={data.preferences} handlePreferences={this.handlePreferenceChange} modify={this.state.modify}/>
+                         <ActivityPreference preferences={data.preferences} handlePreferences={this.handlePreferenceChange} modify={this.state.modify} edit={() => {this.setState({displayActivityPrefs: true})}}/>
                         </div>
 
                     </div>
+
+                    :
+
+                    <div>
+                      <ArrowBackIcon style={{cursor: 'pointer'}} onClick={()=>{this.setState({displayActivityPrefs: false})}}/>
+                      <div className="flex flex-wrap">
+                        {this.genActivityOptions()}
+                      </div>
+                    </div>}
                 </div>
             </Zoom>
         )

@@ -48,6 +48,7 @@ export default class ActivityPreference extends Component{
         this.state={
             modifyStart: false,
             modifyEnd: false,
+            displayPrefOptions: false
         }
     }
 
@@ -70,17 +71,17 @@ export default class ActivityPreference extends Component{
         let {modifyStart, modifyEnd} = this.state;
         return(
             <div className="flex mb2 pb2" style={{borderBottom:'1px solid #CCC', width:'100%'}}>
-                <LocalActivityIcon className="mr2 pt1"  style={{width:24, height:24}} />
-                <div onMouseEnter={()=>{this.setState({modifyStart:false})}}
-         onMouseLeave={()=>{this.setState({modifyStart:false})}}>
-                    {this.props.modify ?
-                      <div className="flex flex-row" style={{fontSize:15, padding:'6px 8.5px 0px 8.5px'}}>{this.getIconList(preferences)}</div>
+                  <LocalActivityIcon className="mr2 pt1"  style={{width:24, height:24}} />
+                  <div onMouseEnter={()=>{this.setState({modifyStart:false})}}
+           onMouseLeave={()=>{this.setState({modifyStart:false})}}>
+                      {this.props.modify ?
+                        <div className="flex flex-row" style={{fontSize:15, padding:'6px 8.5px 0px 8.5px'}}>{this.getIconList(preferences)}</div>
 
-                      :
+                        :
 
-                      <EditIcon onClick={()=>{}} style={{paddingLeft: '10px', color: 'grey', cursor: 'pointer'}}/>
-                }
-                </div>
+                        <EditIcon onClick={()=>{this.props.edit()}} style={{paddingLeft: '10px', color: 'grey', cursor: 'pointer'}}/>
+                  }
+                  </div>
             </div>
         )
     }
