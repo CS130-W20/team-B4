@@ -45,7 +45,6 @@ class TopBar extends Component {
 
     render() {
         return (
-            <div>
                 <div className="topbar full-width-div">
                     <div style={{float: 'left', marginLeft: '2%', marginTop: '0.35%'}}>
                         <Link className='topbar-logo' to="/home" style={{ textDecoration: 'none', color: '#FFFFFF' }}>
@@ -70,7 +69,6 @@ class TopBar extends Component {
                     }
                     </div>
                 </div>
-            </div>
         );
     }
 }

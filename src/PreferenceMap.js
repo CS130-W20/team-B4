@@ -6,20 +6,20 @@ const iconPrefMap = {
   active: '/image/shoes2.png',
 
   italian: '/image/italian.png',
-  sushi: '/image/japanese.png',
+  japanese: '/image/japanese.png',
   chinese: '/image/chinese.png',
   pizza: '/image/pizza.png',
-  falafel: '/image/falafel.png',
-  taco: '/image/taco.png',
-  bulgogi: '/image/bulgogi.png',
-  corn_dog: '/image/corn-dog.png',
-  ice_cream: '/image/ice-cream.png',
+  mediterranean: '/image/falafel.png',
+  mexican: '/image/taco.png',
+  korean: '/image/bulgogi.png',
+  fast_food: '/image/corn-dog.png',
+  dessert: '/image/ice-cream.png',
   american: '/image/sandwich.png',
   vegan: '/image/leaf.png',
   indian: '/image/samosa.png',
   thai: '/image/tom-yum.png',
   juice: '/image/watermelon.png',
-  beer: '/image/beer.png',
+  bars: '/image/beer.png',
 
   boba: '/image/boba.png',
   coffee: '/image/coffee-cup2.png',
@@ -27,7 +27,7 @@ const iconPrefMap = {
   bicycle: '/image/bicycle.png',
   boat: '/image/boat.png',
   beach: '/image/beach.png',
-  kayak: '/image/kayak.png',
+  kayaking: '/image/kayak.png',
   hiking: '/image/mountains.png',
   yoga: '/image/wellness.png',
   climbing: '/image/rock-climbing.png',
@@ -38,6 +38,16 @@ const iconPrefMap = {
   zoo:    '/image/giraffe.png',
   arcade: '/image/arcade-game.png',
   shopping: '/image/credit-card.png',
+
+
+  clock: '/image/clock.png',
+  road:  '/image/road.png',
+  price: '/image/price.png',
+  edit:  '/image/edit.png',
+  logout: '/image/arrow_white.png',
+  dots: '/image/dots.png',
+  blue_circle: '/image/circle_blue.png',
+  grey_circle: '/image/circle_grey.png',
 };
 
 
