@@ -6,6 +6,30 @@ import yelpLogo from "./img/Yelp_Logo.png";
 import "./Suggestion.css";
 import edit from './img/edit.png';
 import background from './img/freeimg3.jpg';
+import Button from "@material-ui/core/Button";
+import { createMuiTheme, ThemeProvider, withStyles, makeStyles } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#2962ff',
+        },
+    },
+    overrides: {
+        MuiButton: {
+            label: {
+                color: '#ffffff',
+		fontFamily: 'Raleway',
+            },
+        },
+    }
+});
+
+const style = {
+    textTransform: 'none',
+    borderRadius: '25px',
+    width: '240px',
+};
 
 export default class Suggestion extends Component {
     constructor(props) {
@@ -45,6 +69,7 @@ export default class Suggestion extends Component {
                         </div>
                     </div>
                 </div>
+		<div style={{marginTop: '45%', marginLeft: '42%', position: 'absolute'}} className="justify-center"> <ThemeProvider theme={theme}> <Button variant={"contained"} theme={theme} color={"primary"} style={style}> Find me something else! </Button> </ThemeProvider> </div>
                 <img src={background} className="background"></img>
             </div>
         )
