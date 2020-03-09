@@ -88,7 +88,7 @@ export default class Home extends Component{
               searchFocus: false,
               queryResult: null,
               categories: {}, // maps activity to number of people who want it
-              showSuggestion: false, // if true, a query has been made
+              showSuggestion: true, // if true, a query has been made
           }
       }
 

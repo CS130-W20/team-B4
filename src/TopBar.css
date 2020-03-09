@@ -4,9 +4,11 @@
   width: 100%;
   background-color: #005DCB;
   display: block;
+  position:absolute;
 
   margin-left: 0px;
   margin-right: 0px;
+  z-index:2;
 
 }
 
