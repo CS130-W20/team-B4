@@ -9,6 +9,7 @@ import {db, storageRef} from './fireApi';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import yelpMap from './YelpAPIMap.js';
 
 
 export class userData{
@@ -74,6 +75,23 @@ const style = {
  */
 export default class Home extends Component{
 
+
+      constructor(props){
+          super(props);
+          this.state={
+              showSearch: false,
+              all: [],
+              display: {},
+              filter: '',
+              searchVal: '',
+              showSearch: false,
+              searchFocus: false,
+              queryResult: null,
+              categories: {}, // maps activity to number of people who want it
+              showSuggestion: false, // if true, a query has been made
+          }
+      }
+
     /** Queries businesses around UCLA that match the specified category
      *
      *  @param categories array of places (strings) to include in filter
@@ -81,8 +99,17 @@ export default class Home extends Component{
      *  @return promise for yelp API call
      */
     getLocation = categories => {
+      // Convert our category labels to those used by Yelp
+      var yelpCategories = [];
+      categories.forEach((category) => {yelpCategories = yelpCategories.concat(yelpMap[`${category}`])})
+      console.log(yelpCategories);
+
+      // Convert to REST API format (comma deliniated list)
       var categoryString = "";
-      categories.forEach((x) => {categoryString += x + ","});
+      if(yelpCategories.length != 0) {
+        yelpCategories.forEach((x) => {categoryString += x + ","});
+        categoryString = categoryString.substring(0, categoryString.length-1);
+      }
       return axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/search`, {
         headers: {
           Authorization: `Bearer XyLNjPiVmPm-_-Og2rpIVSqVUNbsAihqwf21PVcmpbmhQow8HEAflaDDLiO8rT6SmehRVMyJNLz-OqjyiwXCqy45-EIE7yVttnY9440F04drNBm_ceiBgnsVUWNEXnYx`,
@@ -98,20 +125,24 @@ export default class Home extends Component{
       });
     };
 
-    constructor(props){
-        super(props);
-        this.state={
-            showSearch: false,
-            all: [],
-            display: {},
-            filter: '',
-            searchVal: '',
-            showSearch: false,
-            searchFocus: false,
-            queryResult: null,
-            categories: [],
-            showSuggestion: false, // if true, a query has been made
+
+    getCategoryListFromMap = () => {
+      var temp = this.updateFilters();
+      var ret = [];
+      for(var key in temp) {
+        // If at least 2 people want an activity, include in search
+        if(temp[key] >= 2)
+          ret.push(key);
+      }
+
+      // If empty, everyone has separate preferences, so consider everything
+      if(ret.length == 0) {
+        for(var key in temp) {
+            ret.push(key);
         }
+      }
+      console.log(ret);
+      return ret;
     }
 
     handleCardDelete = (card) => {
@@ -195,8 +226,20 @@ export default class Home extends Component{
     /**
      *  @param u user data for newly selected user
      */
-    updateFilters = (u) => {
-      // If
+    updateFilters = () => {
+      var temp = {};
+        this.state.all.forEach((u)=>{
+                    if(this.state.display[u.username]) {
+                        u.preferences.forEach((pref) => {
+                          if(temp[`${pref}`] == undefined) {
+                            temp[`${pref}`] = 1;
+                          }
+                          else {
+                            temp[`${pref}`]++;
+                          }
+                        });
+                    }});
+      return temp;
     }
 
     genCards = ()=>{
@@ -204,9 +247,20 @@ export default class Home extends Component{
         this.state.all.forEach((u)=>{
             if(this.state.display[u.username]) {
                 l.push(<Card key={u.username}  data={u} imgURL = {u.pic ? this.getURL(u.pic) : ''} deleteCard = {this.handleCardDelete}/>);
-                this.updateFilters(u);
             }});
             return l;
+    }
+
+    makeQuery = () => {
+      var list = this.getCategoryListFromMap();
+      console.log(list);
+      this.getLocation(this.getCategoryListFromMap()).then((response) =>
+        this.setState({
+          queryResult:response.data.businesses[0].name
+        })
+      ).catch(function (response) {
+        console.log(response);
+      });
     }
 
     render(){
@@ -215,13 +269,7 @@ export default class Home extends Component{
         // Note it takes a few seconds to fetch this, but will fetch -> load new
         //    screen when displaying result
         if(this.state.queryResult == null && this.state.showSuggestion) {
-         this.getLocation(this.state.categories).then((response) =>
-           this.setState({
-             queryResult:response.data.businesses[0].name
-           })
-         ).catch(function (response) {
-           console.log(response);
-         });
+
       }
       console.log("query result: " + this.state.queryResult);
       console.log(this.state.all);
@@ -237,7 +285,7 @@ export default class Home extends Component{
                       <ThemeProvider theme={theme}>
                           <div style={{display: 'flex', 'flex-direction': 'column'}}>
                               <Button data-click-handler="true" variant={"contained"} onClick={()=>{this.handleSearchBar({key:''})}} theme={theme} color={"primary"} style={style}> <div style={{color: "grey"}}>  + Add Person </div> </Button>
-                              <div style={{paddingTop: '20px'}}><Button variant={"contained"} onClick={()=>{this.state.showSuggestion = true;}} theme={theme} color={"secondary"} style={style}> Find Me a Place! </Button></div>
+                              <div style={{paddingTop: '20px'}}><Button variant={"contained"} onClick={()=>{this.setState({showSuggestion: true}); console.log(this.state.all); this.makeQuery()}} theme={theme} color={"secondary"} style={style}> Find Me a Place! </Button></div>
                           </div>
                       </ThemeProvider>
                   </div>
