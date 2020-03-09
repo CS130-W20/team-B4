@@ -14,6 +14,8 @@ exports.businessInfo = functions.https.onCall((data, context)=>{
         }
       }).then(r => {
           return r.data;
+      }).catch(err =>{
+          return err;
       })
 });
 
@@ -26,6 +28,6 @@ exports.yelpCall = functions.https.onCall((data, context)=>{
             params: data.params,
        }).then(r => {
           return r.data;
-      })
+      }).catch(err => err);
 
 })

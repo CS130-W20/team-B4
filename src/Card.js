@@ -55,7 +55,7 @@ export default class Card extends Component{
                 <div className="pa4 ma3 card">
                     {!displayActivityPrefs ?
                     <div className="flex flex-column items-center" style={{width:'100%'}}>
-                        <div className="flex" style={{top:'-11px', position:'relative', width:'100%', "flex-direction": "row", "justify-content": "space-between"}}>
+                        <div className="flex flex-row justify-between" style={{top:'-11px', position:'relative', width:'100%', flexDirection: "row", JustifyContent: "space-between"}}>
                             <CloseIcon style={{cursor: "pointer"}} onClick={()=>{this.props.deleteCard(this.props.data)}}/>
                             {this.state.modify ?
                             <img className="pv1" onClick={()=>{this.setState({modify:!this.state.modify})}} src={edit} style={{width:20, height:20, cursor: 'pointer'}}/>:  <div className="pv1 ph2" style={{borderRadius:4, border:'1px solid #888', cursor: 'pointer'}} onClick={()=>{this.setState({modify:!this.state.modify})}} > save </div>

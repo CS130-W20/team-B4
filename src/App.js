@@ -41,7 +41,6 @@ const ProtectedConfirmation = withAuthProtection("/")(Confirmation);
 class App extends React.Component {
   constructor() {
     super();
-    console.log("user", fireAuth.currentUser);
     this.state = {
       me: fireAuth.currentUser,
       error: ''
@@ -65,14 +64,12 @@ class App extends React.Component {
           var token = result.credential.accessToken;
           // The signed-in user info.
           var user = result.user;
-          console.log(user);
           return history.push("/home");
       }).catch((error)=>{
           // Handle Errors here.
           this.setState({error: error.message});
           var errorCode = error.code;
           var errorMessage = error.message;
-          console.log(errorCode);
           console.log(errorMessage);
           // The email of the user's account used.
           var email = error.email;

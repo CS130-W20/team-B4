@@ -58,12 +58,12 @@ export default class ActivityPreference extends Component{
         var arr = [];
         categories.forEach((category) => {
           if(!this.state.showRestOfPrefs) {
-            if(arr.length <= 3) {
-              arr.push(<img src={iconPrefMap[`${category}`]} style={{paddingRight: '5px', 'background-size': 'cover', display: 'flex', 'flex-direction': 'row', height: '30px'}}/>);
-              if(arr.length == 3) {
-                arr.push(<img src={dots} onClick={()=>{this.setState({showRestOfPrefs: true})}} style={{cursor: 'pointer', paddingRight: '5px', paddingTop: '5px', 'background-size': 'cover', display: 'flex', 'flex-direction': 'row', height: '15px'}}/>);
+            if(arr.length < 3) {
+              arr.push(<img key={category} src={iconPrefMap[`${category}`]} style={{paddingRight: '5px', backgroundSize: 'cover', display: 'flex', flexDirection: 'row', height: '30px'}}/>);
+          }
+          else if(arr.length == 3) {
+                arr.push(<img key={category} src={dots} onClick={()=>{this.setState({showRestOfPrefs: true})}} style={{cursor: 'pointer', paddingRight: '5px', paddingTop: '5px', backgroundSize: 'cover', display: 'flex', flexDirection: 'row', height: '15px'}}/>);
               }
-            }
           } else {
             arr.push(<img src={iconPrefMap[`${category}`]} style={{paddingRight: '5px', 'background-size': 'cover', display: 'flex', 'flex-direction': 'row', height: '30px'}}/>);
           }

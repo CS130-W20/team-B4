@@ -80,6 +80,14 @@
     height: 100%;
     overflow: hidden;
 }
+
+.info{
+    text-align:left;
+    color: #666;
+    font-family: Raleway;
+    font-size:22px;
+
+}
 .CategoryPrice{
     text-align:left;
     color: #666;

@@ -96,7 +96,7 @@ class Login extends React.Component {
               style={{ display: "flex", flexDirection: "column" }}
               onSubmit={this.state.login ? this.handleSubmit : this.handleSignIn}
             >
-            {this.state.login ? <div className="mb3">
+            {this.state.login ? <div style={{marginBottom: 27}}>
                 <BlueButton
                     variant={"contained"}
                     fullWidth

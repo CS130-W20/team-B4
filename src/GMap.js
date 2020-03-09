@@ -15,7 +15,6 @@ class GMap extends Component {
 
   render() {
       let center= this.props.lat ? {lat:this.props.lat, lng: this.props.long} : this.props.center
-      console.log(center);
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '100vh', width: '100%' }}>

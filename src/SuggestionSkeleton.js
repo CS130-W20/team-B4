@@ -57,12 +57,10 @@ class Rating extends Component{
     genStars = ()=>{
         let l = []
         let r = this.props.rating;
-        console.log(r);
         for(let i = 1; i <= this.props.rating; i++){
             l.push(<img style={star_style} src={'/image/star.png'}/>)
             r -= 1
         }
-        console.log(r);
         if(r!=0){
             l.push(<img style={half_star_style} src={'/image/half_star.png'}/>);
         }
@@ -98,7 +96,7 @@ export default class Suggestion extends Component {
         this.setState({
           businessIsClosed: response.data.is_closed
         });
-      });
+    }).catch((err)=>{console.log(err)});
     }
 
     render() {
@@ -128,16 +126,16 @@ export default class Suggestion extends Component {
                               <div>
                                 <div id="title">{data.name}</div>
                                 <Rating review_count={data.review_count} rating={data.rating}/>
-                                <div className="flex flex-row">
+                                <div className="CategoryPrice"> {data.categories.map(a => a.title + ", ").slice(0,2).join(' ').slice(0,-2)}</div>
+                                <div className="flex flex-row mt2">
                                     <div className="CategoryPrice">{data.price}</div>
                                     {data.price ? <div className="flex items-center"><div className="dot mh2"/></div> : <div/>}
-                                    <div className="CategoryPrice"> {data.categories.map(a => a.title + ", ").slice(0,2).join(' ').slice(0,-2)}</div>
-                                    <div className="flex items-center"><div className="dot mh2"/></div>
+                                    {/*<div className="flex items-center"><div className="dot mh2"/></div>*/}
                                     <div className="CategoryPrice" style={{fontWeight:'bold', color: !this.state.businessIsClosed ? `green` :'red'}}>{this.state.businessIsClosed ? "closed" : "open"}</div>
                                 </div>
                                 <div className="divider"/>
-                                <div className="CategoryPrice mb2">{data.location["address1"]}</div>
-                                <div className="CategoryPrice">{data.display_phone}</div>
+                                <div className="info mb2">{data.location["address1"]}</div>
+                                <div className="info" style={{paddingBottom:20}}>{data.display_phone}</div>
                               </div>
                             )}
                         </div>
@@ -148,7 +146,12 @@ export default class Suggestion extends Component {
                             type={"submit"}
                             variant={"contained"}
                             color={"secondary"}
-                            onClick={()=>{this.setState({refreshing:true})}}
+                            onClick={()=>{
+                                if(this.props.data !== null) {
+                                  var newCount = this.state.queryCounter != this.props.data.length-1 ? this.state.queryCounter + 1 : 0;
+                                  this.setState({refreshing:true}, ()=>{
+                                  this.setState({queryCounter: newCount, businessIsClosed: null},
+                              ()=>{this.setState({refreshing:false})})});}}}
                           >
                             {refreshing ? (
                               <CircularProgress
@@ -156,13 +159,7 @@ export default class Suggestion extends Component {
                                 color={"inherit"}
                                 size={24}
                               />
-                          ) : <ArrowForwardIcon onClick={()=>{
-                                      if(this.props.data !== null) {
-                                        var newCount = this.state.queryCounter != this.props.data.length-1 ? this.state.queryCounter + 1 : 0;
-                                        this.setState({queryCounter: newCount, businessIsClosed: null});
-                                      }
-                                    }
-                                  } />
+                          ) : <ArrowForwardIcon/>
                             }
                           </IconButton>
                           </ThemeProvider>

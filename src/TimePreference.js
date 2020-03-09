@@ -54,7 +54,7 @@ export default class TimePreference extends Component{
         let l = [];
         let i = 0;
         while(i<48){
-            l.push(<MenuItem value={t.format('hh:mm a')}>{t.format('hh:mm a')}</MenuItem>)
+            l.push(<MenuItem key={i} value={t.format('hh:mm a')}>{t.format('hh:mm a')}</MenuItem>)
             t.add(30, 'm')
             i += 1;
             if((t.hour() == 23 && t.minute() == 30) || i > 48){

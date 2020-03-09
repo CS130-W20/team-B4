@@ -106,7 +106,6 @@ export default class Home extends Component{
       // Convert our category labels to those used by Yelp
       var yelpCategories = [];
       categories.forEach((category) => {yelpCategories = yelpCategories.concat(yelpMap[`${category}`])})
-      console.log(yelpCategories);
 
       // Convert to REST API format (comma deliniated list)
       var categoryString = "";
@@ -136,7 +135,6 @@ export default class Home extends Component{
             ret.push(key);
         }
       }
-      console.log(ret);
       return ret;
     }
 
@@ -187,7 +185,6 @@ export default class Home extends Component{
         db.collection("users").get().then((querySnapshot) => {
                 var l = [];
                 querySnapshot.forEach((doc)=>{
-                    console.log(doc.data());
                     l.push(new userData(doc.data()))});
                 // this.setState({all: l})
                 return l;
@@ -250,13 +247,12 @@ export default class Home extends Component{
     makeQuery = () => {
       var list = this.getCategoryListFromMap();
       this.getLocation(this.getCategoryListFromMap()).then((response) =>{
-          console.log(response.data);
         this.setState({
           queryResult:response.data.businesses
         })
         }
-      ).catch(function (response) {
-        console.log(response);
+    ).catch(function (err) {
+        console.log(err);
       });
     }
 
@@ -280,9 +276,9 @@ export default class Home extends Component{
                   </div>
                   <div style={{marginTop: '2%', left: '45%', position: 'absolute'}} className="justify-center">
                       <ThemeProvider theme={theme}>
-                          <div style={{display: 'flex', 'flex-direction': 'column'}}>
+                          <div style={{display: 'flex', flexDirection: 'column'}}>
                               <Button data-click-handler="true" variant={"contained"} onClick={()=>{this.handleSearchBar({key:''})}} theme={theme} color={"primary"} style={style}> <div style={{color: "grey"}}>  + Add Person </div> </Button>
-                              <div style={{paddingTop: '20px'}}><Button variant={"contained"} onClick={()=>{this.setState({showSuggestion: true}); console.log(this.state.all); this.makeQuery()}} theme={theme} color={"secondary"} style={style}> Find Me a Place! </Button></div>
+                              <div style={{paddingTop: '20px'}}><Button variant={"contained"} onClick={()=>{this.setState({showSuggestion: true});  this.makeQuery()}} theme={theme} color={"secondary"} style={style}> Find Me a Place! </Button></div>
                           </div>
                       </ThemeProvider>
                   </div>

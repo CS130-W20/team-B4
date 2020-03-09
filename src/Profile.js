@@ -170,7 +170,6 @@ class Profile extends Component{
         event.preventDefault();
     }
     onSubmit = () =>{
-        console.log(this.state.my_prefs);
         this.setState({
             view: true,
         });
@@ -194,7 +193,6 @@ class Profile extends Component{
     }
 
     render() {
-        console.log(this.state.distance);
         const self = this;
         let food_choices = ["japanese", "italian", "indian", "chinese", "mediterranean", "thai", "korean", "mexican", "american", "fast_food", "dessert", "vegan"]
         let drink_choices = ["coffee", "juice","boba","bars"]
@@ -333,7 +331,6 @@ class EditLeftSide extends Component {
 
     upload(e) {
         this.setState({picture: URL.createObjectURL(e.target.files[0])});
-        console.log(this.state.picture);
     }
 
     render() {
@@ -422,7 +419,7 @@ class PreferenceGroup extends React.Component {
             <div className="flex flex-column miscBox">
                 <div className="flex flex-row"><img src={this.props.img} className={c}/><div className="PrefCategory pt2 ph2">{this.props.name}</div></div>
                 <div className="flex flex-wrap">
-                    {choices.map(choice => <Option choice={choice} handleCheck={()=>{this.props.handleCheck(choice)}} checked={my_prefs.includes(choice)}/>)}
+                    {choices.map(choice => <Option key={choice} choice={choice} handleCheck={()=>{this.props.handleCheck(choice)}} checked={my_prefs.includes(choice)}/>)}
                 </div>
             </div>
         );
