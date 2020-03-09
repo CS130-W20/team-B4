@@ -35,7 +35,7 @@ export default class Suggestion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+
         }
     }
 
@@ -45,7 +45,7 @@ export default class Suggestion extends Component {
                 <div><TopBar /></div>
                 <div className="box-suggestion pa4 pt1">
                     <div style={{ marginLeft: '1%', marginTop: '4.5%', position: 'absolute' }}
-                        onClick={() => { this.setState({ 'view': false }) }}> <img src={edit} className='edit-img' />
+                        onClick={() => { this.props.goBack() }}> <img src={edit} className='edit-img' />
                     </div>
                     <div className="justify-center" style={{ paddingTop: 30 }}>
                         <img className="suggestion-image" src={thai} alt="" width="260" height="260" style={{borderStyle: "solid", borderRadius: "25px"}}/>

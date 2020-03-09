@@ -18,7 +18,7 @@ export default class SearchBar extends Component{
     componentDidMount(){
         console.log(this.props.userData);
         var l = {}
-        this.props.userData.forEach((user)=>{user.promise.then(url=>{l[user.username] = url})})
+        this.props.userData.forEach((user)=>{if(user.promise) user.promise.then(url=>{l[user.username] = url})})
         this.setState({imgURL:l})
     }
 
@@ -28,10 +28,10 @@ export default class SearchBar extends Component{
             if(user.username.toLowerCase().includes(this.props.searchVal.toLowerCase()) && this.props.searchVal !== ''){
                 var grey = this.props.display[user.username] ? 'grey' : 'selected';
                 return <Fade collapse duration={500} when={true}>
-                    <div onClick={()=>{this.props.addCard(user);}} className={`searchResult ${grey}`}>@{this.state.imgURL[user.username]}{user.username}</div></Fade>
+                    <div onClick={()=>{this.props.addCard(user);}} className={`searchResult ${grey}`}>@{user.username}</div></Fade>
                 }
             else
-                return <Fade collapse duration={500} when={false}><div onClick={()=>{this.props.addCard(user);}} className="searchResult">{user.username}</div></Fade>
+                return <Fade collapse duration={500} when={false}><div onClick={()=>{this.props.addCard(user);}} className="searchResult">@{user.username}</div></Fade>
             }
         )
     }
