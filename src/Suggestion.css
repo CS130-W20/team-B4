@@ -10,18 +10,21 @@
     text-shadow: 1px 3px 10px rgba(0, 29, 125, 0.5);*/
 }
 
-.result .title{
+#title{
+    font-family: Bebas Neue;
     color: black;
     font-size:60px;
+    font-weight: bold;
+    padding-top:20px;
+
     text-align: left;
     width:100%;
-    padding-left:25px;
 }
 
 .result{
     width:30%;
     top:20%;
-    padding: 25px;
+    padding: 30px;
     background-color:white;
     height:67%;
     left: 20%;
