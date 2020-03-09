@@ -157,7 +157,7 @@ class Profile extends Component{
         const self = this;
         return (
             <div className="prof flex flex-column">
-            <TopBar/>
+            <TopBar toProfile={()=>{this.props.toProfile()}} toMainSession={()=>{this.props.toMainSession()}}/>
             {this.state.view ?
             <div>
                 <div style={{marginLeft: '1%', marginTop: '4.5%', position: 'absolute'}} onClick={()=>{this.setState({'view': false})}}>

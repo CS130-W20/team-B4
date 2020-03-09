@@ -42,7 +42,7 @@ export default class Suggestion extends Component {
     render() {
         return (
             <div>
-                <div><TopBar /></div>
+                <div><TopBar toProfile={()=>{this.props.toProfile()}} toMainSession={()=>{this.props.toMainSession()}} /></div>
                 <div className="box-suggestion pa4 pt1">
                     <div style={{ marginLeft: '1%', marginTop: '4.5%', position: 'absolute' }}
                         onClick={() => { this.props.goBack() }}> <img src={edit} className='edit-img' />
