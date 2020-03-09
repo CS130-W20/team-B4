@@ -1,7 +1,616 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Login should render correctly in "debug" mode 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+exports[`Landing renders correctly 1`] = `
+<div>
+  <img
+    alt=""
+    className="Background-img"
+    src="freeimg.jpg"
+  />
+  <div
+    className="box-landing pa6 pt7"
+  >
+    <div
+      className="title"
+    >
+       Adventum 
+    </div>
+    <div
+      className="flex justify-center"
+    >
+      <a
+        aria-disabled={false}
+        className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth"
+        href="/login"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        role="button"
+        style={
+          Object {
+            "minWidth": "200px",
+          }
+        }
+        tabIndex={0}
+      >
+        <span
+          className="MuiButton-label"
+        >
+          Log In
+        </span>
+      </a>
+    </div>
+    <div
+      className="mv3 flex justify-center"
+    >
+      <a
+        aria-disabled={false}
+        className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-fullWidth"
+        href="/login"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        role="button"
+        style={
+          Object {
+            "minWidth": "200px",
+          }
+        }
+        tabIndex={0}
+      >
+        <span
+          className="MuiButton-label"
+        >
+          Sign Up
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Login renders correctly 1`] = `
+<div
+  className="login"
+  style={
+    Object {
+      "textAlign": "left",
+    }
+  }
+>
+  <div
+    className="box pa5"
+  >
+    <div
+      style={
+        Object {
+          "font-family": "Raleway",
+          "fontSize": 20,
+        }
+      }
+    >
+      <a
+        href="/"
+        onClick={[Function]}
+        style={
+          Object {
+            "textDecoration": "none",
+          }
+        }
+      >
+        &lt; Back
+      </a>
+    </div>
+    <div
+      className="logo"
+    >
+      Adventum
+    </div>
+    <form
+      onSubmit={[Function]}
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "column",
+        }
+      }
+    >
+      <div />
+      <div />
+      <div
+        className="MuiFormControl-root MuiTextField-root"
+        style={
+          Object {
+            "marginBottom": 24,
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined Mui-required Mui-required"
+          data-shrink={false}
+        >
+          Email
+          <span
+            className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+          >
+             
+            *
+          </span>
+        </label>
+        <div
+          className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiInputBase-input MuiOutlinedInput-input"
+            disabled={false}
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={true}
+            type="email"
+            value=""
+          />
+          <fieldset
+            aria-hidden={true}
+            className="PrivateNotchedOutline-root-91 MuiOutlinedInput-notchedOutline"
+          >
+            <legend
+              className="PrivateNotchedOutline-legendLabelled-93"
+            >
+              <span>
+                Email
+                 *
+              </span>
+            </legend>
+          </fieldset>
+        </div>
+      </div>
+      <div
+        className="MuiFormControl-root MuiTextField-root"
+        style={
+          Object {
+            "marginBottom": 24,
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined Mui-required Mui-required"
+          data-shrink={false}
+        >
+          Password
+          <span
+            className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+          >
+             
+            *
+          </span>
+        </label>
+        <div
+          className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiInputBase-input MuiOutlinedInput-input"
+            disabled={false}
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={true}
+            type="password"
+            value=""
+          />
+          <fieldset
+            aria-hidden={true}
+            className="PrivateNotchedOutline-root-91 MuiOutlinedInput-notchedOutline"
+          >
+            <legend
+              className="PrivateNotchedOutline-legendLabelled-93"
+            >
+              <span>
+                Password
+                 *
+              </span>
+            </legend>
+          </fieldset>
+        </div>
+      </div>
+      <div />
+      <div
+        style={
+          Object {
+            "height": 0,
+            "visibility": "hidden",
+          }
+        }
+      >
+        <div
+          className="react-reveal error mb3"
+          style={
+            Object {
+              "opacity": undefined,
+            }
+          }
+        >
+           
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "height": 0,
+            "visibility": "hidden",
+          }
+        }
+      >
+        <div
+          className="react-reveal"
+          style={
+            Object {
+              "opacity": undefined,
+            }
+          }
+        >
+           
+        </div>
+      </div>
+      <div
+        className="flex justify-end mt3"
+      >
+        <div
+          className="message ph4 mt2"
+          onClick={[Function]}
+          style={
+            Object {
+              "fontSize": 15,
+              "textDecoration": "underline",
+            }
+          }
+        >
+           
+          Don't have an account? Sign up!
+           
+        </div>
+        <button
+          className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="submit"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            Login
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`Profile renders correctly 1`] = `
+<div
+  className="prof flex flex-column"
+>
+  <div
+    className="topbar full-width-div"
+  >
+    <div
+      style={
+        Object {
+          "float": "left",
+          "marginLeft": "2%",
+          "marginTop": "0.35%",
+        }
+      }
+    >
+      <div
+        className="topbar-logo"
+        onClick={[Function]}
+        style={
+          Object {
+            "color": "#FFFFFF",
+            "cursor": "pointer",
+            "textDecoration": "none",
+          }
+        }
+      >
+        Adventum
+      </div>
+    </div>
+    <div
+      onClick={[Function]}
+      style={
+        Object {
+          "cursor": "pointer",
+          "float": "right",
+          "marginRight": "2%",
+          "marginTop": "1%",
+        }
+      }
+    >
+      <a
+        href="/"
+        onClick={[Function]}
+      >
+        <img
+          className="logout-img"
+          src="arrow_white.png"
+        />
+      </a>
+    </div>
+    <div
+      style={
+        Object {
+          "cursor": "pointer",
+          "float": "right",
+          "marginRight": "2%",
+          "marginTop": "0.25%",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "marginTop": "20%",
+          }
+        }
+      >
+        <a
+          className="topbar-signup"
+          href="/login"
+          onClick={[Function]}
+          style={
+            Object {
+              "color": "#FFFFFF",
+              "textDecoration": "none",
+            }
+          }
+        >
+          Sign Up
+        </a>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      onClick={[Function]}
+      style={
+        Object {
+          "marginLeft": "1%",
+          "marginTop": "4.5%",
+          "position": "absolute",
+        }
+      }
+    >
+      <img
+        className="edit-img"
+        src="/image/edit.png"
+      />
+    </div>
+    <div
+      style={
+        Object {
+          "marginLeft": "10%",
+          "position": "absolute",
+        }
+      }
+    >
+      <div>
+        <div
+          className="gradient-box"
+          style={
+            Object {
+              "marginTop": "45%",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "marginLeft": "16%",
+                "marginTop": "10%",
+                "position": "absolute",
+              }
+            }
+          >
+             
+            <img
+              className="profile-img"
+              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            />
+             
+          </div>
+          <div
+            style={
+              Object {
+                "marginLeft": "16%",
+                "marginTop": "75%",
+                "position": "absolute",
+              }
+            }
+          >
+             
+            <div>
+              <div>
+                <img
+                  className="logistical-icon-img"
+                  src="/image/clock.png"
+                />
+                <div
+                  className="logistical-pref-display"
+                >
+                   
+                   - 
+                   
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "marginTop": "5%",
+                  }
+                }
+              >
+                <img
+                  className="logistical-icon-img"
+                  src="/image/road.png"
+                />
+                <div
+                  className="logistical-pref-display"
+                >
+                   
+                  &lt;30 mi
+                   
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "marginTop": "5%",
+                  }
+                }
+              >
+                <img
+                  className="logistical-icon-img"
+                  src="/image/price.png"
+                />
+                <div
+                  className="logistical-pref-display"
+                >
+                   
+                  &lt;$60
+                   
+                </div>
+              </div>
+            </div>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="fullname-display"
+      style={
+        Object {
+          "marginLeft": "48%",
+          "marginTop": "10%",
+          "position": "absolute",
+        }
+      }
+    >
+      
+    </div>
+    <div
+      className="username-display"
+      style={
+        Object {
+          "marginLeft": "48%",
+          "marginTop": "14%",
+          "position": "absolute",
+        }
+      }
+    >
+       
+      
+       
+    </div>
+    <div
+      className="blurb-display"
+      style={
+        Object {
+          "marginLeft": "48%",
+          "marginTop": "17%",
+          "position": "absolute",
+        }
+      }
+    >
+       
+      
+       
+    </div>
+    <div
+      className="username-display2"
+      style={
+        Object {
+          "marginLeft": "48%",
+          "marginTop": "21%",
+        }
+      }
+    >
+       
+      
+       is down for... 
+    </div>
+    <div
+      style={
+        Object {
+          "marginLeft": "48%",
+          "marginTop": "24%",
+          "position": "absolute",
+        }
+      }
+    >
+       
+      <div>
+        <div
+          className="row"
+        >
+           
+           
+        </div>
+        <div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginTop": "65px",
+              }
+            }
+          />
+        </div>
+      </div>
+       
+    </div>
+  </div>
+</div>
 `;
