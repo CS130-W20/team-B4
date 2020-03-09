@@ -120,7 +120,7 @@ class App extends React.Component {
               />
               <Route path="/profile" exact
                 render={props => (
-                  <div>
+                  <div style={{height:'100%'}}>
                     <ProtectedProfile {...props} me={me} displayName={email} />
                   </div>
                 )}

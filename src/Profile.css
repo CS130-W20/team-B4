@@ -6,6 +6,18 @@
     align-items: center;
     height:100%;
 }
+.miscBox{
+    width:50%;
+    height: 300px;
+    padding: 20px;
+}
+.editPage{
+    width:100%;
+    height:100%;
+}
+.prof{
+    height:100%;
+}
 
 .message {
     font-family: Raleway;
@@ -195,11 +207,13 @@
 .category-img {
     display: inline;
     height: 35px;
+    width:35px;
     filter: invert(66%) sepia(22%) saturate(7497%) hue-rotate(201deg) brightness(101%) contrast(99%);
 }
 
 .category2-img {
     display: inline;
+    width: 60px;
     height: 60px;
     filter: invert(31%) sepia(87%) saturate(3032%) hue-rotate(200deg) brightness(103%) contrast(104%);
 }
@@ -207,18 +221,22 @@
 .category3-img {
     display: inline;
     height: 45px;
+    width:45px;
     filter: invert(66%) sepia(22%) saturate(7497%) hue-rotate(201deg) brightness(101%) contrast(99%);
 }
 
+.pref{
+    margin-left: 40%;
+    width:60%;
+}
 .title-display {
+    width:100%;
     font-family: Raleway;
     color: #37393B;
     /*color: #005DCB;*/
     font-weight: bold;
-    font-size: 150%;
-    position: absolute;
+    font-size: 40px;
     overflow: hidden;
-    white-space: nowrap;
 }
 
 .editblurb-display {
