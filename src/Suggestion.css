@@ -43,10 +43,23 @@
     z-index: -1;
 }
 
+.dot{
+    width:6px;
+    height:5px;
+    background-color: black;
+    border-radius: 50%;
+}
+
 .parent{
     position: relative;
     height: 100%;
     overflow: hidden;
+}
+.CategoryPrice{
+    text-align:left;
+    color: #666;
+    font-family: Raleway;
+    font-size:22px;
 }
 
 .box-suggestion{

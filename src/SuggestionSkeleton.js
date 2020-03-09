@@ -63,9 +63,15 @@ export default class Suggestion extends Component {
                           ) : (
                               <div>
                                 <div id="title">{this.props.data.name}</div>
-                                <div>{data.price}</div>
+                                <div className="flex flex-row">
+                                    <div className="CategoryPrice">{data.price}</div><div className="flex items-center"><div className="dot mh2"/></div>
+                                    <div className="CategoryPrice"> {data.categories.map(a => a.title + ", ").slice(0,2).join(' ').slice(0,-2)}</div> 
+
+
+                                </div>
                                 <div>{data.is_closed ? "closed" : "open"}</div>
-                                <div>{data.location}</div>
+                                <div>{data.location["address1"]}</div>
+                                <div>{data.display_phone}</div>
                               </div>
                             )}
                         </div>
