@@ -256,11 +256,10 @@ export default class Home extends Component{
 
     makeQuery = () => {
       var list = this.getCategoryListFromMap();
-      console.log(list);
       this.getLocation(this.getCategoryListFromMap()).then((response) =>{
           console.log(response.data);
         this.setState({
-          queryResult:response.data.businesses[0]
+          queryResult:response.data.businesses
         })
         }
       ).catch(function (response) {
