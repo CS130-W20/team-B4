@@ -9,6 +9,7 @@ import {db, storageRef} from './fireApi';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import firebase from 'firebase';
 import yelpMap from './YelpAPIMap.js';
 import Profile from './Profile.js';
 
@@ -113,21 +114,12 @@ export default class Home extends Component{
         yelpCategories.forEach((x) => {categoryString += x + ","});
         categoryString = categoryString.substring(0, categoryString.length-1);
       }
-      return axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/search`, {
-        headers: {
-          Authorization: `Bearer XyLNjPiVmPm-_-Og2rpIVSqVUNbsAihqwf21PVcmpbmhQow8HEAflaDDLiO8rT6SmehRVMyJNLz-OqjyiwXCqy45-EIE7yVttnY9440F04drNBm_ceiBgnsVUWNEXnYx`,
-          'X-Requested-With': `XMLHttpRequest`,
-        },
-        params: {
-          categories: `${categoryString}`,
-
-          // UCLA's coordinates
-          latitude: 34.0689,
-          longitude: -118.4452,
-        }
-      });
-    };
-
+      var yelpCall = firebase.functions().httpsCallable('yelpCall');
+      return yelpCall({ params: {
+                      categories: `${categoryString}`,
+                      latitude: 34.0689,
+                      longitude: -118.4452,}});
+     }
 
     getCategoryListFromMap = () => {
       var temp = this.updateFilters();
