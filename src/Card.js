@@ -44,7 +44,7 @@ export default class Card extends Component{
 
     genActivityOptions = () => {
       const options = ['italian', 'japanese', 'chinese', 'pizza', 'mediterranean', 'mexican', 'korean', 'fast_food', 'dessert', 'american', 'vegan', 'indian', 'thai', 'juice', 'bars', 'boba', 'coffee', 'bicycle', 'boat', 'beach', 'kayaking', 'hiking', 'yoga', 'climbing', 'museum', 'cinema', 'zoo', 'arcade', 'shopping'];
-      return options.map((item) => { return <div key={iconPrefMap[`${item}`]} className="ma3"> {<img src={iconPrefMap[`${item}`]} style={{'background-size': 'cover', display: 'flex', 'flex-direction': 'row', height: '30px'}}/>} <div className="label-card"> {item} </div> </div> })
+      return options.map((item) => { return <div key={iconPrefMap[`${item}`]} className="ma2"> {<img src={iconPrefMap[`${item}`]} style={{'background-size': 'cover', display: 'flex', 'flex-direction': 'row', height: '30px'}}/>} <div className="label-card"> {item} </div> </div> })
     }
 
     render(){
@@ -77,8 +77,11 @@ export default class Card extends Component{
                     :
 
                     <div>
-                      <ArrowBackIcon style={{cursor: 'pointer'}} onClick={()=>{this.setState({displayActivityPrefs: false})}}/>
-                      <div className="flex flex-wrap">
+                      <div className="flex flex-row">
+                          <ArrowBackIcon style={{cursor: 'pointer'}} onClick={()=>{this.setState({displayActivityPrefs: false})}}/>
+                          <div className="name pv2" style={{paddingLeft: '30px'}} >{data.first_name}'s Preferences</div>
+                      </div>
+                      <div className="flex flex-wrap items-center" style={{maxWidth: '600px'}}>
                         {this.genActivityOptions()}
                       </div>
                     </div>}

@@ -15,6 +15,7 @@ import iconPrefMap from './PreferenceMap.js';
 import dots from './img/dots.png';
 import Button from "@material-ui/core/Button";
 import EditIcon from '@material-ui/icons/Edit';
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 
 var moment = require('moment');
 
@@ -48,20 +49,27 @@ export default class ActivityPreference extends Component{
         this.state={
             modifyStart: false,
             modifyEnd: false,
-            displayPrefOptions: false
+            displayPrefOptions: false,
+            showRestOfPrefs: false,
         }
     }
 
     getIconList = (categories) => {
         var arr = [];
         categories.forEach((category) => {
-          if(arr.length <= 3) {
-            arr.push(<img src={iconPrefMap[`${category}`]} style={{paddingRight: '5px', 'background-size': 'cover', display: 'flex', 'flex-direction': 'row', height: '30px'}}/>);
-            if(arr.length == 3) {
-              arr.push(<img src={dots} style={{paddingRight: '5px', paddingTop: '5px', 'background-size': 'cover', display: 'flex', 'flex-direction': 'row', height: '15px'}}/>);
+          if(!this.state.showRestOfPrefs) {
+            if(arr.length <= 3) {
+              arr.push(<img src={iconPrefMap[`${category}`]} style={{paddingRight: '5px', 'background-size': 'cover', display: 'flex', 'flex-direction': 'row', height: '30px'}}/>);
+              if(arr.length == 3) {
+                arr.push(<img src={dots} onClick={()=>{this.setState({showRestOfPrefs: true})}} style={{cursor: 'pointer', paddingRight: '5px', paddingTop: '5px', 'background-size': 'cover', display: 'flex', 'flex-direction': 'row', height: '15px'}}/>);
+              }
             }
+          } else {
+            arr.push(<img src={iconPrefMap[`${category}`]} style={{paddingRight: '5px', 'background-size': 'cover', display: 'flex', 'flex-direction': 'row', height: '30px'}}/>);
           }
         });
+        if(this.state.showRestOfPrefs)
+          arr.push(<ArrowLeftIcon onClick={()=>{this.setState({showRestOfPrefs: false})}} style={{cursor: 'pointer', paddingRight: '5px', paddingTop: '5px', 'background-size': 'cover', display: 'flex', 'flex-direction': 'row', height: '30px'}}/>);
         return arr;
     }
 
@@ -75,7 +83,7 @@ export default class ActivityPreference extends Component{
                   <div onMouseEnter={()=>{this.setState({modifyStart:false})}}
            onMouseLeave={()=>{this.setState({modifyStart:false})}}>
                       {this.props.modify ?
-                        <div className="flex flex-row" style={{fontSize:15, padding:'6px 8.5px 0px 8.5px'}}>{this.getIconList(preferences)}</div>
+                        <div className="flex flex-wrap" style={{fontSize:15, padding:'6px 8.5px 0px 8.5px', maxWidth: '200px'}}>{this.getIconList(preferences)}</div>
 
                         :
 
