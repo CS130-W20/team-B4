@@ -157,12 +157,24 @@ class Profile extends Component{
             return { my_prefs,};
         })
     }
+    handleChange = name => e => {
+        this.setState({[name]: e.target.value});
+    }
 
     handleSubmit(event) {
         event.preventDefault();
     }
 
+    setDistance = (event, newDistance) => {
+        this.setState({distance: newDistance});
+    }
+
+    setPrice = (event, newPrice) => {
+        this.setState({price: newPrice});
+    }
+
     render() {
+        console.log(this.state.distance);
         const self = this;
         let food_choices = ["japanese", "italian", "indian", "chinese", "mediterranean", "thai", "korean", "mexican", "american", "fast_food", "dessert", "vegan"]
         let drink_choices = ["coffee", "juice","boba","bars"]
@@ -192,8 +204,15 @@ class Profile extends Component{
                     </div>
                     <div className="flex flex-column" style={{maxWidth:'65%'}}>
                         <div className="prefBox">
-                        <div className="PrefCategory"> Preferences </div>
-                         <RightSide my_prefs={this.state.my_prefs} /> </div>
+                            <div className="PrefCategory"> Preferences </div>
+                            <div className='flex flex-wrap'>
+                                {this.state.my_prefs.map((item) => {return(
+                                    <div key={iconPrefMap[`${item}`]} className="ma3">
+                                        <img src={iconPrefMap[`${item}`]} className="activity-img"/>
+                                        <div className="label"> {item} </div>
+                                    </div>)})}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -203,7 +222,7 @@ class Profile extends Component{
                 <form onSubmit={this.handleSubmit}>
                     <div className="flex flex-row" style={{height:'100%'}}>
                         <div style={{width:'35%'}} className="flex justify-end">
-                        <EditLeftSide username={this.state.username} name={this.state.name} image={this.state.imgURL} price={this.state.price} dist={this.state.dist} start_time={this.state.start_time} end_time={this.state.end_time} price={this.state.price} time={this.state.time} distance={this.state.distance} blurb={this.state.blurb}/>
+                        <EditLeftSide handleChange={this.handleChange} setPrice={this.setPrice} setDistance={this.setDistance} username={this.state.username} name={this.state.name} image={this.state.imgURL} price={this.state.price} dist={this.state.dist} start_time={this.state.start_time} end_time={this.state.end_time} price={this.state.price} time={this.state.time} distance={this.state.distance} blurb={this.state.blurb}/>
                         </div>
                         <div className="flex flex-row justify-between pref">
                         <div className="flex flex-column" style={{width:'100%'}}>
@@ -259,22 +278,6 @@ class LogisticalPreferences extends React.Component {
     }
 }
 
-/**
- *    Contains user's preferred activities, name, username, and tagline (bio).
- */
-class RightSide extends Component {
-    render() {
-        const my_prefs = this.props.my_prefs;
-        const manyPrefs = (my_prefs.length > 8);
-        return (
-            <div>
-                <div className='flex flex-wrap'> {
-                    my_prefs.map( (item) => { return <div key={iconPrefMap[`${item}`]} className="ma3"> {<img src={iconPrefMap[`${item}`]} className="activity-img"/>} <div className="label"> {item} </div> </div> })
-                } </div>
-            </div>
-        );
-    }
-}
 
 /**
  *  Edit user's preferred price, time, and distance.
@@ -313,10 +316,10 @@ class EditLeftSide extends Component {
 		        <div className="editblurb-display" > Edit blurb </div>
                 <div className="mb3">
                     <ThemeProvider theme={theme}>
-                        <BlurbStyle multiline={true} rowsMax="4" label="Edit blurb" id="filled-secondary" defaultValue={this.props.blurb} InputLabelProps={{shrink: true,}}/>
+                        <BlurbStyle multiline={true} value={this.props.blurb} onChange={this.props.handleChange('blurb')} rowsMax="4" label="Edit blurb" id="filled-secondary"  InputLabelProps={{shrink: true,}}/>
                     </ThemeProvider>
                 </div>
-                <EditLogisticalPreferences distance={this.props.distance} start_time={this.props.start_time} end_time={this.props.end_time} price={this.props.price} time={this.props.time} distance={this.props.distance}/>
+                <EditLogisticalPreferences handleChange={this.props.handleChange} setPrice={this.props.setPrice} setDistance={this.props.setDistance} distance={this.props.distance} start_time={this.props.start_time} end_time={this.props.end_time} price={this.props.price} time={this.props.time} distance={this.props.distance}/>
             </div>
         );
     }
@@ -325,78 +328,29 @@ class EditLeftSide extends Component {
 /**
  *    Edit user's preferred time, location radius, and price range.
  */
-class EditLogisticalPreferences extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            stime: this.props.start_time,
-            etime: this.props.end_time,
-            modify: true,
-        }
-    }
-    handleChange = name => e => {
-        this.setState({[name]: e.target.value});
-    }
-    render() {
-        return (
-            <div className="mh3">
-                <div style={{display: 'flex', flexDirection: 'row'}}>
-	 	        <div> <TimePreference fill={false} start_time={this.state.stime} end_time={this.state.etime} handleStartTime={this.handleChange("stime")} handleEndTime={this.handleChange("etime")} modify={false}/> </div>
-                </div>
-                <div className="flex flex-row mt2" style={{paddingRight:'25px'}}>
-                <img src={iconPrefMap.road} className="logistical-icon-img"/>
-                <DistanceSlider distance={this.props.distance}/>
-                </div>
-                <div className="flex flex-row mt3"style={{paddingRight:'27px'}}>
-                <img src={iconPrefMap.price} className="logistical-icon-img"/>
-                <PriceSlider price={this.props.price}/>
-                </div>
+function EditLogisticalPreferences(props){
+    return (
+        <div className="mh3">
+            <div style={{display: 'flex', flexDirection: 'row'}}>
+ 	        <div> <TimePreference fill={false} start_time={props.start_time} end_time={props.end_time} handleStartTime={props.handleChange("start_time")} handleEndTime={props.handleChange("end_time")} modify={false}/> </div>
             </div>
-        );
-    }
-}
-
-
-class DistanceSlider extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            distance: this.props.distance
-        }
-    }
-    render() {
-        const setDistance = (event, newDistance) => {
-            this.setState({distance: newDistance});
-        }
-        return(
+            <div className="flex flex-row mt2" style={{paddingRight:'25px'}}>
+            <img src={iconPrefMap.road} className="logistical-icon-img"/>
             <Slider
-                value={this.state.distance}
-                onChange={setDistance}
+                value={props.distance}
+                onChange={props.setDistance}
                 valueLabelDisplay="auto"
                 aria-labelledby="distance-slider"
                 min={1}
                 max={50}
                 valueLabelFormat={distanceValueLabelFormat}
             />
-        );
-    }
-}
-
-class PriceSlider extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            price: this.props.price
-        }
-    }
-    render() {
-        const setPrice = (event, newPrice) => {
-            this.setState({price: newPrice});
-        }
-        return(
+            </div>
+            <div className="flex flex-row mt3"style={{paddingRight:'27px'}}>
+            <img src={iconPrefMap.price} className="logistical-icon-img"/>
             <Slider
-                value={this.state.price}
-                onChange={setPrice}
+                value={props.price}
+                onChange={props.setPrice}
                 valueLabelDisplay="auto"
                 aria-labelledby="price-slider"
                 min={0}
@@ -405,13 +359,11 @@ class PriceSlider extends React.Component {
                 step={null}
                 marks={[ { value: 10, label: "$", }, { value: 30, label: "$$", }, { value: 60, label: "$$$", }, { value: 120, label: "$$$$", },]}
             />
-        );
-    }
+            </div>
+        </div>
+    );
 }
 
-/*
- * Display/modify the available food activity options.
-*/
 
 function Option(props){ return(
     <ThemeProvider theme={theme}>

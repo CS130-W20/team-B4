@@ -170,31 +170,6 @@ export default class Suggestion extends Component {
                           </IconButton>
                           </ThemeProvider>
                           </div>
-
-                    {/*<div className="box-suggestion pa4 pt1">
-                        <div style={{ marginLeft: '1%', marginTop: '4.5%', position: 'absolute' }}
-                            onClick={() => { this.setState({ 'view': false }) }}> <img src={edit} className='edit-img' />
-                        </div>
-                        <div className="justify-center" style={{ paddingTop: 30 }}>
-                            <img className="suggestion-image" src={thai} alt="" width="260" height="260" style={{borderStyle: "solid", borderRadius: "25px"}}/>
-                        </div>
-                        <div className="suggestion-name">{this.props.name}</div>
-                        <div className="flex justify-center" style={{ alignItems: "center" }}>
-                            <div className="yelp-box pa3 pt3">
-                                <img src={fourStars} alt="star rating"></img>
-                                <div className="flex justify-center" style={{alignItems: "center", paddingTop: 5}}>
-                                    <img src={yelpLogo} alt="yelp" style={{width: "40%", paddingLeft: 10}}></img>
-                                    <div style={{ fontFamily: "Raleway", fontSize: 20, color: "white"}}>106 reviews</div>
-                                </div>
-                            </div>
-                            <div style={{ fontWeight: "bold", fontFamily: "Raleway", fontSize: 35, color: "rgb(125, 71, 0)" }}>$$</div>
-                            <div style={{ fontWeight: "bold", fontFamily: "Raleway", fontSize: 30, paddingLeft: 30,
-                                color: "rgb(125, 71, 0)" }}>Thai Restaurant
-                            </div>
-                        </div>
-                    </div>
-    		<div style={{marginTop: '45%', marginLeft: '42%', position: 'absolute'}} className="justify-center"> <ThemeProvider theme={theme}> <Button variant={"contained"} theme={theme} color={"primary"} style={style}> Find me something else! </Button> </ThemeProvider> </div>
-                    <img src={background} className="background"></img> */}
                     </div>
             </div>
         )
