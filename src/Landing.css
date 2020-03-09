@@ -29,7 +29,8 @@
 
 .box-landing{
     width:40%;
-    background-image: linear-gradient(white, #7BB3F7);
+    /*background-image: linear-gradient(white, #7BB3F7);*/
+    background-color: white;
 
     margin: 0;
     position: absolute;
