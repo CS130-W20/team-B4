@@ -187,11 +187,17 @@ class Profile extends Component{
             <div className="editPage">
                 <div className='mv3 title-display'/>
                 <div className="flex flex-row" style={{height:'100%'}}>
-                    <div onClick={()=>{this.setState({'view': false})}}>
-                        <img src={iconPrefMap.edit} className='edit-img'/>
-                    </div>
                     <div style={{width:'35%'}} className="flex justify-end">
-                        <div className="flex flex-column gradient-box" style={{height:'75%'}}>
+                        <div className="flex flex-column gradient-box" style={{position:'relative', height:'75%'}}>
+                            <div style={{position:'absolute', top:20, right:20, zIndex:2}}>
+                                  <IconButton
+                                    variant={"contained"}
+                                    color={"primary"}
+                                    onClick={()=>{this.setState({view:false})}}
+                                  >
+                                  <EditIcon />
+                                  </IconButton>
+                            </div>
                             <div className="flex flex-column items-center" style={{position:'relative', marginBottom:'30px'}} >
                                 <img src={this.state.imgURL} className="preview-profile-img"/>
                             </div>
