@@ -164,6 +164,15 @@ class Profile extends Component{
     handleSubmit(event) {
         event.preventDefault();
     }
+    onSubmit = () =>{
+        this.setState({
+            view: true,
+        });
+        db.collection("users").doc(this.state.username.substr(1)).update({
+            start_time:this.state.start_time,
+        })
+
+    }
 
     setDistance = (event, newDistance) => {
         this.setState({distance: newDistance});
@@ -243,10 +252,10 @@ class Profile extends Component{
                     </div>
                 <div className="mt3">
                     <ThemeProvider theme={theme}>
-                        <Button type={"submit"} variant={"contained"} onClick={()=>{this.setState({'view': true})}} theme={theme} color={"secondary"} style={style}> Save </Button>
+                        <Button type={"submit"} variant={"contained"} onClick={this.onSubmit} theme={theme} color={"secondary"} style={style}> Save </Button>
                     </ThemeProvider>
                 </div>
-                <div className="message ph4 mt2" onClick={()=>{this.setState({view: 'true'})}}> cancel </div>
+                <div className="message ph4 mt2" onClick={()=>{this.setState({view: true})}}> cancel </div>
                 </form>
             </div>
             }
