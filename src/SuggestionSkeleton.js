@@ -106,7 +106,7 @@ export default class Suggestion extends Component {
 
     render() {
         let data = this.props.data !== null ? this.props.data[this.state.queryCounter] : null;
-        if(data !== null && this.state.businessIsClosed == null)
+        if(data !== null && this.state.businessIsClosed === null)
           this.checkIsOpen();
         if(this.props.data && this.state.refreshing) {
           this.setState({refreshing: false});
@@ -136,7 +136,7 @@ export default class Suggestion extends Component {
                                     {data.price ? <div className="flex items-center"><div className="dot mh2"/></div> : <div/>}
                                     <div className="CategoryPrice"> {data.categories.map(a => a.title + ", ").slice(0,2).join(' ').slice(0,-2)}</div>
                                     <div className="flex items-center"><div className="dot mh2"/></div>
-                                    <div className="CategoryPrice" style={{fontWeight:'bold', color: this.state.businessIsClosed ? `green` :'red'}}>{!this.state.businessIsClosed ? "closed" : "open"}</div>
+                                    <div className="CategoryPrice" style={{fontWeight:'bold', color: !this.state.businessIsClosed ? `green` :'red'}}>{this.state.businessIsClosed ? "closed" : "open"}</div>
                                 </div>
                                 <div className="divider"/>
                                 <div className="CategoryPrice mb2">{data.location["address1"]}</div>
@@ -162,7 +162,7 @@ export default class Suggestion extends Component {
                           ) : <ArrowForwardIcon onClick={()=>{
                                       if(this.props.data !== null) {
                                         var newCount = this.state.queryCounter != this.props.data.length-1 ? this.state.queryCounter + 1 : 0;
-                                        this.setState({queryCounter: newCount});
+                                        this.setState({queryCounter: newCount, businessIsClosed: null});
                                       }
                                     }
                                   } />
