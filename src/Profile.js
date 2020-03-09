@@ -187,8 +187,8 @@ class Profile extends Component{
                         <ActiveOptions my_prefs={this.state.my_prefs}/>
                         <MiscOptions my_prefs={this.state.my_prefs}/>
                     </div>
-                <div style={{marginTop: '42%', marginLeft: '45%', position: 'absolute'}} className="justify-center"> <ThemeProvider theme={theme}> <Button type={"submit"} variant={"contained"} onClick={()=>{this.setState({'view': true})}} theme={theme} color={"secondary"} style={style}> Save </Button> </ThemeProvider> </div>
-                <div style={{marginTop: '45%', marginLeft: '46.5%', fontSize:15, textDecoration:'underline', position: 'absolute'}} className="message ph4 mt2" onClick={()=>{this.setState({view: 'true'})}}> cancel </div>
+                <div style={{marginTop: '5%', marginLeft: '45%', position: 'absolute'}} className="justify-center"> <ThemeProvider theme={theme}> <Button type={"submit"} variant={"contained"} onClick={()=>{this.setState({'view': true})}} theme={theme} color={"secondary"} style={style}> Save </Button> </ThemeProvider> </div>
+                <div style={{marginTop: '8%', marginLeft: '46.5%', fontSize:15, textDecoration:'underline', position: 'absolute'}} className="message ph4 mt2" onClick={()=>{this.setState({view: 'true'})}}> cancel </div>
                 </form>
             </div>
             }
@@ -295,7 +295,7 @@ class EditLeftSide extends Component {
     render() {
         return (
             <div>
-                <div style={{marginTop: '35%'}} className='gradient-box'>
+                <div style={{marginTop: '10%'}} className='gradient-box'>
                 <div style={{display: 'flex', flexDirection: 'row', marginLeft: '5%', marginTop: '5%'}}>
                 <input style={{display: "none"}} onChange={this.upload} accept="image/*" id="icon-button-file" type="file" />
       <label htmlFor="icon-button-file">
@@ -458,7 +458,7 @@ class PriceSlider extends React.Component {
 function MiscComp(props){ return(
     <ThemeProvider theme={theme}>
         <FormControlLabel selected={true} control={
-            <Checkbox checked={props.check} onChange={props.handleCheck} icon={<img src={iconPrefMap[`${props.choice}`]} className='checkbox-img'/>} checkedIcon={<img src={iconPrefMap[`${props.choice}`]} className='checked-img'/>}/>}
+            <Checkbox checked={props.checked} onChange={props.handleCheck} icon={<img src={iconPrefMap[`${props.choice}`]} className='checkbox-img'/>} checkedIcon={<img src={iconPrefMap[`${props.choice}`]} className='checked-img'/>}/>}
         label={props.choice}/>
     </ThemeProvider>)}
 

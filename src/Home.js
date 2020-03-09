@@ -194,6 +194,7 @@ export default class Home extends Component{
         db.collection("users").get().then((querySnapshot) => {
                 var l = [];
                 querySnapshot.forEach((doc)=>{
+                    console.log(doc.data());
                     l.push(new userData(doc.data()))});
                 // this.setState({all: l})
                 return l;
