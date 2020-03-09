@@ -11,12 +11,18 @@ import Button from "@material-ui/core/Button";
 import {Fade, Zoom} from 'react-reveal';
 import { createMuiTheme, ThemeProvider, withStyles, makeStyles } from '@material-ui/core/styles';
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { IconButton } from '@material-ui/core';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+
 
 const theme = createMuiTheme({
     palette: {
         primary: {
             main: '#2962ff',
         },
+        secondary:{
+            main:'#FFF',
+        }
     },
     overrides: {
         MuiButton: {
@@ -34,10 +40,46 @@ const style = {
     width: '240px',
 };
 
+
+const star_style={
+    width:30,
+    height:30,
+    paddingRight: 5
+}
+const half_star_style={
+    width:15,
+    height:30,
+    paddingRight: 5
+}
+class Rating extends Component{
+    genStars = ()=>{
+        let l = []
+        let r = this.props.rating;
+        console.log(r);
+        for(let i = 1; i <= this.props.rating; i++){
+            l.push(<img style={star_style} src={'/image/star.png'}/>)
+            r -= 1
+        }
+        console.log(r);
+        if(r!=0){
+            l.push(<img style={half_star_style} src={'/image/half_star.png'}/>);
+        }
+        return l
+    }
+    render(){
+        return(
+            <div className="flex flex-row mb2" >
+                {this.genStars()}
+            </div>
+        )
+    }
+}
+
 export default class Suggestion extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            refreshing:false,
 
         }
     }
@@ -45,11 +87,12 @@ export default class Suggestion extends Component {
     render() {
         console.log(this.props.data)
         let {data} = this.props;
+        let {refreshing} = this.state;
         return (
             <div>
                 <TopBar toProfile={()=>{this.props.toProfile()}} toMainSession={()=>{this.props.toMainSession()}}/>
                 <div style={{height:'50%'}} className="flex flex-row">
-                    <div style={{width:'35%'}}>hi</div>
+                    <div className="photo" style={{backgroundImage:`url(${data ? data.image_url : ""})`}}/>
                     <div style={{zIndex:1, borderLeft:'2px solid black', width:'65%'}}>
                         <GMap lat={this.props.data ? this.props.data.coordinates.latitude : 34.0671489} long = {this.props.data ? this.props.data.coordinates.longitude : -118.4506839}/></div>
                     <Fade bottom>
@@ -63,13 +106,40 @@ export default class Suggestion extends Component {
                           ) : (
                               <div>
                                 <div id="title">{this.props.data.name}</div>
-                                <div>{data.price}</div>
-                                <div>{data.is_closed ? "closed" : "open"}</div>
-                                <div>{data.location}</div>
+                                <Rating review_count={data.review_count} rating={data.rating}/>
+                                <div className="flex flex-row">
+                                    <div className="CategoryPrice">{data.price}</div>
+                                    <div className="flex items-center"><div className="dot mh2"/></div>
+                                    <div className="CategoryPrice"> {data.categories.map(a => a.title + ", ").slice(0,2).join(' ').slice(0,-2)}</div>
+                                    <div className="flex items-center"><div className="dot mh2"/></div>
+                                    <div className="CategoryPrice" style={{fontWeight:'bold', color: !data.is_closed ? `green` :'red'}}>{data.is_closed ? "closed" : "open"}</div>
+                                </div>
+                                <div className="divider"/>
+                                <div className="CategoryPrice mb2">{data.location["address1"]}</div>
+                                <div className="CategoryPrice">{data.display_phone}</div>
                               </div>
                             )}
                         </div>
                     </Fade>
+                            <div className="refreshIcon">
+                            <ThemeProvider theme={theme}>
+                          <IconButton
+                            type={"submit"}
+                            variant={"contained"}
+                            color={"secondary"}
+                            onClick={()=>{this.setState({refreshing:true})}}
+                          >
+                            {refreshing ? (
+                              <CircularProgress
+                                style={{ color: "#FFF" }}
+                                color={"inherit"}
+                                size={24}
+                              />
+                          ) : <ArrowForwardIcon />
+                            }
+                          </IconButton>
+                          </ThemeProvider>
+                          </div>
 
                     {/*<div className="box-suggestion pa4 pt1">
                         <div style={{ marginLeft: '1%', marginTop: '4.5%', position: 'absolute' }}

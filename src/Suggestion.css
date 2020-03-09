@@ -26,13 +26,23 @@
     top:20%;
     padding: 30px;
     background-color:white;
-    height:67%;
+    height:55%;
     left: 20%;
     position:absolute;
     z-index:2;
     box-shadow: 3px 3px 12px #888;
 }
 
+.refreshIcon{
+    background-color: #005DCB;
+    border-radius:50%;
+    position:absolute;
+    left:33.5%;
+    z-index:2;
+    top:80%;
+
+
+}
 .background{
     position: absolute;
     top: 0;
@@ -43,10 +53,38 @@
     z-index: -1;
 }
 
+.photo{
+    background-size: cover;
+    width:35%;
+}
+.count{
+    color:#666;
+    font-family: Raleway;
+    font-size:17px;
+
+}
+.divider{
+    margin-top:20px;
+    margin-bottom:20px;
+    border-bottom:1px solid #CCC;
+}
+.dot{
+    width:6px;
+    height:5px;
+    background-color: black;
+    border-radius: 50%;
+}
+
 .parent{
     position: relative;
     height: 100%;
     overflow: hidden;
+}
+.CategoryPrice{
+    text-align:left;
+    color: #666;
+    font-family: Raleway;
+    font-size:22px;
 }
 
 .box-suggestion{
