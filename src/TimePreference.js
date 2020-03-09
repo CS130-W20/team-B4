@@ -69,7 +69,7 @@ export default class TimePreference extends Component{
     render(){
         let {start_time, end_time, handleStartTime, handleEndTime} = this.props;
         let {modifyStart, modifyEnd} = this.state;
-        const borderStyle = this.props.fill ? '1px solid #CCC' : ''; 
+        const borderStyle = this.props.fill ? '1px solid #CCC' : '';
         return(
             <div className="flex pb2 mb2" style={{borderBottom:`${borderStyle}`}} >
                 <img className="mr2 pt1"  src={clock} style={{width:24, height:24}} />
@@ -126,7 +126,7 @@ export default class TimePreference extends Component{
                           horizontal: "left",
                         }
                       }}
-                    > 
+                    >
                       <MenuItem value="">
                         <em>None</em>
                       </MenuItem>

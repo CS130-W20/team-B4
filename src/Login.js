@@ -6,9 +6,12 @@ import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
 import Fade from 'react-reveal';
+import {Typography, IconButton} from "@material-ui/core";
+import firebase from 'firebase';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router-dom';
+import {BlueButton} from './Landing';
 
 
 const theme = createMuiTheme({
@@ -82,21 +85,27 @@ class Login extends React.Component {
     this.setState({ [key]: e.target.value });
   };
 
-
   render() {
     const { email, password, confirm_password, first_name, last_name, username, submitting} = this.state;
     console.log(this.props.error);
     return (
         <div className="login" style={{textAlign:'left'}}>
           <div className="box pa5">
-            <div style={{fontSize:20, 'font-family': 'Raleway'}}>
-                <Link to="/" style={{textDecoration: 'none'}}>{'< Back'}</Link>
-            </div>
-            <div className="logo">Adventum</div>
+            <div className="logo" style={{textAlign:"left"}}>{this.state.login ? "Login" : "Signup"}</div>
             <form
               style={{ display: "flex", flexDirection: "column" }}
               onSubmit={this.state.login ? this.handleSubmit : this.handleSignIn}
             >
+            {this.state.login ? <div className="mb3">
+                <BlueButton
+                    variant={"contained"}
+                    fullWidth
+                    color={"primary"}
+                    startIcon={<img className="pv1" style={{height:30}} src={'/image/google_icon.png'} />}
+                    onClick={this.props.googleSignIn}>
+                    Log in with Google
+                </BlueButton>
+            </div> : <div/>}
             <ThemeProvider theme={theme}>
               {!this.state.login ?
                   <div> <TextField style={{marginRight: 55, marginBottom:24}} variant={"outlined"} required type={"name"}
@@ -122,9 +131,17 @@ class Login extends React.Component {
                }
                </ThemeProvider>
                <Fade collapse when={this.props.error}><div className="error mb3">{this.props.error} </div> </Fade>
-               <div className="flex justify-end mt3">
-              <div style={{fontSize:15, textDecoration:'underline'}} className="message ph4 mt2" onClick={()=>{this.props.clearError(); this.setState({'login': !this.state.login, 'email': '', 'password': '','confirm_password':''})}}> {this.state.login ? "Don't have an account? Sign up!" : "Already have an account? Log In!"} </div>
-              <Button
+               <div className="flex justify-end mt3" style={{height:40}}>
+               <div style={{position:'relative', top:-2}}>
+                  <IconButton
+                    variant={"contained"}
+                    color={"primary"}
+                    onClick={()=>{this.setState({view:false})}}>
+                        <Link to="/" style={{textDecoration: 'none', color:'inherit'}}><ArrowBackIcon/></Link>
+                  </IconButton>
+              </div>
+              <div style={{fontSize:15, textDecoration:'underline', marginTop:'12px', paddingRight:'15px'}} className="message" onClick={()=>{this.props.clearError(); this.setState({'login': !this.state.login, 'email': '', 'password': '','confirm_password':''})}}> {this.state.login ? "Don't have an account? Sign up!" : "Already have an account? Log In!"} </div>
+              <BlueButton
                 type={"submit"}
                 variant={"contained"}
                 color={"primary"}
@@ -137,7 +154,7 @@ class Login extends React.Component {
                   />
               ) : (this.state.login ? "Login" : "Sign up"
                 )}
-              </Button>
+              </BlueButton>
               </div>
             </form>
           </div>

@@ -7,6 +7,8 @@ import iconPrefMap from './PreferenceMap.js';
 import userData from './Home.js';
 import { fireAuth,db,storageRef } from "./fireApi";
 import './Profile.css';
+import firebase from 'firebase';
+import {Zoom, Fade} from 'react-reveal';
 
 import { createMuiTheme, ThemeProvider, withStyles, makeStyles } from '@material-ui/core/styles';
 import { lightBlue, blue, purple} from '@material-ui/core/colors';
@@ -98,6 +100,7 @@ class Profile extends Component{
             logged_in: props.location.state ? props.location.state.logged_in : false,
             edit: props.location.state ? props.location.state.edit : false,
             view: false,
+            id: null,
             edit_pg1: true,
             name: '',
             username: "",
@@ -125,6 +128,7 @@ class Profile extends Component{
       db.collection("users").get().then((querySnapshot) => {
               querySnapshot.forEach((doc)=>{
                   var curData = new userData(doc.data());
+                  curData.id = doc.id;
                   if(curData.props.email !== undefined && curData.props.email == fireAuth.currentUser.email){
                       if(curData.props.pic){
                         this.getURL(curData.props.pic).then((url)=>{
@@ -134,6 +138,7 @@ class Profile extends Component{
                       }
                     this.setState(
                       {
+                        id:curData.id,
                         name: curData.props.first_name,
                         username: '@'+curData.props.username,
                         blurb: curData.props.quote,
@@ -165,11 +170,17 @@ class Profile extends Component{
         event.preventDefault();
     }
     onSubmit = () =>{
+        console.log(this.state.my_prefs);
         this.setState({
             view: true,
         });
-        db.collection("users").doc(this.state.username.substr(1)).update({
+        db.collection("users").doc(this.state.id).update({
             start_time:this.state.start_time,
+            end_time:this.state.end_time,
+            dist: this.state.distance,
+            quote: this.state.blurb,
+            high: this.state.price,
+            preferences: firebase.firestore.FieldValue.arrayUnion(...this.state.my_prefs),
         })
 
     }
@@ -195,29 +206,31 @@ class Profile extends Component{
             {this.state.view ?
             <div className="editPage">
                 <div className='mv3 title-display'/>
-                <div className="flex flex-row" style={{height:'100%'}}>
+                <div className="flex flex-row" style={{height:'90%'}}>
                     <div style={{width:'35%'}} className="flex justify-end">
-                        <div className="flex flex-column gradient-box" style={{position:'relative', height:'75%'}}>
-                            <div style={{position:'absolute', top:20, right:20, zIndex:2}}>
-                                  <IconButton
-                                    variant={"contained"}
-                                    color={"primary"}
-                                    onClick={()=>{this.setState({view:false})}}
-                                  >
-                                  <EditIcon />
-                                  </IconButton>
+                        <Zoom>
+                            <div className="flex flex-column gradient-box" style={{position:'relative', height:'84%'}}>
+                                <div style={{position:'absolute', top:20, right:20, zIndex:2}}>
+                                      <IconButton
+                                        variant={"contained"}
+                                        color={"primary"}
+                                        onClick={()=>{this.setState({view:false})}}>
+                                          <EditIcon />
+                                      </IconButton>
+                                </div>
+                                <div className="flex flex-column items-center" style={{position:'relative', marginBottom:'30px'}} >
+                                    <img src={this.state.imgURL} className="preview-profile-img"/>
+                                </div>
+                                <div className='fullname-display' style={{fontSize:'150%'}}>{this.state.name} </div>
+                                <div className="username-display"> {this.state.username}</div>
+                                <div className="divider"/>
+                                <div className="mb3 blurb-display">"{this.state.blurb}"</div>
+                                <LogisticalPreferences start_time={this.state.start_time} end_time={this.state.end_time} price={this.state.price} time={this.state.time} distance={this.state.distance}/>
                             </div>
-                            <div className="flex flex-column items-center" style={{position:'relative', marginBottom:'30px'}} >
-                                <img src={this.state.imgURL} className="preview-profile-img"/>
-                            </div>
-                            <div className='fullname-display' style={{fontSize:'150%'}}>{this.state.name} </div>
-                            <div className="username-display"> {this.state.username}</div>
-                            <div className="divider"/>
-                            <div className="mb3 blurb-display">"{this.state.blurb}"</div>
-                            <LogisticalPreferences start_time={this.state.start_time} end_time={this.state.end_time} price={this.state.price} time={this.state.time} distance={this.state.distance}/>
-                        </div>
+                        </Zoom>
                     </div>
                     <div className="flex flex-column" style={{maxWidth:'65%'}}>
+                        <Zoom>
                         <div className="prefBox">
                             <div className="PrefCategory"> Preferences </div>
                             <div className='flex flex-wrap'>
@@ -228,6 +241,7 @@ class Profile extends Component{
                                     </div>)})}
                             </div>
                         </div>
+                        </Zoom>
                     </div>
                 </div>
             </div>
@@ -237,16 +251,26 @@ class Profile extends Component{
                 <form onSubmit={this.handleSubmit}>
                     <div className="flex flex-row" style={{height:'100%'}}>
                         <div style={{width:'35%'}} className="flex justify-end">
+                        <Zoom>
                         <EditLeftSide handleChange={this.handleChange} setPrice={this.setPrice} setDistance={this.setDistance} username={this.state.username} name={this.state.name} image={this.state.imgURL} price={this.state.price} dist={this.state.dist} start_time={this.state.start_time} end_time={this.state.end_time} price={this.state.price} time={this.state.time} distance={this.state.distance} blurb={this.state.blurb}/>
+                        </Zoom>
                         </div>
                         <div className="flex flex-row justify-between pref">
                         <div className="flex flex-column" style={{width:'100%'}}>
+                        <Zoom>
                             <PreferenceGroup name={"Food"} img={iconPrefMap.fork} handleCheck={this.handleCheck} my_prefs={this.state.my_prefs}  choices={food_choices}/>
+                        </Zoom>
+                        <Zoom>
                             <PreferenceGroup name={"Drinks"}img={iconPrefMap.drink} handleCheck={this.handleCheck} my_prefs={this.state.my_prefs}  choices={drink_choices}/>
+                        </Zoom>
                         </div>
                         <div className="flex flex-column">
+                        <Zoom>
                             <PreferenceGroup name={"Active"} img={iconPrefMap.active} handleCheck={this.handleCheck} my_prefs={this.state.my_prefs}  choices={active_choices}/>
+                        </Zoom>
+                        <Zoom>
                             <PreferenceGroup name={"Misc"} img={iconPrefMap.misc} handleCheck={this.handleCheck} my_prefs={this.state.my_prefs}  choices={misc_choices}/>
+                        </Zoom>
                         </div>
                         </div>
                     </div>
