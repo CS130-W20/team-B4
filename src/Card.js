@@ -4,6 +4,7 @@ import {Zoom, Fade} from 'react-reveal';
 import TimePreference from './TimePreference.js';
 import PricePreference from './PricePreference.js';
 import DistancePreference from './DistancePreference.js';
+import ActivityPreference from './ActivityPreference.js';
 import {db, storageRef} from './fireApi';
 import edit from './img/edit2.png';
 import CloseIcon from '@material-ui/icons/Close';
@@ -37,6 +38,8 @@ export default class Card extends Component{
             this.props.imgURL.then((url)=>{this.setState({imgURL: url})});
     }
 
+    handlePreferenceChange = () => {}
+
     render(){
         const {data} = this.props;
         const {imgURL, quote} = this.state;
@@ -58,6 +61,7 @@ export default class Card extends Component{
                          <TimePreference   start_time={data.start_time} end_time={data.end_time} handleStartTime={this.handleChange("start_time")} handleEndTime={this.handleChange("end_time")} modify={this.state.modify} fill={true}/>
                          <PricePreference  low={data.low} high={data.high}  handleLow={this.handleChange("low")} handleHigh={this.handleChange("high")} modify={this.state.modify}/>
                          <DistancePreference dist={data.dist} handleDist={this.handleChange("dist")} modify={this.state.modify}/>
+                         <ActivityPreference preferences={data.preferences} handlePreferences={this.handlePreferenceChange} modify={this.state.modify}/>
                         </div>
 
                     </div>
