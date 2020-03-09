@@ -277,7 +277,7 @@ export default class Home extends Component{
 
     render(){
         return(
-          <div>
+          <div style={{height:'100%'}}>
           {!this.state.showProfile ?
           <div>
             {!this.state.showSuggestion ?

@@ -11,6 +11,7 @@ import './Profile.css';
 import { createMuiTheme, ThemeProvider, withStyles, makeStyles } from '@material-ui/core/styles';
 import { lightBlue, blue, purple} from '@material-ui/core/colors';
 import {Slider, Checkbox, Button, FormControlLabel, TableRow, FormGroup, TextField, Typography, IconButton, Input} from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 
@@ -59,9 +60,8 @@ const BlurbStyle = withStyles({
   root: {
       fontFamily:'Raleway',
       fontSize:14,
-      width:   230,
+      width:   260,
       border:  0,
-      padding: 5,
   },
   input:{
       padding:5,
@@ -148,6 +148,15 @@ class Profile extends Component{
           });
     }
 
+    handleCheck = (x) => {
+        this.state.my_prefs.includes(`${x}`) ? this.setState(state => {
+            const my_prefs = state.my_prefs.filter(c => c !== `${x}`);
+            return { my_prefs,};
+        }) : this.setState(state => {
+            const my_prefs = state.my_prefs.concat(`${x}`);
+            return { my_prefs,};
+        })
+    }
 
     handleSubmit(event) {
         event.preventDefault();
@@ -155,40 +164,64 @@ class Profile extends Component{
 
     render() {
         const self = this;
+        let food_choices = ["japanese", "italian", "indian", "chinese", "mediterranean", "thai", "korean", "mexican", "american", "fast_food", "dessert", "vegan"]
+        let drink_choices = ["coffee", "juice","boba","bars"]
+        let active_choices = ["kayaking", "hiking", "boat", "bicycle", "yoga", "climbing"]
+        let misc_choices = ["museum", "beach", "cinema", "zoo", "arcade", "shopping"]
         return (
             <div className="prof flex flex-column">
             <TopBar toProfile={()=>{this.props.toProfile()}} toMainSession={()=>{this.props.toMainSession()}}/>
             {this.state.view ?
-            <div>
-                <div style={{marginLeft: '1%', marginTop: '4.5%', position: 'absolute'}} onClick={()=>{this.setState({'view': false})}}>
-                    <img src={iconPrefMap.edit} className='edit-img'/>
+            <div className="editPage">
+                <div className='mv3 title-display'/>
+                <div className="flex flex-row" style={{height:'100%'}}>
+                    <div onClick={()=>{this.setState({'view': false})}}>
+                        <img src={iconPrefMap.edit} className='edit-img'/>
+                    </div>
+                    <div style={{width:'35%'}} className="flex justify-end">
+                        <div className="flex flex-column gradient-box" style={{height:'75%'}}>
+                            <div className="flex flex-column items-center" style={{position:'relative', marginBottom:'30px'}} >
+                                <img src={this.state.imgURL} className="preview-profile-img"/>
+                            </div>
+                            <div className='fullname-display' style={{fontSize:'150%'}}>{this.state.name} </div>
+                            <div className="username-display"> {this.state.username}</div>
+                            <div className="divider"/>
+                            <div className="mb3 blurb-display">"{this.state.blurb}"</div>
+                            <LogisticalPreferences start_time={this.state.start_time} end_time={this.state.end_time} price={this.state.price} time={this.state.time} distance={this.state.distance}/>
+                        </div>
+                    </div>
+                    <div className="flex flex-column" style={{maxWidth:'65%'}}>
+                        <div className="prefBox">
+                        <div className="PrefCategory"> Preferences </div>
+                         <RightSide my_prefs={this.state.my_prefs} /> </div>
+                    </div>
                 </div>
-                <div style={{marginLeft: '10%', position: 'absolute'}}>
-                    <LeftSide image={this.state.imgURL} start_time={this.state.start_time} end_time={this.state.end_time} price={this.state.price} time={this.state.time} distance={this.state.distance}/>
-                </div>
-                <div style={{marginLeft: '48%', marginTop: '10%', position: 'absolute'}} className='fullname-display'>
-                    {this.state.name}
-                </div>
-                <div style={{marginLeft: '48%', marginTop: '14%', position: 'absolute'}} className='username-display'> {this.state.username} </div>
-                <div style={{marginLeft: '48%', marginTop: '17%', position: 'absolute'}} className='blurb-display'> {this.state.blurb} </div>
-                <div style={{marginLeft: '48%', marginTop: '21%'}} className='username-display2'> {this.state.username} is down for... </div>
-                <div style={{marginLeft: '48%', marginTop: '24%', position: 'absolute'}}> <RightSide my_prefs={this.state.my_prefs} /> </div>
             </div>
             :
             <div className="editPage">
-                <div className='mv4 title-display'> Edit Profile </div>
-                <form onSubmit={this.handleSubmit} >
-                    <div style={{position:'absolute'}}>
-                    <EditLeftSide image={this.state.imgURL} price={this.state.price} dist={this.state.dist} start_time={this.state.start_time} end_time={this.state.end_time} price={this.state.price} time={this.state.time} distance={this.state.distance} blurb={this.state.blurb}/>
+                <div className='mv3 title-display'/>
+                <form onSubmit={this.handleSubmit}>
+                    <div className="flex flex-row" style={{height:'100%'}}>
+                        <div style={{width:'35%'}} className="flex justify-end">
+                        <EditLeftSide username={this.state.username} name={this.state.name} image={this.state.imgURL} price={this.state.price} dist={this.state.dist} start_time={this.state.start_time} end_time={this.state.end_time} price={this.state.price} time={this.state.time} distance={this.state.distance} blurb={this.state.blurb}/>
+                        </div>
+                        <div className="flex flex-row justify-between pref">
+                        <div className="flex flex-column" style={{width:'100%'}}>
+                            <PreferenceGroup name={"Food"} img={iconPrefMap.fork} handleCheck={this.handleCheck} my_prefs={this.state.my_prefs}  choices={food_choices}/>
+                            <PreferenceGroup name={"Drinks"}img={iconPrefMap.drink} handleCheck={this.handleCheck} my_prefs={this.state.my_prefs}  choices={drink_choices}/>
+                        </div>
+                        <div className="flex flex-column">
+                            <PreferenceGroup name={"Active"} img={iconPrefMap.active} handleCheck={this.handleCheck} my_prefs={this.state.my_prefs}  choices={active_choices}/>
+                            <PreferenceGroup name={"Misc"} img={iconPrefMap.misc} handleCheck={this.handleCheck} my_prefs={this.state.my_prefs}  choices={misc_choices}/>
+                        </div>
+                        </div>
                     </div>
-                    <div className="flex flex-wrap pref">
-                        <FoodOptions my_prefs={this.state.my_prefs}/>
-                        <DrinkOptions my_prefs={this.state.my_prefs}/>
-                        <ActiveOptions my_prefs={this.state.my_prefs}/>
-                        <MiscOptions my_prefs={this.state.my_prefs}/>
-                    </div>
-                <div style={{marginTop: '5%', marginLeft: '45%', position: 'absolute'}} className="justify-center"> <ThemeProvider theme={theme}> <Button type={"submit"} variant={"contained"} onClick={()=>{this.setState({'view': true})}} theme={theme} color={"secondary"} style={style}> Save </Button> </ThemeProvider> </div>
-                <div style={{marginTop: '8%', marginLeft: '46.5%', fontSize:15, textDecoration:'underline', position: 'absolute'}} className="message ph4 mt2" onClick={()=>{this.setState({view: 'true'})}}> cancel </div>
+                <div className="mt3">
+                    <ThemeProvider theme={theme}>
+                        <Button type={"submit"} variant={"contained"} onClick={()=>{this.setState({'view': true})}} theme={theme} color={"secondary"} style={style}> Save </Button>
+                    </ThemeProvider>
+                </div>
+                <div className="message ph4 mt2" onClick={()=>{this.setState({view: 'true'})}}> cancel </div>
                 </form>
             </div>
             }
@@ -197,25 +230,6 @@ class Profile extends Component{
     }
 }
 
-/**
- *  Contains basic user info. Includes user's picture and logistics.
- */
-class LeftSide extends Component {
-    render() {
-        return (
-            <div>
-                <div style={{marginTop: '45%'}} className='gradient-box'>
-                <div style={{marginTop: '10%', marginLeft: '16%',position: 'absolute'}}> <img src={this.props.image} className="profile-img"/> </div>
-                <div style={{marginTop: '75%', marginLeft: '16%', position: 'absolute'}}> <LogisticalPreferences start_time={this.props.start_time} end_time={this.props.end_time} price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
-                </div>
-            </div>
-        );
-    }
-}
-
-/**
- *    Contains user's preferred time, location radius, and price range.
- */
 class LogisticalPreferences extends React.Component {
     constructor(props) {
         super(props);
@@ -227,16 +241,16 @@ class LogisticalPreferences extends React.Component {
         {/*const pp = (this.props.price <= 0 ? "" : (priceValueLabelFormat(0)) + " - ") + priceValueLabelFormat(this.props.price);*/}
         const pp = "<" + priceValueLabelFormat(this.props.price);
         return (
-            <div>
-                <div>
+            <div className="flex justify-start flex-column mh3">
+                <div className="flex justify-start">
                 <img src={iconPrefMap.clock} className="logistical-icon-img"/>
                 <div className="logistical-pref-display"> {tp} </div>
                 </div>
-                <div style={{marginTop: '5%'}}>
+                <div className="flex justify-start mt2">
                 <img src={iconPrefMap.road} className="logistical-icon-img"/>
                 <div className="logistical-pref-display"> {dp} </div>
                 </div>
-                <div style={{marginTop: '5%'}}>
+                <div className="flex justify-start mt2">
                 <img src={iconPrefMap.price} className="logistical-icon-img"/>
                 <div className="logistical-pref-display"> {pp} </div>
                 </div>
@@ -254,21 +268,9 @@ class RightSide extends Component {
         const manyPrefs = (my_prefs.length > 8);
         return (
             <div>
-                <div className='row'> {
-                    my_prefs.slice(0,4).map( (item) => { return <div key={iconPrefMap[`${item}`]} style={{marginRight: '65px'}}> {<img src={iconPrefMap[`${item}`]} className="activity-img"/>} <div className="label"> {item} </div> </div> })
+                <div className='flex flex-wrap'> {
+                    my_prefs.map( (item) => { return <div key={iconPrefMap[`${item}`]} className="ma3"> {<img src={iconPrefMap[`${item}`]} className="activity-img"/>} <div className="label"> {item} </div> </div> })
                 } </div>
-                <div>
-                    { manyPrefs ? (
-                    <div style={{marginTop: '65px'}} className='row'>
-                    {my_prefs.slice(4,7).map(  (item) => { return <div key={iconPrefMap[`${item}`]} style={{marginRight: '65px'}}> {<img src={iconPrefMap[`${item}`]} className="activity-img"/>} <div className="label"> {item} </div> </div> })}
-                    <Popup trigger={<img src={iconPrefMap.dots} className="dots"/>} position="right center">
-                        <div> {my_prefs.slice(7,my_prefs.length).map( (item) => { return <div key={iconPrefMap[`${item}`]} style={{marginRight: '65px'}}> {<img src={iconPrefMap[`${item}`]} className="activity-img"/>} <div className="label"> {item} </div> </div> })} </div>
-                    </Popup>
-                    </div> ) : (
-                    <div style={{marginTop: '65px'}} className='row'>
-                    {my_prefs.slice(4,8).map(  (item) => { return <div key={iconPrefMap[`${item}`]} style={{marginRight: '65px'}}> {<img src={iconPrefMap[`${item}`]} className="activity-img"/>} <div className="label"> {item} </div> </div> })}
-                    </div>)}
-                </div>
             </div>
         );
     }
@@ -294,20 +296,27 @@ class EditLeftSide extends Component {
 
     render() {
         return (
-            <div>
-                <div style={{marginTop: '10%'}} className='gradient-box'>
-                <div style={{display: 'flex', flexDirection: 'row', marginLeft: '5%', marginTop: '5%'}}>
-                <input style={{display: "none"}} onChange={this.upload} accept="image/*" id="icon-button-file" type="file" />
-      <label htmlFor="icon-button-file">
-        <IconButton color="primary" aria-label="upload picture" component="span">
-          <PhotoCamera />
-        </IconButton>
-      </label> </div>
-                <div className="flex flex-column items-center" style={{marginLeft: '22.5%', position: 'absolute'}}> <img src={this.state.picture} className="preview-profile-img"/> </div>
-		<div className="editblurb-display" style={{marginLeft: '10%', marginTop: '52%', position: 'absolute'}}> Edit blurb </div>
-                <div style={{marginLeft: '10%', marginTop: '56%', position: 'absolute'}}> <ThemeProvider theme={theme}> <BlurbStyle multiline={true} rowsMax="4" label="Edit blurb" id="filled-secondary" defaultValue={this.props.blurb} InputLabelProps={{shrink: true,}}/> </ThemeProvider> </div>
-                <div style={{marginTop: '82%', marginLeft: '7%', position: 'absolute'}}> <EditLogisticalPreferences distance={this.props.distance} start_time={this.props.start_time} end_time={this.props.end_time} price={this.props.price} time={this.props.time} distance={this.props.distance}/> </div>
+            <div className="flex flex-column gradient-box">
+                <div className="flex flex-column items-center" style={{position:'relative', marginBottom:'30px'}} >
+                    <div style={{position:'absolute',top:0,left:20}}>
+                        <input style={{display: "none"}} onChange={this.upload} accept="image/*" id="icon-button-file" type="file" />
+                        <label htmlFor="icon-button-file">
+                            <IconButton color="primary" aria-label="upload picture" component="span">
+                              <PhotoCamera />
+                            </IconButton>
+                        </label>
+                    </div>
+                    <img src={this.state.picture} className="preview-profile-img"/>
                 </div>
+                <div className='fullname-display' style={{fontSize:'150%'}}>{this.props.name} </div>
+                <div className="username-display"> {this.props.username}</div>
+		        <div className="editblurb-display" > Edit blurb </div>
+                <div className="mb3">
+                    <ThemeProvider theme={theme}>
+                        <BlurbStyle multiline={true} rowsMax="4" label="Edit blurb" id="filled-secondary" defaultValue={this.props.blurb} InputLabelProps={{shrink: true,}}/>
+                    </ThemeProvider>
+                </div>
+                <EditLogisticalPreferences distance={this.props.distance} start_time={this.props.start_time} end_time={this.props.end_time} price={this.props.price} time={this.props.time} distance={this.props.distance}/>
             </div>
         );
     }
@@ -328,24 +337,17 @@ class EditLogisticalPreferences extends React.Component {
     handleChange = name => e => {
         this.setState({[name]: e.target.value});
     }
-    componentDidMount(props) {
-        console.log(this.state.stime);
-        console.log(this.state.etime);
-    }
     render() {
-        const tp = "Change Time Preference";
-        const dp = "Change Distance Preference";
-        const pp = "Change Price Preference";
         return (
-            <div>
+            <div className="mh3">
                 <div style={{display: 'flex', flexDirection: 'row'}}>
 	 	        <div> <TimePreference fill={false} start_time={this.state.stime} end_time={this.state.etime} handleStartTime={this.handleChange("stime")} handleEndTime={this.handleChange("etime")} modify={false}/> </div>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'row', marginTop: '4%'}}>
+                <div className="flex flex-row mt2" style={{paddingRight:'25px'}}>
                 <img src={iconPrefMap.road} className="logistical-icon-img"/>
                 <DistanceSlider distance={this.props.distance}/>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'row', marginTop: '8%'}}>
+                <div className="flex flex-row mt3"style={{paddingRight:'27px'}}>
                 <img src={iconPrefMap.price} className="logistical-icon-img"/>
                 <PriceSlider price={this.props.price}/>
                 </div>
@@ -354,33 +356,6 @@ class EditLogisticalPreferences extends React.Component {
     }
 }
 
-class TimeSlider extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            time: this.props.time
-        }
-    }
-    render() {
-        const setTime = (event, newTime) => {
-            this.setState({time: newTime});
-        }
-        return(
-            <div>
-            <Typography id="time-slider"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </Typography>
-            <Slider
-                value={this.state.time}
-                onChange={setTime}
-                valueLabelDisplay="auto"
-                aria-labelledby="time-slider"
-                min={0}
-                max={24}
-                valueLabelFormat={timeValueLabelFormat}
-            />
-            </div>
-        );
-    }
-}
 
 class DistanceSlider extends React.Component {
     constructor(props) {
@@ -428,24 +403,7 @@ class PriceSlider extends React.Component {
                 max={120}
                 valueLabelFormat={priceValueLabelFormat}
                 step={null}
-                marks={[
-                    {
-                        value: 10,
-                        label: "$10",
-                    },
-                    {
-                        value: 30,
-                        label: "$30",
-                    },
-                    {
-                        value: 60,
-                        label: "$60",
-                    },
-                    {
-                        value: 120,
-                        label: "$61+",
-                    },
-                ]}
+                marks={[ { value: 10, label: "$", }, { value: 30, label: "$$", }, { value: 60, label: "$$$", }, { value: 120, label: "$$$$", },]}
             />
         );
     }
@@ -455,150 +413,25 @@ class PriceSlider extends React.Component {
  * Display/modify the available food activity options.
 */
 
-function MiscComp(props){ return(
+function Option(props){ return(
     <ThemeProvider theme={theme}>
         <FormControlLabel selected={true} control={
             <Checkbox checked={props.checked} onChange={props.handleCheck} icon={<img src={iconPrefMap[`${props.choice}`]} className='checkbox-img'/>} checkedIcon={<img src={iconPrefMap[`${props.choice}`]} className='checked-img'/>}/>}
         label={props.choice}/>
     </ThemeProvider>)}
 
-class FoodOptions extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            checkedValues: this.props.my_prefs,
-            italian: false,
-        }
-    }
 
-    handleCheck(x) {
-        this.state.checkedValues.includes(`${x}`) ? this.setState(state => {
-            const checkedValues = state.checkedValues.filter(c => c !== `${x}`);
-            return { checkedValues,};
-        }) : this.setState(state => {
-            const checkedValues = state.checkedValues.concat(`${x}`);
-            return { checkedValues,};
-        })
-    }
-
+class PreferenceGroup extends React.Component {
     render() {
-        let {checkedValues} = this.state;
-        let choices = ["japanese", "italian", "indian", "chinese", "mediterranean", "thai", "korean", "mexican", "american", "fast_food", "dessert", "vegan"]
+        let {my_prefs, choices, name} = this.props;
+        let c = "category3-img";
+        if(name == "Food" || name == "Drink") c = "category-img";
+        else if(name == "Active") c = "category2-img";
         return(
             <div className="flex flex-column miscBox">
-                <img src={iconPrefMap.fork} className='category-img'/>
+                <div className="flex flex-row"><img src={this.props.img} className={c}/><div className="PrefCategory pt2 ph2">{this.props.name}</div></div>
                 <div className="flex flex-wrap">
-                {choices.map(c=>
-                    <MiscComp choice={c} handleCheck={()=>{this.handleCheck(c)}} checked={checkedValues.includes(c)}/>)
-                }
-                </div>
-            </div>
-        );
-    }
-}
-
-/*
- * Display/modify the available drink-related activity options.
-*/
-
-
-class DrinkOptions extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            checkedValues: this.props.my_prefs,
-        }
-    }
-    handleCheck(x) {
-        this.state.checkedValues.includes(`${x}`) ? this.setState(state => {
-            const checkedValues = state.checkedValues.filter(c => c !== `${x}`);
-            return { checkedValues,};
-        }) : this.setState(state => {
-            const checkedValues = state.checkedValues.concat(`${x}`);
-            return { checkedValues,};
-        })
-    }
-    render() {
-        let choices = ["coffee", "juice","boba","bars"]
-        let {checkedValues} = this.state;
-        return(
-            <div className="flex flex-column miscBox">
-                <img src={iconPrefMap.drink} className='category-img'/>
-                <div className="flex flex-wrap">
-                {choices.map(c =>
-                    <MiscComp choice={c} handleCheck={()=>{this.handleCheck(c)}} checked={checkedValues.includes(c)}/>
-                )}
-                </div>
-            </div>
-        );
-    }
-}
-
-/*
- * Display/modify the available active/exercise-related activity options.
-*/
-
-class ActiveOptions extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            checkedValues: this.props.my_prefs,
-        }
-    }
-    handleCheck(x) {
-        this.state.checkedValues.includes(`${x}`) ? this.setState(state => {
-            const checkedValues = state.checkedValues.filter(c => c !== `${x}`);
-            return { checkedValues,};
-        }) : this.setState(state => {
-            const checkedValues = state.checkedValues.concat(`${x}`);
-            return { checkedValues,};
-        })
-    }
-    render() {
-        let {checkedValues} = this.state;
-        let choices = ["kayaking", "hiking", "boat", "bicycle", "yoga", "climbing"]
-        return(
-            <div className="flex flex-column miscBox">
-                <img src={iconPrefMap.active} className='category2-img'/>
-                <div className="flex flex-wrap">
-                {choices.map(c =>
-                    <MiscComp choice={c} handleCheck={()=>{this.handleCheck(c)}} checked={checkedValues.includes(c)}/>
-                )}
-                </div>
-            </div>
-        );
-    }
-}
-
-/*
- * Display/modify the available miscellaneous/other activity options.
-*/
-
-
-class MiscOptions extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            checkedValues: this.props.my_prefs,
-        }
-    }
-    handleCheck(x) {
-        this.state.checkedValues.includes(`${x}`) ? this.setState(state => {
-            const checkedValues = state.checkedValues.filter(c => c !== `${x}`);
-            return { checkedValues,};
-        }) : this.setState(state => {
-            const checkedValues = state.checkedValues.concat(`${x}`);
-            return { checkedValues,};
-        })
-    }
-    render() {
-        let {checkedValues} = this.state;
-        let choices = ["museum", "beach", "cinema", "zoo", "arcade", "shopping"]
-        return(
-            <div className="flex flex-column miscBox">
-                <img src={iconPrefMap.misc} className='category3-img'/>
-                <div className="flex flex-wrap">
-                    {choices.map(choice => <MiscComp choice={choice} handleCheck={()=>{this.handleCheck(choice)}} checked={checkedValues.includes(choice)}/>)}
+                    {choices.map(choice => <Option choice={choice} handleCheck={()=>{this.props.handleCheck(choice)}} checked={my_prefs.includes(choice)}/>)}
                 </div>
             </div>
         );
