@@ -116,7 +116,7 @@ export default class Suggestion extends Component {
             <div>
                 <TopBar toProfile={()=>{this.props.toProfile()}} toMainSession={()=>{this.props.toMainSession()}}/>
                 <div style={{height:'50%'}} className="flex flex-row">
-                    <div className="photo" style={{backgroundImage:`url(${data ? data.image_url : ""})`}}/>
+                    <Fade><div className="photo" style={{backgroundImage:`url(${data ? data.image_url : "https://cdn.travel-mediaserver.com/driveaway/images/top-drives/usa/snow-peaked-mountains-la.jpg"})`}}/></Fade>
                     <div style={{zIndex:1, borderLeft:'2px solid black', width:'65%'}}>
                         <GMap lat={data ? data.coordinates.latitude : 34.0671489} long = {data ? data.coordinates.longitude : -118.4506839}/></div>
                     <Fade bottom>
@@ -133,7 +133,7 @@ export default class Suggestion extends Component {
                                 <Rating review_count={data.review_count} rating={data.rating}/>
                                 <div className="flex flex-row">
                                     <div className="CategoryPrice">{data.price}</div>
-                                    <div className="flex items-center"><div className="dot mh2"/></div>
+                                    {data.price ? <div className="flex items-center"><div className="dot mh2"/></div> : <div/>}
                                     <div className="CategoryPrice"> {data.categories.map(a => a.title + ", ").slice(0,2).join(' ').slice(0,-2)}</div>
                                     <div className="flex items-center"><div className="dot mh2"/></div>
                                     <div className="CategoryPrice" style={{fontWeight:'bold', color: this.state.businessIsClosed ? `green` :'red'}}>{!this.state.businessIsClosed ? "closed" : "open"}</div>

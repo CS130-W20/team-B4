@@ -15,6 +15,7 @@ import Profile from './Profile.js';
 
 export class userData{
     constructor(obj){
+        this.id = '';
         this.username    = obj.username;
         this.first_name        = obj.first_name;
         this.last_name = obj.last_name;

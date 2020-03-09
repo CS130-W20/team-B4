@@ -1,5 +1,6 @@
 import React from 'react';
 import { fireAuth,db } from "./fireApi";
+import firebase from 'firebase';
 import Home from    "./Home";
 import Login from   "./Login";
 import Profile from "./Profile";
@@ -56,6 +57,29 @@ class App extends React.Component {
     fireAuth.onAuthStateChanged(me => {
       this.setState({ me });
     });
+}
+  googleSignIn = history => () =>{
+      var provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          console.log(user);
+          return history.push("/home");
+      }).catch((error)=>{
+          // Handle Errors here.
+          this.setState({error: error.message});
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+    });
   }
 
   handleSignIn = history => (email, password) => {
@@ -109,7 +133,8 @@ class App extends React.Component {
               <Route path="/login" exact
                 render={({ history }) => (
                   <div style={{height:'100%', backgroundColor:'#BBB'}}>
-                    <Login onSubmit={this.handleSignIn(history)}
+                    <Login googleSignIn={this.googleSignIn(history)}
+                           onSubmit={this.handleSignIn(history)}
                            onSignUp={this.handleSignUp(history)}
                             error={this.state.error}
                             clearError={this.clearError}
