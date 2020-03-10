@@ -1,4 +1,3 @@
-import React from 'react';
 
 // Use to convert from our labels to the appropriate Yelp queries
 const yelpMap = {

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { withRouter, BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import Popup from 'reactjs-popup';
+import { withRouter, } from "react-router-dom";
 import TopBar from './TopBar.js';
 import TimePreference from './TimePreference.js';
 import iconPrefMap from './PreferenceMap.js';
@@ -8,11 +7,10 @@ import userData from './Home.js';
 import { fireAuth,db,storageRef } from "./fireApi";
 import './Profile.css';
 import firebase from 'firebase';
-import {Zoom, Fade} from 'react-reveal';
+import {Zoom} from 'react-reveal';
 
-import { createMuiTheme, ThemeProvider, withStyles, makeStyles } from '@material-ui/core/styles';
-import { lightBlue, blue, purple} from '@material-ui/core/colors';
-import {Slider, Checkbox, Button, FormControlLabel, TableRow, FormGroup, TextField, Typography, IconButton, Input} from '@material-ui/core';
+import { createMuiTheme, ThemeProvider, withStyles} from '@material-ui/core/styles';
+import {Slider, Checkbox, Button, FormControlLabel,  IconButton, Input} from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 

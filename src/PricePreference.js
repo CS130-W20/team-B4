@@ -1,17 +1,7 @@
 import React,{Component} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import PropTypes from 'prop-types';
 import price from './img/price.png';
 import { withStyles } from '@material-ui/core/styles';
-import Select from '@material-ui/core/Select';
 import FilledInput from '@material-ui/core/FilledInput';
-import Fade from 'react-reveal'
-var moment = require('moment');
 
 
 const PriceSelect = withStyles({
@@ -51,7 +41,6 @@ export default class PricePreference extends Component{
 
     render(){
         let {low, high, handleLow, handleHigh} = this.props;
-        let {modifyStart, modifyEnd} = this.state;
         return(
             <div className="flex mb2 pb1" style={{borderBottom:'1px solid #CCC', width:'100%'}}>
                 <img className="mr2 pt1"  src={price} style={{width:24, height:24}} />
@@ -59,10 +48,10 @@ export default class PricePreference extends Component{
                 <div onMouseEnter={()=>{this.setState({modifyStart:false})}}
          onMouseLeave={()=>{this.setState({modifyStart:false})}}>
                     {this.props.modify ? <div style={{fontSize:15, padding:'6px 8.5px 0px 8.5px'}}>{low}</div>:
-                    <PriceSelect type='number' variant="filled" IconComponent = {()=><div/>}
+                    <PriceSelect type='number' variant="filled" iconcomponent = {<div/>}
                       value={low}
                       onChange={handleLow}
-                      MenuProps={{
+                      menuprops={{
                         getContentAnchorEl: null,
                         anchorOrigin: {
                           vertical: "bottom",
@@ -77,12 +66,11 @@ export default class PricePreference extends Component{
                 <div onMouseEnter={()=>{this.setState({modifyEnd:false})}}
          onMouseLeave={()=>{this.setState({modifyEnd:false})}}>
                     {this.props.modify ? <div style={{fontSize:15, padding:'6px 8.5px 7px 8.5px'}}>{high}</div>:
-                    <PriceSelect defaultValue={'5:00 pm'} variant="filled" IconComponent = {()=><div/>}
-                      labelId="demo-simple-select-filled-label"
+                    <PriceSelect variant="filled" iconcomponent = {<div/>}
                       id="demo-simple-select-filled"
                       value={high}
                       onChange={handleHigh}
-                      MenuProps={{
+                      menuprops={{
                         getContentAnchorEl: null,
                         anchorOrigin: {
                           vertical: "bottom",

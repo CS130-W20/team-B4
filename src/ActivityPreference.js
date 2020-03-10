@@ -1,14 +1,6 @@
 import React,{Component} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import PropTypes from 'prop-types';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import { withStyles } from '@material-ui/core/styles';
-import Select from '@material-ui/core/Select';
 import FilledInput from '@material-ui/core/FilledInput';
 import Fade from 'react-reveal';
 import iconPrefMap from './PreferenceMap.js';

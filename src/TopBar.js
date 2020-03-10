@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import './TopBar.css';
 import {fireAuth} from "./fireApi";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 
-import maged from './img/maged.png';
 import logout from './img/arrow_white.png';
 import {db, storageRef} from './fireApi';
 
@@ -28,7 +27,7 @@ class TopBar extends Component {
 
     componentWillMount(){
       if(fireAuth.currentUser !== null) {
-          this.state.isLoggedIn = true;
+          this.setState({isLoggedIn : true});
           db.collection("users").get().then((querySnapshot) => {
                   querySnapshot.forEach((doc)=>{
                       var curData = new userData(doc.data());
