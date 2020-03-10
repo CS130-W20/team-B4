@@ -1,17 +1,8 @@
 import React,{Component} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import PropTypes from 'prop-types';
 import road from './img/road.png';
 import { withStyles } from '@material-ui/core/styles';
-import Select from '@material-ui/core/Select';
 import FilledInput from '@material-ui/core/FilledInput';
 import Fade from 'react-reveal'
-var moment = require('moment');
 
 
 const DistanceSelect = withStyles({
@@ -56,10 +47,10 @@ export default class DistancePreference extends Component{
          onMouseLeave={()=>{this.setState({modifyStart:false})}}>
                     {this.props.modify ? <div style={{fontSize:15, padding:'6px 8.5px 0px 8.5px'}}>{dist} mil</div>:
                     <div className="flex flex-row">
-                    <DistanceSelect type='number' variant="filled" IconComponent = {()=><div/>}
+                    <DistanceSelect type='number' variant="filled" iconcomponent = {<div/>}
                       value={dist}
                       onChange={handleDist}
-                      MenuProps={{
+                      menuprops={{
                         getContentAnchorEl: null,
                         anchorOrigin: {
                           vertical: "bottom",

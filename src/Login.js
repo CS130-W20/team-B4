@@ -1,11 +1,9 @@
 import React from "react";
 import './Login.css';
-import backgr from './img/freeimg2.jpg';
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import Fade from 'react-reveal';
 import {Typography, IconButton} from "@material-ui/core";
 import firebase from 'firebase';
@@ -125,7 +123,7 @@ class Login extends React.Component {
                 onChange={this.handleChange("password")}
               />
               {!this.state.login ?
-              <TextField style={{marginBottom: 24}} variant={"outlined"} required type={"password"} label={"Confirm Password"} error={this.state.password != this.state.confirm_password && this.state.confirm_password != ''} helperText={this.state.password == this.state.confirm_password || this.state.confirm_password=='' ? "" : "Different from password"} value={confirm_password}
+              <TextField style={{marginBottom: 24}} variant={"outlined"} required type={"password"} label={"Confirm Password"} error={this.state.password !== this.state.confirm_password && this.state.confirm_password !== ''} helperText={this.state.password === this.state.confirm_password || this.state.confirm_password==='' ? "" : "Different from password"} value={confirm_password}
                 onChange={this.handleChange("confirm_password")}
               /> : <div/>
                }

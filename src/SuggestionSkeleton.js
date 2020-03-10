@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
-import thai from "./img/thailand.png";
 import GMap from './GMap.js';
-import fourStars from "./img/yelp_stars/extra_large_4.png";
 import TopBar from './TopBar';
-import yelpLogo from "./img/Yelp_Logo.png";
 import "./Suggestion.css";
-import edit from './img/edit.png';
-import background from './img/freeimg3.jpg';
-import Button from "@material-ui/core/Button";
-import {Fade, Zoom} from 'react-reveal';
-import { createMuiTheme, ThemeProvider, withStyles, makeStyles } from '@material-ui/core/styles';
+import {Fade} from 'react-reveal';
+import { createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { IconButton } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import firebase from 'firebase';
-import axios from 'axios';
 
 
 const theme = createMuiTheme({
@@ -36,11 +29,6 @@ const theme = createMuiTheme({
     }
 });
 
-const style = {
-    textTransform: 'none',
-    borderRadius: '25px',
-    width: '240px',
-};
 
 
 const star_style={

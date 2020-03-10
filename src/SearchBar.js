@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Fade, Zoom} from 'react-reveal';
+import {Fade} from 'react-reveal';
 import './SearchBar.css';
 
 

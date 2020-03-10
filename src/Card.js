@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import './Card.css';
-import {Zoom, Fade} from 'react-reveal';
+import {Zoom} from 'react-reveal';
 import TimePreference from './TimePreference.js';
 import PricePreference from './PricePreference.js';
 import DistancePreference from './DistancePreference.js';
 import ActivityPreference from './ActivityPreference.js';
-import {db, storageRef} from './fireApi';
 import edit from './img/edit2.png';
 import CloseIcon from '@material-ui/icons/Close';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
