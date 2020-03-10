@@ -238,7 +238,7 @@ export default class Home extends Component{
         var l = [];
         this.state.all.forEach((u)=>{
             if(this.state.display[u.username]) {
-                l.push(<Card key={u.username}  data={u} imgURL = {u.pic ? this.getURL(u.pic) : ''} deleteCard = {this.handleCardDelete}/>);
+                l.push(<Card key={u.username} updateHomePrefs={this.updatePrefs}  data={u} imgURL = {u.pic ? this.getURL(u.pic) : ''} deleteCard = {this.handleCardDelete}/>);
             }});
             return l;
     }
@@ -260,6 +260,12 @@ export default class Home extends Component{
         showProfile: false,
         showSuggestion: false,
       })
+    }
+
+    updatePrefs = (user, preferences) => {
+      var curPrefs = this.state.tempPrefs;
+      curPrefs[user] = preferences;
+      this.setState({tempPrefs: curPrefs});
     }
 
     render(){

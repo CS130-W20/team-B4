@@ -64,8 +64,6 @@ export default class Card extends Component{
             this.props.imgURL.then((url)=>{this.setState({imgURL: url})});
     }
 
-    handlePreferenceChange = () => {};
-
     handleCheck = (x) => {
         this.state.prefs.includes(`${x}`) ? this.setState(state => {
             const prefs = state.prefs.filter(c => c !== `${x}`);
@@ -73,7 +71,8 @@ export default class Card extends Component{
         }) : this.setState(state => {
             const prefs = state.prefs.concat(`${x}`);
             return { prefs,};
-        })
+        });
+        this.props.updateHomePrefs(this.props.data.username, this.state.prefs);
     }
 
     genActivityOptions = () => {
