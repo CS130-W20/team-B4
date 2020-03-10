@@ -42,15 +42,7 @@ export default class Card extends Component{
             imgURL: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
             displayActivityPrefs: false,
             prefs: this.props.data.preferences
-            // IMPORTANT! ONLY USE setPreferenceState FOR UPDATING prefs!!
-            // this card uses this.state.prefs to manage display of temp prefs
         }
-    }
-
-    // ONLY USE THIS TO UPDATE THIS.STATE.PREFS
-    setPreferenceState = (preferences) => {
-      this.setState({prefs: preferences});
-      // TODO: callback to props function to reflect these changes in home.
     }
 
     /**
