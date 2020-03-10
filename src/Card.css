@@ -6,6 +6,15 @@
     font-family:'Raleway';
 }
 
+.checkbox-img-card {
+    height: 30px;
+    filter: grayscale(100%);
+}
+
+.checked-img-card {
+    height: 30px;
+}
+
 .label-card {
     display: inline;
     font-family: Raleway;

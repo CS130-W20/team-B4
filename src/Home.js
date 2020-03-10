@@ -92,7 +92,8 @@ export default class Home extends Component{
               queryResult: null,
               categories: {}, // maps activity to number of people who want it
               showSuggestion: false, // if true, a query has been made
-              showProfile: false
+              showProfile: false,
+              tempPrefs: {}, // save a copy of each person's preferences to modify on the fly
           }
       }
 
@@ -107,7 +108,7 @@ export default class Home extends Component{
       var yelpCategories = [];
       categories.forEach((category) => {yelpCategories = yelpCategories.concat(yelpMap[`${category}`])})
 
-      // Convert to REST API format (comma deliniated list)
+      // Convert to REST API format (comma delineated list)
       var categoryString = "";
       if(yelpCategories.length != 0) {
         yelpCategories.forEach((x) => {categoryString += x + ","});
@@ -121,7 +122,20 @@ export default class Home extends Component{
      }
 
     getCategoryListFromMap = () => {
-      var temp = this.updateFilters();
+      // Count preferences from tempPrefs
+      var temp = {};
+        this.state.all.forEach((u)=>{
+                    if(this.state.display[u.username]) {
+                        this.state.tempPrefs[u.username].forEach((pref) => {
+                          if(temp[`${pref}`] == undefined) {
+                            temp[`${pref}`] = 1;
+                          }
+                          else {
+                            temp[`${pref}`]++;
+                          }
+                        });
+                    }});
+
       var ret = [];
       for(var key in temp) {
         // If at least 2 people want an activity, include in search
@@ -195,8 +209,12 @@ export default class Home extends Component{
                 });
                 this.setState({all:users});
                 var s = {};
-                this.state.all.forEach((user)=> {s[user.username]=false});
-                this.setState({display:s});
+                var prefs = {};
+                this.state.all.forEach((user)=> {
+                  s[user.username]=false;
+                  prefs[user.username] = user.preferences;
+                });
+                this.setState({display:s, tempPrefs: prefs});
             })
 
         // var l = [];
@@ -215,25 +233,6 @@ export default class Home extends Component{
         // }
     }
     getURL = (p) => storageRef.child(p).getDownloadURL();
-
-    /**
-     *  @param u user data for newly selected user
-     */
-    updateFilters = () => {
-      var temp = {};
-        this.state.all.forEach((u)=>{
-                    if(this.state.display[u.username]) {
-                        u.preferences.forEach((pref) => {
-                          if(temp[`${pref}`] == undefined) {
-                            temp[`${pref}`] = 1;
-                          }
-                          else {
-                            temp[`${pref}`]++;
-                          }
-                        });
-                    }});
-      return temp;
-    }
 
     genCards = ()=>{
         var l = [];
