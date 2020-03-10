@@ -1,7 +1,5 @@
 
 .Background-img {
-  filter: blur(8px);
-  -webkit-filter: blur(8px);
   min-height: 100%;
   min-width: 1024px;
   width: 100%;
@@ -17,25 +15,27 @@
   color: #005DCB;
   font-weight: bold;
   font-size: 750%;
-
+  text-align:right;
   margin: 0;
-  position: absolute;
-  top: 25%;
-  left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 
+.copy{
+    color: #FFF;
+    font-family: Raleway;
+    font-size:30px;
+    margin-bottom:30px;
+
+}
+
 
 .box-landing{
+      position: absolute;
+      top: 60%;
+      left: 75%;
     width:40%;
-    /*background-image: linear-gradient(white, #7BB3F7);*/
-    background-color: white;
-
     margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     border-radius: 25px;

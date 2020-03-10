@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import "./Landing.css";
-import backgr from './img/freeimg.jpg';
+import Fade from 'react-reveal';
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import {browserHistory} from 'react-router';
 import {withStyles, createMuiTheme, ThemeProvider} from '@material-ui/core';
@@ -25,24 +25,23 @@ class Landing extends React.Component {
   render() {
     return (
       <div>
-        <img src={backgr} className="Background-img" alt=""/>
-        <div  className="box-landing pa6 pt7">
-          <div className="title"> Adventum </div>
-            <div className="flex justify-center">
-              <BlueButton fullWidth style={{minWidth: '200px'}} color={"primary"} variant={"contained"} component={Link} to={{pathname:'/login',state:{login:true}}} >
-                Log In
-              </BlueButton>
+        <img src={'/image/landing.jpg'} className="Background-img" alt=""/>
+            <Fade cascade right>
+            <div className="box-landing flex items-end flex-column">
+              <div className="title"> Adventum </div>
+              <div className="copy">Adventure, on the go</div>
+                <div className="flex justify-center">
+                  <BlueButton  style={{minWidth: '200px'}} color={"primary"} variant={"contained"} component={Link} to={{pathname:'/login',state:{login:true}}} >
+                  Get Started
+                  </BlueButton>
+                </div>
+                {/*<div className="mv3 flex justify-center">
+                  <Button  style={{minWidth: '200px'}} variant={'contained'} component={Link} to={{pathname:'/login',state:{login:false}}} >
+                    Sign Up
+                  </Button>
+                </div>*/}
             </div>
-            <div className="mv3 flex justify-center">
-              <Button fullWidth style={{minWidth: '200px'}} variant={'contained'} component={Link} to={{pathname:'/login',state:{login:false}}} >
-                Sign Up
-              </Button>
-            </div>
-            {/*<div className="mv3 flex justify-center" style={{fontSize:16, color:"#1D3756", 'font-family': "Raleway"}}>or</div>
-            <div className="mv3 flex justify-center" style={{fontSize:20, textDecoration:'underline', color:"#888", 'font-family': "Raleway"}}>
-                 <Link style={{color:"#1D3756"}} to="/home">{'Continue as guest'}</Link>
-            </div>*/}
-        </div>
+            </Fade>
       </div>
 
   );
