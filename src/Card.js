@@ -41,7 +41,7 @@ export default class Card extends Component{
             modify: true,
             imgURL: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
             displayActivityPrefs: false,
-            prefs: this.props.data.preferences
+            prefs: this.props.curPrefs
         }
     }
 
@@ -59,12 +59,13 @@ export default class Card extends Component{
     handleCheck = (x) => {
         this.state.prefs.includes(`${x}`) ? this.setState(state => {
             const prefs = state.prefs.filter(c => c !== `${x}`);
+            this.props.updateHomePrefs(this.props.data.username, prefs);
             return { prefs,};
         }) : this.setState(state => {
             const prefs = state.prefs.concat(`${x}`);
+            this.props.updateHomePrefs(this.props.data.username, prefs);
             return { prefs,};
         });
-        this.props.updateHomePrefs(this.props.data.username, this.state.prefs);
     }
 
     genActivityOptions = () => {
