@@ -99,7 +99,7 @@ export default class Suggestion extends Component {
             <div>
                 <TopBar toProfile={()=>{this.props.toProfile()}} toMainSession={()=>{this.props.toMainSession()}}/>
                 <div style={{height:'50%'}} className="flex flex-row">
-                    <Fade><div className="photo" style={{backgroundImage:`url(${data ? data.image_url : "https://cdn.travel-mediaserver.com/driveaway/images/top-drives/usa/snow-peaked-mountains-la.jpg"})`}}/></Fade>
+                    <Fade><div className="photo" style={{backgroundImage:`url(${data ? data.image_url : '/image/loadingImage.jpg'})`}}/></Fade>
                     <div style={{zIndex:1, borderLeft:'2px solid black', width:'65%'}}>
                         <GMap lat={data ? data.coordinates.latitude : 34.0671489} long = {data ? data.coordinates.longitude : -118.4506839}/></div>
                     <Fade bottom>
@@ -108,7 +108,7 @@ export default class Suggestion extends Component {
                               <CircularProgress
                                 style={{ color: "#005DCB" }}
                                 color={"inherit"}
-                                size={16}
+                                size={30}
                               />
                           ) : (
                               <div>
@@ -124,34 +124,34 @@ export default class Suggestion extends Component {
                                 <div className="divider"/>
                                 <div className="info mb2">{data.location["address1"]}</div>
                                 <div className="info" style={{paddingBottom:20}}>{data.display_phone}</div>
+                                    <div className="refreshIcon">
+                                    <ThemeProvider theme={theme}>
+                                  <IconButton
+                                    type={"submit"}
+                                    variant={"contained"}
+                                    color={"secondary"}
+                                    onClick={()=>{
+                                        if(this.props.data !== null) {
+                                          var newCount = this.state.queryCounter != this.props.data.length-1 ? this.state.queryCounter + 1 : 0;
+                                          this.setState({refreshing:true}, ()=>{
+                                          this.setState({queryCounter: newCount, businessIsClosed: null},
+                                      ()=>{this.setState({refreshing:false})})});}}}
+                                  >
+                                    {refreshing ? (
+                                      <CircularProgress
+                                        style={{ color: "#FFF" }}
+                                        color={"inherit"}
+                                        size={24}
+                                      />
+                                  ) : <ArrowForwardIcon/>
+                                    }
+                                  </IconButton>
+                                  </ThemeProvider>
+                                  </div>
                               </div>
                             )}
                         </div>
                     </Fade>
-                            <div className="refreshIcon">
-                            <ThemeProvider theme={theme}>
-                          <IconButton
-                            type={"submit"}
-                            variant={"contained"}
-                            color={"secondary"}
-                            onClick={()=>{
-                                if(this.props.data !== null) {
-                                  var newCount = this.state.queryCounter != this.props.data.length-1 ? this.state.queryCounter + 1 : 0;
-                                  this.setState({refreshing:true}, ()=>{
-                                  this.setState({queryCounter: newCount, businessIsClosed: null},
-                              ()=>{this.setState({refreshing:false})})});}}}
-                          >
-                            {refreshing ? (
-                              <CircularProgress
-                                style={{ color: "#FFF" }}
-                                color={"inherit"}
-                                size={24}
-                              />
-                          ) : <ArrowForwardIcon/>
-                            }
-                          </IconButton>
-                          </ThemeProvider>
-                          </div>
                     </div>
             </div>
         )

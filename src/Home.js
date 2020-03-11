@@ -285,6 +285,8 @@ export default class Home extends Component{
                 <div>
                   <div> <TopBar toProfile={()=>{this.setState({showProfile: true})}} toMainSession={()=> {this.toMainSession()}}/> </div>
                   <div className="flex justify-center" style={{paddingTop: 60}}>
+                      {Object.keys(this.state.display).map(k=>this.state.display[k]).filter(x=>x==true).length == 0 ? <div className="mh5 mv6" style={{fontFamily:'Raleway', color:'#888', fontSize:30}}> Who are you hanging out with?<br/> Start typing or click "Add Person" to find your friends.
+                          </div> : <div/>}
                       {this.genCards()}
                   </div>
                   <div style={{marginTop: '2%', left: '45%', position: 'absolute'}} className="justify-center">

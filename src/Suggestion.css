@@ -25,6 +25,7 @@
     width:30%;
     top:20%;
     padding: 30px;
+    min-height: 200px;
     background-color:white;
     /* height:55%; */
     left: 20%;
@@ -37,9 +38,9 @@
     background-color: #005DCB;
     border-radius:50%;
     position:absolute;
-    left:33.5%;
+    left:45%;
+    bottom:-23px;
     z-index:2;
-    top:80%;
 
 
 }
