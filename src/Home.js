@@ -245,7 +245,7 @@ export default class Home extends Component{
         var l = [];
         this.state.all.forEach((u)=>{
             if(this.state.display[u.username]) {
-                l.push(<Card key={u.username} updateHomePrefs={this.updatePrefs}  data={u} curPrefs={this.state.tempPrefs[u.username]} imgURL = {u.pic ? this.getURL(u.pic) : ''} deleteCard = {this.handleCardDelete}/>);
+                l.push(<Card handleModify={this.handleModify} key={u.username} updateHomePrefs={this.updatePrefs}  data={u} curPrefs={this.state.tempPrefs[u.username]} imgURL = {u.pic ? this.getURL(u.pic) : ''} deleteCard = {this.handleCardDelete}/>);
             }});
             return l;
     }
