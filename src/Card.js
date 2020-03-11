@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './Card.css';
 import {Zoom} from 'react-reveal';
+import Pulse from 'react-reveal/Pulse'
 import TimePreference from './TimePreference.js';
 import PricePreference from './PricePreference.js';
 import DistancePreference from './DistancePreference.js';
@@ -43,7 +44,7 @@ export default class Card extends Component{
             quote:      this.props.data.quote,
             low:        this.props.data.low,
             high:       this.props.data.high,
-            prefs:      this.props.data.preferences,
+            prefs:      this.props.curPrefs,
             dist:       this.props.data.dist,
 
             imgURL: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
@@ -67,12 +68,13 @@ export default class Card extends Component{
     handleCheck = (x) => {
         this.state.prefs.includes(`${x}`) ? this.setState(state => {
             const prefs = state.prefs.filter(c => c !== `${x}`);
+            this.props.updateHomePrefs(this.props.data.username, prefs);
             return { prefs,};
         }) : this.setState(state => {
             const prefs = state.prefs.concat(`${x}`);
+            this.props.updateHomePrefs(this.props.data.username, prefs);
             return { prefs,};
         });
-        this.props.updateHomePrefs(this.props.data.username, this.state.prefs);
     }
 
     genActivityOptions = () => {
@@ -90,7 +92,6 @@ export default class Card extends Component{
         return(
             <Zoom opposite>
                 <div className="pa4 ma3 card">
-                    {!displayActivityPrefs ?
                     <div className="flex flex-column items-center" style={{width:'100%'}}>
                         <div className="flex flex-row justify-between" style={{top:'-11px', position:'relative', width:'100%', flexDirection: "row", JustifyContent: "space-between"}}>
                             <CloseIcon style={{cursor: "pointer"}} onClick={()=>{this.props.deleteCard(this.props.data)}}/>
@@ -108,12 +109,12 @@ export default class Card extends Component{
                          <DistancePreference dist={dist} handleDist={this.handleChange("dist")} modify={this.state.modify}/>
                          <ActivityPreference preferences={this.state.prefs} handlePreferences={this.handlePreferenceChange} modify={this.state.modify} edit={() => {this.setState({displayActivityPrefs: true})}}/>
                         </div>
-
                     </div>
-
-                    :
-
-                    <div>
+                </div>
+                    {displayActivityPrefs ?
+                        <div style={{zIndex:4}}>
+                    <Pulse duration={500}>
+                    <div className="prefEditBox">
                       <div className="flex flex-row mh2">
                           <ArrowBackIcon style={{cursor: 'pointer', paddingTop: '8px'}} onClick={()=>{this.setState({displayActivityPrefs: false})}}/>
                           <div className="name pv2" style={{}} >{data.first_name}'s Preferences</div>
@@ -121,8 +122,7 @@ export default class Card extends Component{
                       <div className="flex flex-wrap" style={{maxWidth: '600px'}}>
                         {this.genActivityOptions()}
                       </div>
-                    </div>}
-                </div>
+                    </div></Pulse></div>:<div/>}
             </Zoom>
         )
 
