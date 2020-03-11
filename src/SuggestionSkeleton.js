@@ -69,7 +69,7 @@ export default class Suggestion extends Component {
         this.state = {
             refreshing:false,
             queryCounter: 0,
-            businessIsClosed: null, // separate bc need to make a separate query call
+            businessIsClosed: '', // separate bc need to make a separate query call
         }
     }
 
@@ -81,15 +81,16 @@ export default class Suggestion extends Component {
     checkIsOpen = () => {
       var id = this.props.data[this.state.queryCounter].id;
       this.getExtraLocationData(id).then((response) => {
+          console.log(response);
         this.setState({
-          businessIsClosed: response.data.is_closed
+          businessIsClosed: response.data.data.hours[0].is_open_now ? 'open' : 'closed'
         });
     }).catch((err)=>{console.log(err)});
     }
 
     render() {
         let data = this.props.data !== null ? this.props.data[this.state.queryCounter] : null;
-        if(data !== null && this.state.businessIsClosed === null)
+        if(data !== null && this.state.businessIsClosed === '')
           this.checkIsOpen();
         if(this.props.data && this.state.refreshing) {
           this.setState({refreshing: false});
@@ -119,7 +120,7 @@ export default class Suggestion extends Component {
                                     <div className="CategoryPrice">{data.price}</div>
                                     {data.price ? <div className="flex items-center"><div className="dot mh2"/></div> : <div/>}
                                     {/*<div className="flex items-center"><div className="dot mh2"/></div>*/}
-                                    <div className="CategoryPrice" style={{fontWeight:'bold', color: !this.state.businessIsClosed ? `green` :'red'}}>{this.state.businessIsClosed ? "closed" : "open"}</div>
+                                    <div className="CategoryPrice" style={{fontWeight:'bold', color: this.state.businessIsClosed==='open' ? `green` :'red'}}>{this.state.businessIsClosed}</div>
                                 </div>
                                 <div className="divider"/>
                                 <div className="info mb2">{data.location["address1"]}</div>
@@ -134,7 +135,7 @@ export default class Suggestion extends Component {
                                         if(this.props.data !== null) {
                                           var newCount = this.state.queryCounter != this.props.data.length-1 ? this.state.queryCounter + 1 : 0;
                                           this.setState({refreshing:true}, ()=>{
-                                          this.setState({queryCounter: newCount, businessIsClosed: null},
+                                          this.setState({queryCounter: newCount, businessIsClosed: ''},
                                       ()=>{this.setState({refreshing:false})})});}}}
                                   >
                                     {refreshing ? (

@@ -13,7 +13,7 @@ exports.businessInfo = functions.https.onCall((data, context)=>{
           'X-Requested-With': `XMLHttpRequest`,
         }
       }).then(r => {
-          return r.data;
+          return {data: r.data};
       }).catch(err =>{
           return err;
       })

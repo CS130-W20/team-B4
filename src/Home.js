@@ -417,7 +417,7 @@ export default class Home extends Component{
                       <SearchBar addCard={this.addCard} display={this.state.display} userData={this.state.all} inputRef={this.inputRef} searchFocus={this.state.searchFocus} searchChange={this.searchChange} showSearch = {this.state.showSearch} searchVal ={this.state.searchVal}/>
                   </div>
               </div>
-            :<Suggestion data={this.state.queryResult} goBack={() =>{this.setState({showSuggestion: false})}} toProfile={()=>{this.setState({showProfile: true})}} toMainSession={()=> {this.toMainSession()}}/>}
+            :<Suggestion data={this.state.queryResult} goBack={() =>{this.setState({showSuggestion: false})}} toProfile={()=>{this.setState({showProfile: true})}} toMainSession={()=> {this.toMainSession(); this.setState({queryResult:null})}}/>}
           </div>
           : <Profile toProfile={()=>{this.setState({showProfile: true})}} toMainSession={()=> {this.toMainSession()}} />}  {/* the toProfile prop is only here bc we're replacing routing with embedding */}
           </div>
