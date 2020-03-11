@@ -93,6 +93,7 @@ export default class Home extends Component{
               categories: {}, // maps activity to number of people who want it
               showSuggestion: false, // if true, a query has been made
               showProfile: false,
+              modify: false,
               tempPrefs: {}, // save a copy of each person's preferences to modify on the fly
           }
       }
@@ -161,20 +162,25 @@ export default class Home extends Component{
     }
 
     handleSearchBar = (e) => {
-        if(e.key === 'Escape'){
-            this.setState({
-                showSearch: false,
-                searchVal: ''
-            })
+        if(!this.state.modify){
+            if(e.key === 'Escape'){
+                this.setState({
+                    showSearch: false,
+                    searchVal: ''
+                })
 
-        }
-        if("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".includes(e.key) &&
-           !this.state.showSearch && this.state.searchVal === ''){
-            this.setState({
-                showSearch: true,
-            })
+            }
+            if("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".includes(e.key) &&
+               !this.state.showSearch && this.state.searchVal === ''){
+                this.setState({
+                    showSearch: true,
+                })
+            }
         }
 
+    }
+    handleModify = e => {
+        this.setState({modify: !this.state.modify});
     }
 
     addCard = (user)=>{
@@ -238,7 +244,7 @@ export default class Home extends Component{
         var l = [];
         this.state.all.forEach((u)=>{
             if(this.state.display[u.username]) {
-                l.push(<Card key={u.username} updateHomePrefs={this.updatePrefs}  data={u} imgURL = {u.pic ? this.getURL(u.pic) : ''} deleteCard = {this.handleCardDelete}/>);
+                l.push(<Card handleModify={this.handleModify} key={u.username} updateHomePrefs={this.updatePrefs}  data={u} imgURL = {u.pic ? this.getURL(u.pic) : ''} deleteCard = {this.handleCardDelete}/>);
             }});
             return l;
     }

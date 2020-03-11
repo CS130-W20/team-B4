@@ -177,13 +177,23 @@ class Profile extends Component{
             dist: this.state.distance,
             quote: this.state.blurb,
             high: this.state.price,
-            preferences: firebase.firestore.FieldValue.arrayUnion(...this.state.my_prefs),
+            preferences: this.state.my_prefs,
         })
 
     }
 
     setDistance = (event, newDistance) => {
         this.setState({distance: newDistance});
+    }
+    upload = (e)=> {
+        var url = URL.createObjectURL(e.target.files[0]);
+        storageRef.child(e.target.files[0].name).put(e.target.files[0]).then(function(snapshot) {
+            console.log('Uploaded a blob or file!');
+        }).catch(err=>{console.log(err)});
+        db.collection("users").doc(this.state.id).update({
+            pic:e.target.files[0].name
+        })
+        this.setState({imgURL: url});
     }
 
     setPrice = (event, newPrice) => {
@@ -248,7 +258,7 @@ class Profile extends Component{
                     <div className="flex flex-row" style={{height:'100%'}}>
                         <div style={{width:'35%'}} className="flex justify-end">
                         <Zoom>
-                        <EditLeftSide handleChange={this.handleChange} setPrice={this.setPrice} setDistance={this.setDistance} username={this.state.username} name={this.state.name} image={this.state.imgURL} price={this.state.price} dist={this.state.dist} start_time={this.state.start_time} end_time={this.state.end_time} price={this.state.price} time={this.state.time} distance={this.state.distance} blurb={this.state.blurb}/>
+                        <EditLeftSide upload={this.upload} handleChange={this.handleChange} setPrice={this.setPrice} setDistance={this.setDistance} username={this.state.username} name={this.state.name} image={this.state.imgURL} price={this.state.price} dist={this.state.dist} start_time={this.state.start_time} end_time={this.state.end_time} price={this.state.price} time={this.state.time} distance={this.state.distance} blurb={this.state.blurb}/>
                         </Zoom>
                         </div>
                         <div className="flex flex-row justify-between pref">
@@ -318,47 +328,32 @@ class LogisticalPreferences extends React.Component {
  *  Edit user's preferred price, time, and distance.
  *  Edit user's profile photo and blurb/bio.
  */
-class EditLeftSide extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            picture: this.props.image,
-        }
-        this.upload = this.upload.bind(this);
-    }
-
-    upload(e) {
-        this.setState({picture: URL.createObjectURL(e.target.files[0])});
-    }
-
-    render() {
+function EditLeftSide(props){
         return (
             <div className="flex flex-column gradient-box">
                 <div className="flex flex-column items-center" style={{position:'relative', marginBottom:'30px'}} >
                     <div style={{position:'absolute',top:0,left:20}}>
-                        <input style={{display: "none"}} onChange={this.upload} accept="image/*" id="icon-button-file" type="file" />
+                        <input style={{display: "none"}} onChange={props.upload} accept="image/*" id="icon-button-file" type="file" />
                         <label htmlFor="icon-button-file">
                             <IconButton color="primary" aria-label="upload picture" component="span">
                               <PhotoCamera />
                             </IconButton>
                         </label>
                     </div>
-                    <img src={this.state.picture} className="preview-profile-img"/>
+                    <img src={props.image} className="preview-profile-img"/>
                 </div>
-                <div className='fullname-display' style={{fontSize:'150%'}}>{this.props.name} </div>
-                <div className="username-display"> {this.props.username}</div>
+                <div className='fullname-display' style={{fontSize:'150%'}}>{props.name} </div>
+                <div className="username-display"> {props.username}</div>
 		        <div className="editblurb-display" > Edit blurb </div>
                 <div className="mb3">
                     <ThemeProvider theme={theme}>
-                        <BlurbStyle multiline={true} value={this.props.blurb} onChange={this.props.handleChange('blurb')} rowsMax="4" label="Edit blurb" id="filled-secondary"  InputLabelProps={{shrink: true,}}/>
+                        <BlurbStyle multiline={true} value={props.blurb} onChange={props.handleChange('blurb')} rowsMax="4" label="Edit blurb" id="filled-secondary"  InputLabelProps={{shrink: true,}}/>
                     </ThemeProvider>
                 </div>
-                <EditLogisticalPreferences handleChange={this.props.handleChange} setPrice={this.props.setPrice} setDistance={this.props.setDistance} distance={this.props.distance} start_time={this.props.start_time} end_time={this.props.end_time} price={this.props.price} time={this.props.time} distance={this.props.distance}/>
+                <EditLogisticalPreferences handleChange={props.handleChange} setPrice={props.setPrice} setDistance={props.setDistance} distance={props.distance} start_time={props.start_time} end_time={props.end_time} price={props.price} time={props.time} distance={props.distance}/>
             </div>
         );
-    }
 }
-
 /**
  *    Edit user's preferred time, location radius, and price range.
  */
