@@ -43,7 +43,7 @@ export default class Card extends Component{
             first_name: this.props.data.first_name,
             quote:      this.props.data.quote,
             low:        this.props.data.low,
-            high:       this.props.data.high,
+            high:       this.props.curPricePrefs,
             prefs:      this.props.curPrefs,
             dist:       this.props.data.dist,
 
@@ -60,6 +60,11 @@ export default class Card extends Component{
     handleChange = name => e => {
         this.setState({[name]: e.target.value});
     }
+    handleHigh = name => e =>{
+      this.setState({high:e.target.value});
+      this.props.updateHomePrefs(this.props.data.username, parseInt(e.target.value), 'price');
+    }
+
     componentDidMount(props){
         if(this.props.imgURL)
             this.props.imgURL.then((url)=>{this.setState({imgURL: url})});
@@ -68,11 +73,11 @@ export default class Card extends Component{
     handleCheck = (x) => {
         this.state.prefs.includes(`${x}`) ? this.setState(state => {
             const prefs = state.prefs.filter(c => c !== `${x}`);
-            this.props.updateHomePrefs(this.props.data.username, prefs);
+            this.props.updateHomePrefs(this.props.data.username, prefs, 'activities');
             return { prefs,};
         }) : this.setState(state => {
             const prefs = state.prefs.concat(`${x}`);
-            this.props.updateHomePrefs(this.props.data.username, prefs);
+            this.props.updateHomePrefs(this.props.data.username, prefs, 'activities');
             return { prefs,};
         });
     }
@@ -105,7 +110,7 @@ export default class Card extends Component{
                         <div className="mv2 div"/>
                         <div className="flex flex-column items-start">
                          <TimePreference   start_time={start_time} end_time={end_time} handleStartTime={this.handleChange("start_time")} handleEndTime={this.handleChange("end_time")} modify={this.state.modify} fill={true}/>
-                         <PricePreference  low={low} high={high}  handleLow={this.handleChange("low")} handleHigh={this.handleChange("high")} modify={this.state.modify}/>
+                         <PricePreference  low={low} high={high}   handleLow={this.handleChange("low")} handleHigh={this.handleHigh()} modify={this.state.modify}/>
                          <DistancePreference dist={dist} handleDist={this.handleChange("dist")} modify={this.state.modify}/>
                          <ActivityPreference preferences={this.state.prefs} handlePreferences={this.handlePreferenceChange} modify={this.state.modify} edit={() => {this.setState({displayActivityPrefs: true})}}/>
                         </div>
