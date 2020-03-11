@@ -19,16 +19,18 @@ const yelpMap = {
   bars: ['bars'],
   hiking: ['hiking'],
   climbing: ['rock_climbing'],
-  boating: ['boating'],
+  boat: ['boating'],
   kayaking: ['rafting'],
   yoga: ['yoga'],
-  cycling: ['bicyclepaths'],
+  bicycle: ['bicyclepaths'],
   museum: ['museums'],
   beach: ['beaches'],
   arcade: ['arcades'],
   cinema: ['movietheaters'],
   zoo: ['zoos','aquariums'],
-  shopping: ['shoppingcenters']
+  shopping: ['shoppingcenters'],
+  pizza: ['pizza'],
+  arcade: ['arcades']
 };
 
 export default yelpMap;

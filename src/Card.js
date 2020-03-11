@@ -95,7 +95,7 @@ export default class Card extends Component{
                         <div className="flex flex-row justify-between" style={{top:'-11px', position:'relative', width:'100%', flexDirection: "row", JustifyContent: "space-between"}}>
                             <CloseIcon style={{cursor: "pointer"}} onClick={()=>{this.props.deleteCard(this.props.data)}}/>
                             {this.state.modify ?
-                            <img className="pv1" onClick={()=>{this.props.handleModify();this.setState({modify:!this.state.modify})}} src={edit} style={{width:20, height:20, cursor: 'pointer'}}/>:  <div className="pv1 ph2" style={{borderRadius:4, border:'1px solid #888', cursor: 'pointer'}} onClick={()=>{this.props.handleModify();this.setState({modify:!this.state.modify})}} > save </div>
+                            <img className="pv1" onClick={()=>{this.props.handleModify();   this.setState({modify:!this.state.modify})}} src={edit} style={{width:20, height:20, cursor: 'pointer'}}/>:  <div className="pv1 ph2" style={{borderRadius:4, border:'1px solid #888', cursor: 'pointer'}} onClick={()=>{this.props.handleModify();this.setState({modify:!this.state.modify})}} > save </div>
                             }
                         </div>
                         <div className="profilePic" style={{backgroundImage:`url('${imgURL}')`}}/>

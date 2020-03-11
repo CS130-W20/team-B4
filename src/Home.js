@@ -116,6 +116,7 @@ export default class Home extends Component{
         categoryString = categoryString.substring(0, categoryString.length-1);
       }
       var yelpCall = firebase.functions().httpsCallable('yelpCall');
+      console.log(categoryString);
       return yelpCall({ params: {
                       categories: `${categoryString}`,
                       latitude: 34.0689,
@@ -244,7 +245,7 @@ export default class Home extends Component{
         var l = [];
         this.state.all.forEach((u)=>{
             if(this.state.display[u.username]) {
-                l.push(<Card handleModify={this.handleModify} key={u.username} updateHomePrefs={this.updatePrefs}  data={u} imgURL = {u.pic ? this.getURL(u.pic) : ''} deleteCard = {this.handleCardDelete}/>);
+                l.push(<Card key={u.username} updateHomePrefs={this.updatePrefs}  data={u} curPrefs={this.state.tempPrefs[u.username]} imgURL = {u.pic ? this.getURL(u.pic) : ''} deleteCard = {this.handleCardDelete}/>);
             }});
             return l;
     }
@@ -271,6 +272,7 @@ export default class Home extends Component{
     updatePrefs = (user, preferences) => {
       var curPrefs = this.state.tempPrefs;
       curPrefs[user] = preferences;
+      console.log(curPrefs);
       this.setState({tempPrefs: curPrefs});
     }
 
