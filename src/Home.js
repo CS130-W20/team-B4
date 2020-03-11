@@ -126,11 +126,9 @@ export default class Home extends Component{
         priceString = priceString.substring(0, priceString.length-1);
       }
 
-      console.log(categoryString);
       console.log(priceString);
 
       var yelpCall = firebase.functions().httpsCallable('yelpCall');
-      console.log(categoryString);
       return yelpCall({ params: {
                       categories: `${categoryString}`,
                       price: `${priceString}`,
@@ -149,12 +147,11 @@ export default class Home extends Component{
        this.state.all.forEach((u)=>{
                    if(this.state.display[u.username]) {
                        numParticipants++;
-                       console.log(this.state.pricePrefs[u.username]);
                        if(this.state.pricePrefs[u.username] >= 61)
                           temp[4]++;
-                       else if(this.state.pricePrefs[u.username] >= 60)
+                       else if(this.state.pricePrefs[u.username] >= 31)
                           temp[3]++;
-                       else if(this.state.pricePrefs[u.username] >= 30)
+                       else if(this.state.pricePrefs[u.username] >= 11)
                           temp[2]++;
                        else
                           temp[1]++;
