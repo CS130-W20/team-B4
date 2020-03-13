@@ -94,7 +94,7 @@ class Login extends React.Component {
               style={{ display: "flex", flexDirection: "column" }}
               onSubmit={this.state.login ? this.handleSubmit : this.handleSignIn}
             >
-            {this.state.login ? <div style={{marginBottom: 27}}>
+            {/*this.state.login ? <div style={{marginBottom: 27}}>
                 <BlueButton
                     variant={"contained"}
                     fullWidth
@@ -103,7 +103,7 @@ class Login extends React.Component {
                     onClick={this.props.googleSignIn}>
                     Log in with Google
                 </BlueButton>
-            </div> : <div/>}
+            </div> : <div/>*/}
             <ThemeProvider theme={theme}>
               {!this.state.login ?
                   <div> <TextField style={{marginRight: 55, marginBottom:24}} variant={"outlined"} required type={"name"}
