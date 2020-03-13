@@ -68,10 +68,22 @@ const BlurbStyle = withStyles({
   }
 })(Input);
 
+/**
+ *      Formats the user's time preference. 
+ *
+ *      @param  time    user time preference data fetched from Firebase database 
+ *      @return         the user time preference formatted as a string
+ */
 function timeValueLabelFormat(time) {
     return ((time+11)%12+1) + ((time%24<12) ? "AM" : "PM");
 }
 
+/**
+ *      Formats the user's distance preference. 
+ *
+ *      @param  distance    user distance preference data fetched from Firebase database 
+ *      @return             the user distance preference formatted as a string
+ */
 function distanceValueLabelFormat(distance) {
     return distance+"mi";
 }
@@ -80,15 +92,21 @@ function distanceValueLabelFormatDisplay(distance) {
     return distance+" mi";
 }
 
+/**
+ *      Formats the user's price preference. 
+ *
+ *      @param  price    user price preference data fetched from Firebase database 
+ *      @return          the user price preference formatted as a string
+ */
 function priceValueLabelFormat(price) {
     return (price<=60) ? "$"+price : "$61+";
 }
 
 
 /**
- *    Represents a user profile. [Currently has sample data.]
+ *    Represents a user profile.
  *
- *    @param [WIP] user data fetched from Firebase database
+ *    @param user data fetched from Firebase database
  */
 class Profile extends Component{
     constructor(props) {
@@ -294,6 +312,11 @@ class Profile extends Component{
     }
 }
 
+/**
+ *      Displays a user's logistical preferences (time, distance, price).
+ *      
+ *      @param user data fetched from Firebase database
+ */
 class LogisticalPreferences extends React.Component {
     constructor(props) {
         super(props);
@@ -325,9 +348,11 @@ class LogisticalPreferences extends React.Component {
 
 
 /**
- *  Edit user's preferred price, time, and distance.
- *  Edit user's profile photo and blurb/bio.
+ *      Provides an interface for the user to edit their logistical preferences, profile photo, and quote.
+ *  
+ *      @param user data fetched from Firebase database
  */
+
 function EditLeftSide(props){
         return (
             <div className="flex flex-column gradient-box">
@@ -354,8 +379,11 @@ function EditLeftSide(props){
             </div>
         );
 }
+
 /**
- *    Edit user's preferred time, location radius, and price range.
+ *      Provides an interface for the user to edit their preferred time, location radius, and price range.
+ *  
+ *      @param user's time, distance, and price data fetched from Firebase database
  */
 function EditLogisticalPreferences(props){
     return (
@@ -393,7 +421,11 @@ function EditLogisticalPreferences(props){
     );
 }
 
-
+/*
+ *      Represents a single activity preference option.
+ *  
+ *      @param the activity preference's image representations
+ */
 function Option(props){ return(
     <ThemeProvider theme={theme}>
         <FormControlLabel selected={true} control={
@@ -401,7 +433,14 @@ function Option(props){ return(
         label={props.choice}/>
     </ThemeProvider>)}
 
-
+/*
+ *      Represents a group of related activity preference options, and provides an interface for the user to edit their activity preferences.
+ *
+ *      @param  my_prefs    list of the user's selected activity preferences, fetched from Firebase database 
+ *      @param  choices     list of the category's activity preferences
+ *      @param  name        the name of the activity preference category 
+ *
+ */
 class PreferenceGroup extends React.Component {
     render() {
         let {my_prefs, choices, name} = this.props;
