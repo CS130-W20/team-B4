@@ -18,8 +18,8 @@ export class userData{
     constructor(obj){
         this.id = '';
         this.username    = obj.username;
-        this.first_name        = obj.first_name;
-        this.last_name = obj.last_name;
+        this.first_name  = obj.first_name;
+        this.last_name   = obj.last_name;
         this.low         = obj.low;
         this.high        = obj.high;
         this.start_time  = obj.start_time;
@@ -29,7 +29,7 @@ export class userData{
         this.quote       = obj.quote;
         this.preferences = obj.preferences;
         this.promise     = null;
-        this.email = obj.email ?? null;
+        this.email       = obj.email ?? null;
     }
 
 }
@@ -43,9 +43,7 @@ const _default = {username: '',
                  dist: 0,
                  quote: '',
                  pic:'',
-                 preferences: []
-             }
-
+                 preferences: []}
 
 
 const theme = createMuiTheme({
@@ -77,8 +75,6 @@ const style = {
  *    Each added user will receive a Card component to represent them in a session.
  */
 export default class Home extends Component{
-
-
       constructor(props){
           super(props);
           this.state={
@@ -133,7 +129,7 @@ export default class Home extends Component{
       console.log(categoryString);
       return yelpCall({ params: {
                       categories: `${categoryString}`,
-                      price: `${priceString}`,
+                      // price: `${priceString}`,
                       latitude: 34.0689,
                       longitude: -118.4452,}});
      }
