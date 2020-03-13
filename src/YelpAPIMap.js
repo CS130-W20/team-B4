@@ -9,7 +9,7 @@ const yelpMap = {
   thai: ['thai'],
   korean: ['korean'],
   mexican: ['mexican'],
-  american: ['newamerican', 'tradamerican', 'pizza', 'sandwiches', 'burgers', 'cheesesteaks'],
+  american: ['newamerican', 'tradamerican', 'sandwiches', 'burgers', 'cheesesteaks'],
   fast_food: ['hotdogs, food_court'],
   dessert: ['desserts'],
   vegan: ['vegan'],

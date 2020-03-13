@@ -1,4 +1,5 @@
 
+// Map our activity labels to corresponding images
 const iconPrefMap = {
   fork: '/image/fork2.png',
   drink: '/image/coffee-cup.png',

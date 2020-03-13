@@ -3,6 +3,9 @@ import {Fade} from 'react-reveal';
 import './SearchBar.css';
 
 
+/**
+ *  Search bar used in the main session Home page to find other users
+ */
 export default class SearchBar extends Component{
 
     componentDidUpdate() {
@@ -21,7 +24,11 @@ export default class SearchBar extends Component{
         this.setState({imgURL:l})
     }
 
-
+    /**
+     *  Based on the passed in props search value, filter usernames displayed on the search bar.
+     *
+     *  @return list of filtered usernames based on the search query
+     */
     filterCards = () =>{
         return this.props.userData.map((user)=>{
             if(user.username.toLowerCase().includes(this.props.searchVal.toLowerCase()) && this.props.searchVal !== ''){

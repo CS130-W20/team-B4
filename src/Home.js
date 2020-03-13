@@ -122,18 +122,22 @@ export default class Home extends Component{
         priceString = priceString.substring(0, priceString.length-1);
       }
 
-      console.log(categoryString);
       console.log(priceString);
 
       var yelpCall = firebase.functions().httpsCallable('yelpCall');
-      console.log(categoryString);
       return yelpCall({ params: {
                       categories: `${categoryString}`,
-                      // price: `${priceString}`,
+                      //price: `${priceString}`,
                       latitude: 34.0689,
                       longitude: -118.4452,}});
      }
 
+     /**
+      * Counts price preferences of all users currently in the session
+      *
+      * @return array of price preferences that accommodate as much of the group
+      *         as possible
+      */
      getPriceFromPrefs = () => {
        var temp = {
          1: 0,
@@ -145,12 +149,11 @@ export default class Home extends Component{
        this.state.all.forEach((u)=>{
                    if(this.state.display[u.username]) {
                        numParticipants++;
-                       console.log(this.state.pricePrefs[u.username]);
                        if(this.state.pricePrefs[u.username] >= 61)
                           temp[4]++;
-                       else if(this.state.pricePrefs[u.username] >= 60)
+                       else if(this.state.pricePrefs[u.username] >= 31)
                           temp[3]++;
-                       else if(this.state.pricePrefs[u.username] >= 30)
+                       else if(this.state.pricePrefs[u.username] >= 11)
                           temp[2]++;
                        else
                           temp[1]++;
@@ -286,6 +289,10 @@ export default class Home extends Component{
        return false;
      }
 
+     /**
+      * On component mount, initialize to empty session, and load all user preferences
+      *     to state for user to modify (temporarily) during the session
+      */
     componentWillMount(){
         db.collection("users").get().then((querySnapshot) => {
                 var l = [];
@@ -317,6 +324,9 @@ export default class Home extends Component{
 
     }
 
+    /**
+     *   @param e keyevent that's registered when typing on the search bar
+     */
     searchChange = (e) =>{
         this.setState({searchVal: e.target.value})
         // if(e.target.value===''){
@@ -327,6 +337,11 @@ export default class Home extends Component{
     }
     getURL = (p) => storageRef.child(p).getDownloadURL();
 
+    /**
+     *  On render, display all cards that are currently selected
+     *
+     *  @return list of cards to display
+     */
     genCards = ()=>{
         var l = [];
         this.state.all.forEach((u)=>{
@@ -338,6 +353,8 @@ export default class Home extends Component{
 
     /**
      * Make Yelp query!
+     *
+     * Sets the state to result of the Yelp query
      */
     makeQuery = () => {
       var activityPrefs = this.getCategoryListFromMap();
@@ -354,6 +371,10 @@ export default class Home extends Component{
       });
     }
 
+    /**
+     *  Set this.state to hide both the profile and the suggestion page
+     *      when navigating to the main session page
+     */
     toMainSession = () => {
       this.setState({
         showProfile: false,

@@ -41,6 +41,13 @@ const half_star_style={
     height:30,
     paddingRight: 5
 }
+
+/**
+ *      Displays the current suggestion's star rating on Yelp.
+ *  
+ *      @param rating  the suggestion's star rating from Yelp
+ *
+ */
 class Rating extends Component{
     genStars = ()=>{
         let l = []
@@ -63,6 +70,15 @@ class Rating extends Component{
     }
 }
 
+/**
+ *      Displays an activity suggestion and allows the user to request a new activity suggestion.
+ *
+ *      @param  data                list of Yelp businesses, each of which corresponds to a potential suggestion
+ *      @param  refreshing          whether the page is about to display a new suggestion
+ *      @param  queryCounter        index of 'data' list that the currently displayed suggestion corresponds to
+ *      @param  businessIsClosed    whether the displayed suggestion is a currently closed business
+ *
+ */
 export default class Suggestion extends Component {
     constructor(props) {
         super(props);

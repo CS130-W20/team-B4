@@ -32,8 +32,12 @@ const style = {
 };
 
 /**
- *    Represents user's preferred activities.
+ *      Represents user's preferred activities.
  *
+ *      @param  modifyStart         whether write permissions are granted
+ *      @param  modifyEnd           whether write permissions are granted
+ *      @param  displayPrefOptions  whether activity preferences are currently displayed 
+ *      @param  showRestOfPrefs     whether all of the user's activity preferences are currently displayed
  */
 export default class ActivityPreference extends Component{
     constructor(props){
