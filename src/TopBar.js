@@ -25,6 +25,10 @@ class TopBar extends Component {
 
     getURL = (p) => storageRef.child(p).getDownloadURL();
 
+    /**
+     *  Topbar currently is responsible for detecting who is currently logged in,
+     *    and allows for navigation between profile, main session, and suggestion pages (+ logout)
+     */
     componentWillMount(){
       if(fireAuth.currentUser !== null) {
           this.setState({isLoggedIn : true});

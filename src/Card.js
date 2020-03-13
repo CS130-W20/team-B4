@@ -14,11 +14,6 @@ import {Slider, Checkbox, Button, FormControlLabel, TableRow, FormGroup, TextFie
 import { createMuiTheme, ThemeProvider, withStyles, makeStyles } from '@material-ui/core/styles';
 
 
-/**
- *    Represents user profile. [Currently has sample data.]
- *    [WIP] will fetch actual user data from Firebase database.
- */
-
  const theme = createMuiTheme({
      overrides: {
          MuiFormControlLabel: {
@@ -60,6 +55,10 @@ export default class Card extends Component{
     handleChange = name => e => {
         this.setState({[name]: e.target.value});
     }
+
+    /**
+     *   When changing the high price boundary, update preferences shown in home, as well
+     */
     handleHigh = name => e =>{
       this.setState({high:e.target.value});
       this.props.updateHomePrefs(this.props.data.username, parseInt(e.target.value), 'price');
@@ -70,6 +69,11 @@ export default class Card extends Component{
             this.props.imgURL.then((url)=>{this.setState({imgURL: url})});
     }
 
+    /**
+     *   @param x checkbox that has been checked/unchecked
+     *
+     *   @return list of currently selected preferences, update home preferences too
+     */
     handleCheck = (x) => {
         this.state.prefs.includes(`${x}`) ? this.setState(state => {
             const prefs = state.prefs.filter(c => c !== `${x}`);
@@ -82,6 +86,12 @@ export default class Card extends Component{
         });
     }
 
+    /**
+     *  Generate a list of activity preferences for users to select from. Will
+     *      temporarily modify user preferences for the purposes of the activity query.
+     *
+     *  @return List of checkbox options for activity preferences
+     */
     genActivityOptions = () => {
       const options = ['italian', 'japanese', 'chinese', 'pizza', 'mediterranean', 'mexican', 'korean', 'fast_food', 'dessert', 'american', 'vegan', 'indian', 'thai', 'juice', 'bars', 'boba', 'coffee', 'bicycle', 'boat', 'beach', 'kayaking', 'hiking', 'yoga', 'climbing', 'museum', 'cinema', 'zoo', 'arcade', 'shopping'];
       return options.map((item) => {
